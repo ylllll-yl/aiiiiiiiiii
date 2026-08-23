@@ -37,221 +37,6 @@
             overflow-x: hidden;
         }
 
-        /* ========== 轻松熊CSS绘制 ========== */
-        .rilakkuma-container {
-            position: relative;
-            width: 180px;
-            height: 200px;
-            margin: 0 auto 20px;
-        }
-
-        /* 轻松熊身体 */
-        .rilakkuma-body {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 100px;
-            background: var(--rilakkuma-brown);
-            border-radius: 50% 50% 45% 45%;
-            box-shadow: 0 8px 20px rgba(139, 94, 60, 0.3);
-        }
-
-        /* 轻松熊头部 */
-        .rilakkuma-head {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 90px;
-            background: var(--rilakkuma-brown);
-            border-radius: 50%;
-            z-index: 2;
-        }
-
-        /* 轻松熊耳朵 */
-        .rilakkuma-ear {
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            background: var(--rilakkuma-brown);
-            border-radius: 50%;
-            top: -10px;
-        }
-
-        .rilakkuma-ear.left {
-            left: 5px;
-        }
-
-        .rilakkuma-ear.right {
-            right: 5px;
-        }
-
-        /* 轻松熊脸部 */
-        .rilakkuma-face {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px;
-            height: 60px;
-            background: var(--rilakkuma-light);
-            border-radius: 50%;
-        }
-
-        /* 眼睛 */
-        .rilakkuma-eye {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #333;
-            border-radius: 50%;
-            top: 25px;
-        }
-
-        .rilakkuma-eye.left {
-            left: 20px;
-        }
-
-        .rilakkuma-eye.right {
-            right: 20px;
-        }
-
-        /* 鼻子 */
-        .rilakkuma-nose {
-            position: absolute;
-            width: 12px;
-            height: 10px;
-            background: #8B5E3C;
-            border-radius: 50%;
-            top: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* 嘴巴 */
-        .rilakkuma-mouth {
-            position: absolute;
-            width: 20px;
-            height: 10px;
-            border-bottom: 2px solid #8B5E3C;
-            border-radius: 0 0 20px 20px;
-            top: 42px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* 拉链装饰 */
-        .rilakkuma-zipper {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 3px;
-            background: #FFD700;
-            border-radius: 2px;
-        }
-
-        /* ========== 奶油熊（小黄鸡）CSS ========== */
-        .kiiroitori-container {
-            position: absolute;
-            bottom: 10px;
-            right: -30px;
-            width: 60px;
-            height: 60px;
-        }
-
-        .kiiroitori-body {
-            position: relative;
-            width: 50px;
-            height: 45px;
-            background: var(--kiiroitori-yellow);
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
-        }
-
-        .kiiroitori-beak {
-            position: absolute;
-            top: 15px;
-            left: -8px;
-            width: 15px;
-            height: 12px;
-            background: var(--kiiroitori-orange);
-            clip-path: polygon(0 0, 100% 50%, 0 100%);
-        }
-
-        .kiiroitori-eye {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 5px;
-            height: 5px;
-            background: #333;
-            border-radius: 50%;
-        }
-
-        .kiiroitori-wing {
-            position: absolute;
-            top: 20px;
-            right: 5px;
-            width: 15px;
-            height: 10px;
-            background: #FFE44D;
-            border-radius: 50%;
-            transform: rotate(-20deg);
-        }
-
-        /* ========== 牛奶熊（小白熊）CSS ========== */
-        .korilakkuma-container {
-            position: absolute;
-            bottom: 10px;
-            left: -25px;
-            width: 55px;
-            height: 55px;
-        }
-
-        .korilakkuma-body {
-            position: relative;
-            width: 45px;
-            height: 42px;
-            background: var(--korilakkuma-white);
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid #E8D5C8;
-        }
-
-        .korilakkuma-ear {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background: var(--korilakkuma-white);
-            border-radius: 50%;
-            top: -5px;
-            border: 2px solid #E8D5C8;
-        }
-
-        .korilakkuma-ear.left {
-            left: 5px;
-        }
-
-        .korilakkuma-ear.right {
-            right: 5px;
-        }
-
-        .korilakkuma-eye {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            width: 4px;
-            height: 4px;
-            background: #333;
-            border-radius: 50%;
-            box-shadow: 15px 0 0 #333;
-        }
-
         /* ========== 密码界面 ========== */
         .password-screen {
             background: #FFF9FB;
@@ -263,6 +48,16 @@
             max-width: 400px;
             width: 100%;
             position: relative;
+        }
+
+        /* 轻松熊家族图片 - 替换原来的CSS熊 */
+        .rilakkuma-family-img {
+            width: 245px;
+            height: auto;
+            margin: 0 auto 15px;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(139, 94, 60, 0.15);
         }
 
         .password-title {
@@ -360,17 +155,17 @@
             font-size: 1.3rem;
         }
 
-        /* 照片墙 */
+        /* 照片墙 - 使用真实轻松熊图片 */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 15px;
         }
 
         .photo-card {
             background: white;
             border-radius: 20px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
@@ -382,8 +177,12 @@
             box-shadow: 0 8px 20px rgba(232, 122, 144, 0.2);
         }
 
-        .photo-emoji {
-            font-size: 3rem;
+        .photo-card img {
+            width: 100%;
+            height: auto;
+            max-height: 120px;
+            object-fit: contain;
+            border-radius: 12px;
             display: block;
             margin-bottom: 8px;
         }
@@ -416,6 +215,10 @@
             color: white;
             font-weight: 600;
             transition: 0.3s;
+        }
+
+        .wish-btn:hover {
+            background: var(--pink-deep);
         }
 
         /* 答题 */
@@ -500,46 +303,34 @@
             margin-top: 20px;
             font-size: 0.9rem;
         }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 480px) {
+            .rilakkuma-family-img {
+                width: 180px;
+            }
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .main-content {
+                padding: 1.2rem;
+            }
+            .password-screen {
+                padding: 2rem 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- 密码界面 -->
+    <!-- ===== 密码界面 ===== -->
     <div class="password-screen" id="passwordScreen">
-        <!-- 轻松熊大家族 -->
-        <div class="rilakkuma-container">
-            <!-- 牛奶熊 -->
-            <div class="korilakkuma-container">
-                <div class="korilakkuma-ear left"></div>
-                <div class="korilakkuma-ear right"></div>
-                <div class="korilakkuma-body">
-                    <div class="korilakkuma-eye"></div>
-                </div>
-            </div>
-            
-            <!-- 轻松熊 -->
-            <div class="rilakkuma-ear left"></div>
-            <div class="rilakkuma-ear right"></div>
-            <div class="rilakkuma-head">
-                <div class="rilakkuma-face">
-                    <div class="rilakkuma-eye left"></div>
-                    <div class="rilakkuma-eye right"></div>
-                    <div class="rilakkuma-nose"></div>
-                    <div class="rilakkuma-mouth"></div>
-                </div>
-            </div>
-            <div class="rilakkuma-body">
-                <div class="rilakkuma-zipper"></div>
-            </div>
-            
-            <!-- 奶油熊（小黄鸡） -->
-            <div class="kiiroitori-container">
-                <div class="kiiroitori-body">
-                    <div class="kiiroitori-beak"></div>
-                    <div class="kiiroitori-eye"></div>
-                    <div class="kiiroitori-wing"></div>
-                </div>
-            </div>
-        </div>
+        <!-- 轻松熊家族真实图片 - 来源：PNG素材网 免费个人使用 [citation:3] -->
+        <img 
+            src="https://www.pngsucai.com/uploadfile/png/2023/09/06/11741621.png" 
+            alt="轻松熊和他的朋友们" 
+            class="rilakkuma-family-img"
+            onerror="this.style.display='none'"
+        >
         
         <h2 class="password-title">🎀 轻松熊生日入口 🎀</h2>
         <p class="password-subtitle">🐻 Rilakkuma & Kiiroitori & Korilakkuma 🐤</p>
@@ -550,7 +341,7 @@
         <p style="color: #C68B59; font-size: 0.85rem; margin-top: 10px;">💕 提示：20041112</p>
     </div>
 
-    <!-- 主内容 -->
+    <!-- ===== 主内容 ===== -->
     <div class="main-content hidden" id="mainContent">
         <div class="header">
             <h1>🎂 生日快乐 🎂</h1>
@@ -602,7 +393,7 @@
     </div>
 
     <script>
-        // 密码验证
+        // ========== 密码验证 ==========
         const CORRECT_PASSWORD = "20041112";
 
         function checkPassword() {
@@ -620,30 +411,44 @@
             }
         }
 
-        // 回车键提交
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
 
-        // 初始化内容
+        // ========== 初始化内容 ==========
         function initContent() {
-            // 照片墙
+            // 照片墙 - 使用真实轻松熊图片
             const photos = [
-                { emoji: '🐻', label: '轻松熊' },
-                { emoji: '🐤', label: '奶油熊' },
-                { emoji: '🤍', label: '牛奶熊' },
-                { emoji: '🎂', label: '生日蛋糕' },
-                { emoji: '🍯', label: '蜂蜜' },
-                { emoji: '🎀', label: '蝴蝶结' },
-                { emoji: '💕', label: '爱心' },
-                { emoji: '🌸', label: '樱花' }
+                { 
+                    src: 'https://www.nicepng.com/png/detail/306-3063775_free-high-quality-rilakkuma-icon-rilakkuma-png.png',
+                    label: '轻松熊头像',
+                    alt: '轻松熊头像'
+                },
+                { 
+                    src: 'https://toppng.com/public/uploads/preview/transparent-rilakkuma-kiiroitori-rilakkuma-korilakkuma-kiiroitori-11562864591kkwdtlw40x.png',
+                    label: '小白熊 & 小黄鸡',
+                    alt: '小白熊和小黄鸡'
+                },
+                { 
+                    src: 'https://toppng.com/public/uploads/preview/rilakkuma-bear-eating-sandwich-oso-kawaii-rilakkuma-11563084924egjcxr9cxn.png',
+                    label: '吃面包的轻松熊',
+                    alt: '轻松熊吃面包'
+                },
+                { 
+                    src: 'https://toppng.com/public/uploads/preview/sctoast-toast-bread-rilakkuma-korilakkuma-kiiroitori-rilakkuma-bakery-11563128367qqm8jfepbc.png',
+                    label: '面包店主题',
+                    alt: '轻松熊面包店'
+                }
             ];
 
             const photoGrid = document.getElementById('photoGrid');
-            photos.forEach(photo => {
+            photos.forEach((photo, index) => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
-                card.innerHTML = `<span class="photo-emoji">${photo.emoji}</span><span class="photo-label">${photo.label}</span>`;
+                card.innerHTML = `
+                    <img src="${photo.src}" alt="${photo.alt}" loading="lazy" onerror="this.style.display='none'">
+                    <span class="photo-label">${photo.label}</span>
+                `;
                 card.onclick = () => alert(`🐻 ${photo.label} - 轻松熊记录的美好回忆！`);
                 photoGrid.appendChild(card);
             });
@@ -664,7 +469,7 @@
             loadBlessings();
         }
 
-        // 保存心愿
+        // ========== 保存心愿 ==========
         function saveWish() {
             const wish = document.getElementById('wishTextarea').value.trim();
             const hint = document.getElementById('wishHint');
@@ -676,7 +481,7 @@
             }
         }
 
-        // 答题
+        // ========== 答题 ==========
         const quizData = [
             {
                 question: '轻松熊的好朋友奶油熊是什么动物？',
@@ -727,7 +532,7 @@
             });
         }
 
-        // 时间线
+        // ========== 时间线 ==========
         function loadTimeline() {
             const timelineData = [
                 { time: '2023.03.14', text: '我们第一次相遇💕' },
@@ -746,7 +551,7 @@
             });
         }
 
-        // 祝福墙
+        // ========== 祝福墙 ==========
         function loadBlessings() {
             const blessings = [
                 '🐻 轻松熊：生日快乐！',
