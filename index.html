@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>轻松熊 · 生日快乐 · 密码小屋</title>
+    <style>
+        /* ========== INS粉 + 轻松熊主题全局 ========== */
+        :root {
+            --pink-light: #fff0f5;
+            --pink-mid: #ffd9e8;
+            --pink-strong: #ffb6c1;
+            --pink-deep: #f78ca0;
+            --brown-bear: #c68b59;
+            --brown-dark: #a06b3f;
+            --cream: #fffaf3;
+            --shadow-pink: rgba(255, 182, 193, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #ffe4ec 0%, #fff0f5 40%, #ffdde6 100%);
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 轻松熊 & 粉红波点背景装饰 */
+        body::before {
+            content: "🐻🍰🎀🧸🍯🐻🍰🎀🧸🍯";
+            position: absolute;
+            top: 12px;
+            left: 0;
+            width: 100%;
+            font-size: 2rem;
+            opacity: 0.1;
+            letter-spacing: 20px;
+            white-space: nowrap;
+            pointer-events: none;
+            transform: rotate(-2deg);
+            color: #d36b8b;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(#ffb6c1 1.5px, transparent 1.5px);
+            background-size: 35px 35px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        /* 主卡片容器 */
+        .app-container {
+            width: 100%;
+            max-width: 750px;
+            background: #fff9fb;
+            border-radius: 60px 60px 50px 50px;
+            box-shadow: 0 25px 50px rgba(205, 92, 126, 0.2), 0 8px 20px rgba(0, 0, 0, 0.05);
+            padding: 2.2rem 2.2rem 2.5rem;
+            border: 3px solid #ffccd9;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(2px);
+            transition: all 0.3s;
+        }
+
+        /* 轻松熊大耳朵装饰 */
+        .app-container::before,
+        .app-container::after {
+            content: "";
+            position: absolute;
+            top: -32px;
+            width: 80px;
+            height: 80px;
+            background: #e3a87c;
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: inset -10px -10px 0 #c68b59, 0 8px 12px rgba(165, 91, 61, 0.2);
+            z-index: -1;
+        }
+        .app-container::before {
+            left: 20px;
+            transform: rotate(-12deg);
+        }
+        .app-container::after {
+            right: 20px;
+            transform: rotate(12deg);
+        }
+
+        /* ========== 密码界面 ========== */
+        .password-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .password-bear-icon {
+            font-size: 5.5rem;
+            filter: drop-shadow(0 10px 8px #e3a87c90);
+            margin-bottom: 8px;
+        }
+
+        .password-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #b14e6b;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 #ffe1ea;
+        }
+
+        .password-sub {
+            font-size: 1.2rem;
+            color: #d47a94;
+            margin-bottom: 10px;
+        }
+
+        .password-input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .password-input {
+            background: #ffffff;
+            border: 3px solid #ffb6c1;
+            border-radius: 60px;
+            padding: 16px 28px;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            text-align: center;
+            width: 240px;
+            outline: none;
+            transition: 0.2s;
+            color: #4f2d3b;
+            font-weight: 600;
+        }
+
+        .password-input:focus {
+            border-color: #f78ca0;
+            box-shadow: 0 0 0 6px #ffd9e8;
+        }
+
+        .password-btn {
+            background: #ffb6c1;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 32px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4a1f2b;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 0 #e78ba1;
+            border: 1px solid #ff97ac;
+        }
+        .password-btn:hover {
+            background: #ff9eb2;
+            transform: translateY(-3px);
+            box-shadow: 0 11px 0 #d9738a;
+        }
+        .password-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #d9738a;
+        }
+
+        .password-error {
+            color: #d4506c;
+            font-weight: 600;
+            margin-top: 6px;
+            font-size: 1rem;
+            min-height: 30px;
+        }
+
+        /* ========== 主内容区（隐藏默认） ========== */
+        .main-content {
+            display: none;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        .main-header {
+            text-align: center;
+            margin-top: -5px;
+        }
+        .main-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #b84a6a;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 0 #ffe0ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .main-subtitle {
+            font-size: 1.2rem;
+            color: #be6e84;
+            margin-top: 4px;
+        }
+
+        /* 通用面板卡片 */
+        .feature-panel {
+            background: #fff5f9;
+            border-radius: 45px;
+            padding: 22px 20px;
+            border: 2px solid #ffccd9;
+            box-shadow: 0 10px 16px rgba(220, 130, 154, 0.1);
+            transition: 0.2s;
+        }
+
+        .feature-panel h2 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #a6475e;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== 照片墙 ===== */
+        .photo-wall-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 16px;
+        }
+        .photo-card {
+            background: #ffeef5;
+            border-radius: 28px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 10px #f0c0ce;
+            border: 2px solid #ffcdd9;
+            transition: 0.15s;
+            cursor: pointer;
+            padding: 12px;
+        }
+        .photo-card:hover {
+            transform: scale(1.03);
+            background: #ffe4ee;
+        }
+        .photo-emoji {
+            font-size: 3.8rem;
+        }
+        .photo-label {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #a4586d;
+            font-weight: 500;
+        }
+
+        /* ===== 生日心愿 ===== */
+        .wish-textarea {
+            width: 100%;
+            background: #ffffff;
+            border: 3px solid #ffb6c1;
+            border-radius: 30px;
+            padding: 18px;
+            font-size: 1.1rem;
+            color: #4f2d3b;
+            resize: vertical;
+            min-height: 120px;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .wish-textarea:focus {
+            border-color: #f78ca0;
+            box-shadow: 0 0 0 6px #ffd9e8;
+        }
+        .wish-save-btn {
+            margin-top: 15px;
+            background: #fcd5e4;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #903552;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 6px 0 #dfa3b6;
+            border: 1px solid #f3b3c7;
+        }
+        .wish-save-btn:hover {
+            background: #f8bed1;
+            transform: translateY(-2px);
+        }
+
+        /* ===== 答题挑战 ===== */
+        .quiz-question {
+            background: #fff;
+            border-radius: 30px;
+            padding: 18px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #a2455d;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px dashed #f1a7bb;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .quiz-option {
+            background: #fffafc;
+            border: 2px solid #f5becb;
+            border-radius: 40px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #57313e;
+            text-align: left;
+            font-weight: 500;
+        }
+        .quiz-option:hover {
+            background: #ffe2ec;
+            border-color: #f78ca0;
+        }
+        .quiz-feedback {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #c2456b;
+            min-height: 2em;
+            text-align: center;
+        }
+
+        /* ===== 时间线 ===== */
+        .timeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            padding-left: 24px;
+        }
+        .timeline-item {
+            background: #fff;
+            border-radius: 30px;
+            padding: 15px 22px;
+            box-shadow: 0 4px 8px #fbc7d6;
+            border-left: 8px solid #f68ca6;
+            font-size: 1rem;
+            color: #4d2b38;
+            transition: 0.2s;
+        }
+        .timeline-item strong {
+            color: #b84a6a;
+            font-size: 1.1rem;
+        }
+
+        /* ===== 祝福留言板 ===== */
+        .blessing-list {
+            max-height: 200px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-right: 6px;
+        }
+        .blessing-item {
+            background: #fff;
+            border-radius: 26px;
+            padding: 14px 18px;
+            box-shadow: 0 3px 6px #edc0ce;
+            border-left: 6px solid #ffb6c1;
+            font-size: 0.98rem;
+            color: #4a2c36;
+            word-break: break-word;
+        }
+        .blessing-input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .blessing-input {
+            flex: 1;
+            border-radius: 40px;
+            border: 2px solid #ffb6c1;
+            padding: 14px 20px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .blessing-send-btn {
+            background: #ffadc0;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 24px;
+            font-weight: bold;
+            color: #4e2533;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #df8ba2;
+        }
+        .blessing-send-btn:hover {
+            background: #ff97b0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 10px;
+            color: #bd8192;
+            letter-spacing: 1px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 500px) {
+            .app-container {
+                padding: 1.5rem 1.2rem;
+            }
+            .password-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- ========== 密码界面 ========== -->
+        <div class="password-screen" id="passwordScreen">
+            <div class="password-bear-icon">
+                🐻🎀🧸
+            </div>
+            <div class="password-title">轻松熊生日入口</div>
+            <div class="password-sub">🐻 只有你知道的小秘密 🍯</div>
+            <div class="password-input-group">
+                <input type="password" class="password-input" id="passwordInput" placeholder="输入密码" maxlength="20" inputmode="numeric">
+                <button class="password-btn" id="passwordBtn"><span>🔐</span> 进入</button>
+            </div>
+            <div class="password-error" id="passwordError"></div>
+            <div style="margin-top: 10px; font-size: 0.9rem; color: #b78391;">(提示：20041112)</div>
+        </div>
+
+        <!-- ========== 主内容区 (密码正确后显示) ========== -->
+        <div class="main-content" id="mainContent">
+            <div class="main-header">
+                <h1>🎂 生日快乐 🎂</h1>
+                <div class="main-subtitle">轻松熊和小熊蜂蜜，全部给你🍯✨</div>
+            </div>
+
+            <!-- 1. 照片墙 -->
+            <div class="feature-panel">
+                <h2>📸 我们的照片墙</h2>
+                <div class="photo-wall-grid" id="photoWallGrid">
+                    <!-- 动态通过js生成轻松熊主题照片卡片 -->
+                </div>
+            </div>
+
+            <!-- 2. 生日心愿 -->
+            <div class="feature-panel">
+                <h2>🌠 生日心愿</h2>
+                <textarea class="wish-textarea" id="wishTextarea" placeholder="写下你的生日愿望吧～轻松熊会帮你实现🐻✨">希望每天都能和轻松熊一样开心，和你一直在一起！</textarea>
+                <button class="wish-save-btn" id="saveWishBtn">💖 保存心愿</button>
+                <div style="margin-top: 8px; color: #bb6b82; font-style: italic;" id="wishSavedHint"></div>
+            </div>
+
+            <!-- 3. 答题挑战 (关于你们的甜蜜问答) -->
+            <div class="feature-panel">
+                <h2>🧸 甜蜜答题挑战</h2>
+                <div class="quiz-question" id="quizQuestion">我们第一次约会是在哪里？</div>
+                <div class="quiz-options" id="quizOptions"></div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+            </div>
+
+            <!-- 4. 时间线 -->
+            <div class="feature-panel">
+                <h2>⏳ 我们的时间线</h2>
+                <div class="timeline-list" id="timelineList">
+                    <!-- 动态通过js生成几个重要节点 -->
+                </div>
+            </div>
+
+            <!-- 5. 祝福留言板 -->
+            <div class="feature-panel">
+                <h2>💌 甜蜜祝福墙</h2>
+                <div class="blessing-list" id="blessingList">
+                    <div class="blessing-item">🐻 轻松熊祝你生日快乐！🎂</div>
+                    <div class="blessing-item">🍰 今天你是全宇宙最可爱的！</div>
+                    <div class="blessing-item">🎁 爱你forever～</div>
+                </div>
+                <div class="blessing-input-row">
+                    <input type="text" class="blessing-input" id="blessingInput" placeholder="写一句祝福吧...">
+                    <button class="blessing-send-btn" id="blessingSendBtn">发送💕</button>
+                </div>
+            </div>
+
+            <footer>🐻 轻松熊主题 · 专属于你的生日派对 🎀</footer>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- 密码校验 ----------
+            const correctPassword = "20041112";
+            const passwordScreen = document.getElementById('passwordScreen');
+            const mainContent = document.getElementById('mainContent');
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordBtn = document.getElementById('passwordBtn');
+            const passwordError = document.getElementById('passwordError');
+
+            function checkPassword() {
+                const entered = passwordInput.value.trim();
+                if (entered === correctPassword) {
+                    passwordScreen.style.display = 'none';
+                    mainContent.style.display = 'flex';
+                    passwordError.textContent = '';
+                    initMainContent(); // 初始化所有动态功能
+                } else {
+                    passwordError.textContent = '🐻 密码不对哦，再想想～ 提示：20041112';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            }
+
+            passwordBtn.addEventListener('click', checkPassword);
+            passwordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkPassword();
+            });
+
+            // ---------- 主内容初始化（延迟执行避免找不到元素）----------
+            function initMainContent() {
+                // 照片墙数据
+                const photoData = [
+                    { emoji: '🐻‍❄️', label: '轻松熊' },
+                    { emoji: '🍯', label: '蜂蜜' },
+                    { emoji: '🎂', label: '蛋糕' },
+                    { emoji: '🎀', label: '蝴蝶结' },
+                    { emoji: '🌷', label: '花束' },
+                    { emoji: '✨', label: '星星' },
+                    { emoji: '🧸', label: '抱抱' },
+                    { emoji: '💖', label: '亲亲' },
+                ];
+                const photoWallGrid = document.getElementById('photoWallGrid');
+                if (photoWallGrid) {
+                    photoWallGrid.innerHTML = '';
+                    photoData.forEach((item, index) => {
+                        const card = document.createElement('div');
+                        card.className = 'photo-card';
+                        card.innerHTML = `<span class="photo-emoji">${item.emoji}</span><span class="photo-label">${item.label}</span>`;
+                        card.addEventListener('click', () => {
+                            alert(`🐻 轻松熊照片 #${index+1}: ${item.label} 爱你！`);
+                        });
+                        photoWallGrid.appendChild(card);
+                    });
+                }
+
+                // 生日心愿保存
+                const wishTextarea = document.getElementById('wishTextarea');
+                const saveWishBtn = document.getElementById('saveWishBtn');
+                const wishSavedHint = document.getElementById('wishSavedHint');
+                if (saveWishBtn && wishTextarea) {
+                    saveWishBtn.addEventListener('click', () => {
+                        const wishText = wishTextarea.value.trim();
+                        if (wishText.length > 0) {
+                            wishSavedHint.textContent = '🐻 轻松熊已经收到心愿！一定会实现❤️';
+                        } else {
+                            wishSavedHint.textContent = '写点愿望吧～小熊想听～';
+                        }
+                    });
+                }
+
+                // 答题挑战（3道简单题目）
+                const quizData = [
+                    {
+                        question: '我们第一次约会是在哪里？',
+                        options: ['电影院', '公园', '咖啡店', '商场'],
+                        correct: 2, // 公园
+                        correctText: '🐻 答对啦！就是公园～'
+                    },
+                    {
+                        question: '轻松熊最喜欢吃什么？',
+                        options: ['蜂蜜', '蛋糕', '水果', '牛奶'],
+                        correct: 0, // 蜂蜜
+                        correctText: '🍯 正确！轻松熊最爱蜂蜜～'
+                    },
+                    {
+                        question: '我最喜欢你的什么？',
+                        options: ['全部', '全部', '全部', '全部'],
+                        correct: 0, // 全是正确
+                        correctText: '❤️ 当然全部啦！'
+                    }
+                ];
+                let currentQuizIndex = 0;
+                const quizQuestionEl = document.getElementById('quizQuestion');
+                const quizOptionsEl = document.getElementById('quizOptions');
+                const quizFeedbackEl = document.getElementById('quizFeedback');
+
+                function loadQuiz(index) {
+                    const quiz = quizData[index % quizData.length];
+                    quizQuestionEl.textContent = quiz.question;
+                    quizOptionsEl.innerHTML = '';
+                    quizFeedbackEl.textContent = '';
+                    quiz.options.forEach((opt, idx) => {
+                        const optDiv = document.createElement('div');
+                        optDiv.className = 'quiz-option';
+                        optDiv.textContent = `${String.fromCharCode(65 + idx)}. ${opt}`;
+                        optDiv.addEventListener('click', () => {
+                            if (idx === quiz.correct) {
+                                quizFeedbackEl.textContent = quiz.correctText;
+                                setTimeout(() => {
+                                    currentQuizIndex = (currentQuizIndex + 1) % quizData.length;
+                                    loadQuiz(currentQuizIndex);
+                                }, 1400);
+                            } else {
+                                quizFeedbackEl.textContent = '🐻 再想想～轻松熊觉得不对哟';
+                            }
+                        });
+                        quizOptionsEl.appendChild(optDiv);
+                    });
+                }
+                loadQuiz(0);
+
+                // 时间线数据
+                const timelineData = [
+                    { time: '2023.03.14', text: '我们第一次相遇💕' },
+                    { time: '2023.06.15', text: '第一次一起过生日🎂' },
+                    { time: '2024.02.14', text: '第一个情人节🌹' },
+                    { time: '2024.11.12', text: '你的破壳日🐣轻松熊纪念' },
+                    { time: '今天', text: '未来每一天都要在一起✨' },
+                ];
+                const timelineList = document.getElementById('timelineList');
+                if (timelineList) {
+                    timelineList.innerHTML = '';
+                    timelineData.forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'timeline-item';
+                        div.innerHTML = `<strong>${item.time}</strong> — ${item.text}`;
+                        timelineList.appendChild(div);
+                    });
+                }
+
+                // 祝福留言板
+                const blessingList = document.getElementById('blessingList');
+                const blessingInput = document.getElementById('blessingInput');
+                const blessingSendBtn = document.getElementById('blessingSendBtn');
+
+                function addBlessing(text) {
+                    if (!text.trim()) return;
+                    const safeText = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    const div = document.createElement('div');
+                    div.className = 'blessing-item';
+                    div.innerHTML = `🧸 ${safeText}`;
+                    blessingList.appendChild(div);
+                    blessingList.scrollTop = blessingList.scrollHeight;
+                    blessingInput.value = '';
+                }
+
+                blessingSendBtn.addEventListener('click', () => {
+                    addBlessing(blessingInput.value);
+                });
+                blessingInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') addBlessing(blessingInput.value);
+                });
+            }
+
+            // 预置一些页面加载后（防止二次初始化覆盖）
+            // 如果密码输入正确后，initMainContent会被调用，确保功能就绪
+        })();
+    </script>
+</body>
+</html>
