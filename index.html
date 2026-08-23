@@ -50,7 +50,6 @@
             position: relative;
         }
 
-        /* 轻松熊家族图片 - 替换原来的CSS熊 */
         .rilakkuma-family-img {
             width: 245px;
             height: auto;
@@ -155,7 +154,6 @@
             font-size: 1.3rem;
         }
 
-        /* 照片墙 - 使用真实轻松熊图片 */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -193,7 +191,6 @@
             font-weight: 500;
         }
 
-        /* 心愿 */
         .wish-textarea {
             width: 100%;
             padding: 15px;
@@ -221,7 +218,6 @@
             background: var(--pink-deep);
         }
 
-        /* 答题 */
         .quiz-question {
             font-size: 1.1rem;
             font-weight: 600;
@@ -245,7 +241,6 @@
             border-color: var(--pink-accent);
         }
 
-        /* 时间线 */
         .timeline-item {
             background: white;
             border-radius: 20px;
@@ -255,7 +250,6 @@
             font-size: 0.95rem;
         }
 
-        /* 祝福墙 */
         .blessing-list {
             max-height: 200px;
             overflow-y: auto;
@@ -304,7 +298,6 @@
             font-size: 0.9rem;
         }
 
-        /* ========== 响应式 ========== */
         @media (max-width: 480px) {
             .rilakkuma-family-img {
                 width: 180px;
@@ -324,7 +317,6 @@
 <body>
     <!-- ===== 密码界面 ===== -->
     <div class="password-screen" id="passwordScreen">
-        <!-- 轻松熊家族真实图片 - 来源：PNG素材网 免费个人使用 [citation:3] -->
         <img 
             src="https://www.pngsucai.com/uploadfile/png/2023/09/06/11741621.png" 
             alt="轻松熊和他的朋友们" 
@@ -348,13 +340,11 @@
             <p>轻松熊和朋友们一起为你庆祝！🐻🐤🤍</p>
         </div>
 
-        <!-- 照片墙 -->
         <div class="section">
             <h2>📸 我们的回忆照片墙</h2>
             <div class="photo-grid" id="photoGrid"></div>
         </div>
 
-        <!-- 生日心愿 -->
         <div class="section">
             <h2>🌠 生日心愿</h2>
             <textarea class="wish-textarea" id="wishTextarea" placeholder="轻松熊想听你的生日愿望～"></textarea>
@@ -362,7 +352,6 @@
             <p id="wishHint" style="color: #C68B59; margin-top: 10px; font-size: 0.9rem;"></p>
         </div>
 
-        <!-- 答题挑战 -->
         <div class="section">
             <h2>🧸 轻松熊问答挑战</h2>
             <div class="quiz-question" id="quizQuestion"></div>
@@ -370,13 +359,11 @@
             <div id="quizFeedback" style="text-align: center; color: #E87A90; font-weight: 600; margin-top: 10px;"></div>
         </div>
 
-        <!-- 时间线 -->
         <div class="section">
             <h2>⏳ 我们的时间线</h2>
             <div id="timelineList"></div>
         </div>
 
-        <!-- 祝福墙 -->
         <div class="section">
             <h2>💌 祝福留言墙</h2>
             <div class="blessing-list" id="blessingList"></div>
@@ -400,67 +387,30 @@
             const input = document.getElementById('passwordInput').value;
             const errorMsg = document.getElementById('errorMsg');
             
-             if (input === CORRECT_PASSWORD) {
-        // ✅ 在这里加正确弹窗（第1处）
-        alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');
-        
-        document.getElementById('passwordScreen').classList.add('hidden');
-        document.getElementById('mainContent').classList.remove('hidden');
-        errorMsg.textContent = '';
-        initContent();
-    } else {
-        // ❌ 在这里加错误弹窗（第2处）
-        alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');
-        
-        document.getElementById('passwordInput').value = '';
-        errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
-    }
-}
-🔧 修改步骤（照着做）
-打开你的 HTML 文件
+            if (input === CORRECT_PASSWORD) {
+                // ✅ 密码正确：弹窗提示
+                alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');
+                
+                document.getElementById('passwordScreen').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('hidden');
+                errorMsg.textContent = '';
+                initContent();
+            } else {
+                // ❌ 密码错误：弹窗警告
+                alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');
+                
+                document.getElementById('passwordInput').value = '';
+                errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
+            }
+        }
 
-按 Ctrl+F 搜索 function checkPassword()
-
-找到这个函数后，在 if (input === CORRECT_PASSWORD) { 的 下一行 添加：
-
-javascript
-alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');
-在 } else { 的 下一行 添加：
-
-javascript
-alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');
-📸 修改前后对比
-修改前（你现在的代码）：
-
-javascript
-function checkPassword() {
-    const input = document.getElementById('passwordInput').value;
-    const errorMsg = document.getElementById('errorMsg');
-
-javascript
-function checkPassword() {
-    const input = document.getElementById('passwordInput').value;
-    const errorMsg = document.getElementById('errorMsg');
-    
-    if (input === CORRECT_PASSWORD) {
-        alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');   // ← 新增
-        document.getElementById('passwordScreen').classList.add('hidden');
-        document.getElementById('mainContent').classList.remove('hidden');
-        errorMsg.textContent = '';
-        initContent();
-    } else {
-        alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');                    // ← 新增
-        errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
-        document.getElementById('passwordInput').value = '';
-    }
-}
+        // 回车键提交
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
 
         // ========== 初始化内容 ==========
         function initContent() {
-            // 照片墙 - 使用真实轻松熊图片
             const photos = [
                 { 
                     src: 'https://www.nicepng.com/png/detail/306-3063775_free-high-quality-rilakkuma-icon-rilakkuma-png.png',
@@ -485,7 +435,7 @@ function checkPassword() {
             ];
 
             const photoGrid = document.getElementById('photoGrid');
-            photos.forEach((photo, index) => {
+            photos.forEach((photo) => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
                 card.innerHTML = `
@@ -496,19 +446,13 @@ function checkPassword() {
                 photoGrid.appendChild(card);
             });
 
-            // 加载心愿
             const savedWish = localStorage.getItem('rilakkumaWish');
             if (savedWish) {
                 document.getElementById('wishTextarea').value = savedWish;
             }
 
-            // 加载答题
             loadQuiz();
-            
-            // 加载时间线
             loadTimeline();
-            
-            // 加载祝福
             loadBlessings();
         }
 
