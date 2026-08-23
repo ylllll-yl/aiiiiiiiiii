@@ -332,13 +332,13 @@
             onerror="this.style.display='none'"
         >
         
-        <h2 class="password-title">🎀 轻松熊生日入口 🎀</h2>
+        <h2 class="password-title">🔞 警告！未满18周岁禁止进入 🔞</h2>
         <p class="password-subtitle">🐻 Rilakkuma & Kiiroitori & Korilakkuma 🐤</p>
         
         <input type="password" id="passwordInput" class="password-input" placeholder="输入密码">
-        <button class="password-btn" onclick="checkPassword()">进入生日派对</button>
+        <button class="password-btn" onclick="checkPassword()">小猪进入！</button>
         <div class="error-msg" id="errorMsg"></div>
-        <p style="color: #C68B59; font-size: 0.85rem; margin-top: 10px;">💕 提示：20041112</p>
+        <p style="color: #C68B59; font-size: 0.85rem; margin-top: 10px;">💕 提示：8位，ブーブーの誕生日。A</p>
     </div>
 
     <!-- ===== 主内容 ===== -->
@@ -400,17 +400,60 @@
             const input = document.getElementById('passwordInput').value;
             const errorMsg = document.getElementById('errorMsg');
             
-            if (input === CORRECT_PASSWORD) {
-                document.getElementById('passwordScreen').classList.add('hidden');
-                document.getElementById('mainContent').classList.remove('hidden');
-                errorMsg.textContent = '';
-                initContent();
-            } else {
-                errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
-                document.getElementById('passwordInput').value = '';
-            }
-        }
+             if (input === CORRECT_PASSWORD) {
+        // ✅ 在这里加正确弹窗（第1处）
+        alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');
+        
+        document.getElementById('passwordScreen').classList.add('hidden');
+        document.getElementById('mainContent').classList.remove('hidden');
+        errorMsg.textContent = '';
+        initContent();
+    } else {
+        // ❌ 在这里加错误弹窗（第2处）
+        alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');
+        
+        document.getElementById('passwordInput').value = '';
+        errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
+    }
+}
+🔧 修改步骤（照着做）
+打开你的 HTML 文件
 
+按 Ctrl+F 搜索 function checkPassword()
+
+找到这个函数后，在 if (input === CORRECT_PASSWORD) { 的 下一行 添加：
+
+javascript
+alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');
+在 } else { 的 下一行 添加：
+
+javascript
+alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');
+📸 修改前后对比
+修改前（你现在的代码）：
+
+javascript
+function checkPassword() {
+    const input = document.getElementById('passwordInput').value;
+    const errorMsg = document.getElementById('errorMsg');
+
+javascript
+function checkPassword() {
+    const input = document.getElementById('passwordInput').value;
+    const errorMsg = document.getElementById('errorMsg');
+    
+    if (input === CORRECT_PASSWORD) {
+        alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');   // ← 新增
+        document.getElementById('passwordScreen').classList.add('hidden');
+        document.getElementById('mainContent').classList.remove('hidden');
+        errorMsg.textContent = '';
+        initContent();
+    } else {
+        alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');                    // ← 新增
+        errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
+        document.getElementById('passwordInput').value = '';
+    }
+}
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
