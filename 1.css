@@ -1,0 +1,605 @@
+/* ==================== 全局样式 ==================== */
+:root {
+    --pink-light: #fff0f5;
+    --pink-mid: #ffd9e8;
+    --pink-strong: #ffb6c1;
+    --pink-deep: #f78ca0;
+    --pink-dark: #d4506c;
+    --brown-bear: #c68b59;
+    --brown-dark: #a06b3f;
+    --cream: #fffaf3;
+    --shadow-pink: rgba(255, 182, 193, 0.25);
+    --shadow-deep: rgba(205, 92, 126, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(145deg, #ffe4ec 0%, #fff0f5 40%, #ffdde6 100%);
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 轻松熊和波点背景装饰 */
+body::before {
+    content: "🐻🍰🎀🧸🍯🐻🍰🎀🧸🍯";
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    font-size: 2rem;
+    opacity: 0.1;
+    letter-spacing: 20px;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: rotate(-2deg);
+    color: #d36b8b;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(#ffb6c1 1.5px, transparent 1.5px);
+    background-size: 35px 35px;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* ==================== 密码界面样式 ==================== */
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #ffe4ec 0%, #fff0f5 40%, #ffdde6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.password-container {
+    background: #fff9fb;
+    border-radius: 60px;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 25px 50px var(--shadow-deep), 0 8px 20px rgba(0, 0, 0, 0.05);
+    border: 3px solid #ffccd9;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+}
+
+/* 轻松熊耳朵装饰 */
+.password-container::before,
+.password-container::after {
+    content: "";
+    position: absolute;
+    top: -25px;
+    width: 60px;
+    height: 60px;
+    background: #e3a87c;
+    border-radius: 50% 50% 45% 45%;
+    box-shadow: inset -8px -8px 0 var(--brown-bear);
+}
+
+.password-container::before {
+    left: 30px;
+    transform: rotate(-15deg);
+}
+
+.password-container::after {
+    right: 30px;
+    transform: rotate(15deg);
+}
+
+.password-bear {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 8px 8px rgba(227, 168, 124, 0.5));
+}
+
+.password-bear .bear-emoji {
+    margin: 0 5px;
+    animation: bounce 2s infinite;
+}
+
+.password-bear .bear-emoji:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.password-bear .bear-emoji:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.password-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #b14e6b;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0 #ffe1ea;
+    margin-bottom: 0.5rem;
+}
+
+.password-subtitle {
+    font-size: 1.1rem;
+    color: #d47a94;
+    margin-bottom: 2rem;
+}
+
+.password-input-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.password-input {
+    background: #ffffff;
+    border: 3px solid var(--pink-strong);
+    border-radius: 60px;
+    padding: 16px 28px;
+    font-size: 1.2rem;
+    letter-spacing: 6px;
+    text-align: center;
+    width: 220px;
+    outline: none;
+    transition: 0.3s;
+    color: #4f2d3b;
+    font-weight: 600;
+}
+
+.password-input:focus {
+    border-color: var(--pink-deep);
+    box-shadow: 0 0 0 6px var(--pink-mid);
+}
+
+.password-btn {
+    background: var(--pink-strong);
+    border: none;
+    border-radius: 60px;
+    padding: 16px 32px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4a1f2b;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 8px 0 #e78ba1;
+    border: 1px solid #ff97ac;
+}
+
+.password-btn:hover {
+    background: #ff9eb2;
+    transform: translateY(-3px);
+    box-shadow: 0 11px 0 #d9738a;
+}
+
+.password-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 0 #d9738a;
+}
+
+.password-error {
+    color: var(--pink-dark);
+    font-weight: 600;
+    min-height: 30px;
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+.password-hint {
+    font-size: 0.9rem;
+    color: #b78391;
+    margin-top: 1rem;
+}
+
+/* ==================== 主内容区域样式 ==================== */
+.main-content {
+    max-width: 750px;
+    width: 100%;
+    background: #fff9fb;
+    border-radius: 60px;
+    padding: 2.5rem 2rem;
+    border: 3px solid #ffccd9;
+    box-shadow: 0 25px 50px var(--shadow-deep);
+    position: relative;
+    z-index: 10;
+    animation: fadeIn 0.5s ease;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #b84a6a;
+    letter-spacing: 3px;
+    text-shadow: 3px 3px 0 #ffe0ea;
+    margin-bottom: 0.5rem;
+}
+
+.header-subtitle {
+    font-size: 1.2rem;
+    color: #be6e84;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #a6475e;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ==================== 照片墙样式 ==================== */
+.photo-section,
+.wish-section,
+.quiz-section,
+.timeline-section,
+.blessing-section {
+    background: #fff5f9;
+    border-radius: 45px;
+    padding: 25px 20px;
+    border: 2px solid #ffccd9;
+    box-shadow: 0 10px 16px rgba(220, 130, 154, 0.1);
+    margin-bottom: 2rem;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+.photo-card {
+    background: #ffeef5;
+    border-radius: 28px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 10px #f0c0ce;
+    border: 2px solid #ffcdd9;
+    transition: 0.3s;
+    cursor: pointer;
+    padding: 12px;
+}
+
+.photo-card:hover {
+    transform: scale(1.05);
+    background: #ffe4ee;
+    box-shadow: 0 10px 20px rgba(240, 192, 206, 0.5);
+}
+
+.photo-emoji {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.photo-label {
+    font-size: 0.9rem;
+    color: #a4586d;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ==================== 生日心愿样式 ==================== */
+.wish-textarea {
+    width: 100%;
+    background: #ffffff;
+    border: 3px solid var(--pink-strong);
+    border-radius: 30px;
+    padding: 18px;
+    font-size: 1.1rem;
+    color: #4f2d3b;
+    resize: vertical;
+    min-height: 120px;
+    outline: none;
+    transition: 0.3s;
+    font-family: inherit;
+}
+
+.wish-textarea:focus {
+    border-color: var(--pink-deep);
+    box-shadow: 0 0 0 6px var(--pink-mid);
+}
+
+.wish-save-btn {
+    margin-top: 15px;
+    background: #fcd5e4;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #903552;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 6px 0 #dfa3b6;
+    border: 1px solid #f3b3c7;
+}
+
+.wish-save-btn:hover {
+    background: #f8bed1;
+    transform: translateY(-2px);
+}
+
+.wish-saved-hint {
+    margin-top: 10px;
+    color: #bb6b82;
+    font-style: italic;
+}
+
+/* ==================== 答题挑战样式 ==================== */
+.quiz-container {
+    background: #fff;
+    border-radius: 30px;
+    padding: 20px;
+    border: 2px dashed #f1a7bb;
+}
+
+.quiz-question {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #a2455d;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.quiz-option {
+    background: #fffafc;
+    border: 2px solid #f5becb;
+    border-radius: 40px;
+    padding: 16px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #57313e;
+    text-align: left;
+    font-weight: 500;
+}
+
+.quiz-option:hover {
+    background: #ffe2ec;
+    border-color: var(--pink-deep);
+    transform: translateX(5px);
+}
+
+.quiz-feedback {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #c2456b;
+    min-height: 2em;
+    text-align: center;
+}
+
+/* ==================== 时间线样式 ==================== */
+.timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    padding-left: 24px;
+}
+
+.timeline-list::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #ffb6c1, #ffd9e8, #ffb6c1);
+    border-radius: 3px;
+}
+
+.timeline-item {
+    background: #fff;
+    border-radius: 30px;
+    padding: 15px 22px;
+    box-shadow: 0 4px 8px #fbc7d6;
+    border-left: 8px solid #f68ca6;
+    font-size: 1rem;
+    color: #4d2b38;
+    transition: 0.3s;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: "🐻";
+    position: absolute;
+    left: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+.timeline-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 12px #fbc7d6;
+}
+
+.timeline-item strong {
+    color: #b84a6a;
+    font-size: 1.1rem;
+    margin-right: 8px;
+}
+
+/* ==================== 祝福留言板样式 ==================== */
+.blessing-list {
+    max-height: 250px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-right: 6px;
+}
+
+.blessing-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.blessing-list::-webkit-scrollbar-thumb {
+    background: #ffb6c1;
+    border-radius: 3px;
+}
+
+.blessing-item {
+    background: #fff;
+    border-radius: 26px;
+    padding: 14px 18px;
+    box-shadow: 0 3px 6px #edc0ce;
+    border-left: 6px solid var(--pink-strong);
+    font-size: 0.98rem;
+    color: #4a2c36;
+    word-break: break-word;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.blessing-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.blessing-input {
+    flex: 1;
+    border-radius: 40px;
+    border: 2px solid var(--pink-strong);
+    padding: 14px 20px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.blessing-input:focus {
+    border-color: var(--pink-deep);
+    box-shadow: 0 0 0 4px var(--pink-mid);
+}
+
+.blessing-send-btn {
+    background: #ffadc0;
+    border: none;
+    border-radius: 40px;
+    padding: 12px 24px;
+    font-weight: bold;
+    color: #4e2533;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 5px 0 #df8ba2;
+}
+
+.blessing-send-btn:hover {
+    background: #ff97b0;
+    transform: translateY(-2px);
+}
+
+.blessing-send-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #df8ba2;
+}
+
+/* ==================== 页脚样式 ==================== */
+.main-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    color: #bd8192;
+    letter-spacing: 1px;
+    border-top: 2px dashed #ffd9e8;
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 768px) {
+    .password-container {
+        padding: 2rem 1.5rem;
+    }
+    
+    .main-content {
+        padding: 1.5rem 1rem;
+        border-radius: 40px;
+    }
+    
+    .header-title {
+        font-size: 2rem;
+    }
+    
+    .photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+    }
+    
+    .photo-emoji {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .password-input-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .password-input {
+        width: 100%;
+    }
+    
+    .blessing-input-group {
+        flex-direction: column;
+    }
+}
