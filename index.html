@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>轻松熊 · 生日快乐</title>
+    <title>Rilakkuma · 轻松熊生日祝福</title>
     <style>
-        /* ========== 全局样式 ========== */
+        /* ========== 轻松熊主题全局样式 ========== */
+        :root {
+            --rilakkuma-brown: #C68B59;
+            --rilakkuma-light: #E8C4A0;
+            --rilakkuma-dark: #8B5E3C;
+            --korilakkuma-white: #FFF5EE;
+            --kiiroitori-yellow: #FFD700;
+            --kiiroitori-orange: #FFA500;
+            --pink-bg: #FFF0F5;
+            --pink-card: #FFE4E9;
+            --pink-accent: #FFB6C1;
+            --pink-deep: #E87A90;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,89 +26,309 @@
         }
 
         body {
-            background: linear-gradient(145deg, #ffe4ec 0%, #fff0f5 40%, #ffdde6 100%);
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E9 30%, #FFF5EE 70%, #FFE4E9 100%);
             font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ========== 轻松熊CSS绘制 ========== */
+        .rilakkuma-container {
+            position: relative;
+            width: 180px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        /* 轻松熊身体 */
+        .rilakkuma-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 100px;
+            background: var(--rilakkuma-brown);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: 0 8px 20px rgba(139, 94, 60, 0.3);
+        }
+
+        /* 轻松熊头部 */
+        .rilakkuma-head {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 90px;
+            background: var(--rilakkuma-brown);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        /* 轻松熊耳朵 */
+        .rilakkuma-ear {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: var(--rilakkuma-brown);
+            border-radius: 50%;
+            top: -10px;
+        }
+
+        .rilakkuma-ear.left {
+            left: 5px;
+        }
+
+        .rilakkuma-ear.right {
+            right: 5px;
+        }
+
+        /* 轻松熊脸部 */
+        .rilakkuma-face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 60px;
+            background: var(--rilakkuma-light);
+            border-radius: 50%;
+        }
+
+        /* 眼睛 */
+        .rilakkuma-eye {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            top: 25px;
+        }
+
+        .rilakkuma-eye.left {
+            left: 20px;
+        }
+
+        .rilakkuma-eye.right {
+            right: 20px;
+        }
+
+        /* 鼻子 */
+        .rilakkuma-nose {
+            position: absolute;
+            width: 12px;
+            height: 10px;
+            background: #8B5E3C;
+            border-radius: 50%;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 嘴巴 */
+        .rilakkuma-mouth {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            border-bottom: 2px solid #8B5E3C;
+            border-radius: 0 0 20px 20px;
+            top: 42px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 拉链装饰 */
+        .rilakkuma-zipper {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 2px;
+        }
+
+        /* ========== 奶油熊（小黄鸡）CSS ========== */
+        .kiiroitori-container {
+            position: absolute;
+            bottom: 10px;
+            right: -30px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .kiiroitori-body {
+            position: relative;
+            width: 50px;
+            height: 45px;
+            background: var(--kiiroitori-yellow);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+        }
+
+        .kiiroitori-beak {
+            position: absolute;
+            top: 15px;
+            left: -8px;
+            width: 15px;
+            height: 12px;
+            background: var(--kiiroitori-orange);
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        .kiiroitori-eye {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 5px;
+            height: 5px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        .kiiroitori-wing {
+            position: absolute;
+            top: 20px;
+            right: 5px;
+            width: 15px;
+            height: 10px;
+            background: #FFE44D;
+            border-radius: 50%;
+            transform: rotate(-20deg);
+        }
+
+        /* ========== 牛奶熊（小白熊）CSS ========== */
+        .korilakkuma-container {
+            position: absolute;
+            bottom: 10px;
+            left: -25px;
+            width: 55px;
+            height: 55px;
+        }
+
+        .korilakkuma-body {
+            position: relative;
+            width: 45px;
+            height: 42px;
+            background: var(--korilakkuma-white);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #E8D5C8;
+        }
+
+        .korilakkuma-ear {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--korilakkuma-white);
+            border-radius: 50%;
+            top: -5px;
+            border: 2px solid #E8D5C8;
+        }
+
+        .korilakkuma-ear.left {
+            left: 5px;
+        }
+
+        .korilakkuma-ear.right {
+            right: 5px;
+        }
+
+        .korilakkuma-eye {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 4px;
+            height: 4px;
+            background: #333;
+            border-radius: 50%;
+            box-shadow: 15px 0 0 #333;
+        }
+
+        /* ========== 密码界面 ========== */
+        .password-screen {
+            background: #FFF9FB;
+            border-radius: 40px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(232, 122, 144, 0.2);
+            border: 3px solid var(--pink-accent);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
             position: relative;
         }
 
-        /* 密码界面 */
-        .password-screen {
-            background: #fff9fb;
-            border-radius: 60px;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 25px 50px rgba(205, 92, 126, 0.2);
-            border: 3px solid #ffccd9;
-            text-align: center;
-            max-width: 450px;
-            width: 100%;
-        }
-
-        .bear-icons {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
         .password-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #b14e6b;
+            font-size: 1.8rem;
+            color: var(--pink-deep);
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .password-subtitle {
-            font-size: 1.1rem;
-            color: #d47a94;
+            color: #C68B59;
             margin-bottom: 2rem;
+            font-size: 1rem;
         }
 
         .password-input {
             width: 100%;
-            padding: 15px 20px;
-            border: 3px solid #ffb6c1;
-            border-radius: 50px;
+            padding: 15px;
+            border: 3px solid var(--pink-accent);
+            border-radius: 30px;
             font-size: 1.2rem;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
             outline: none;
-        }
-
-        .password-btn {
-            background: #ffb6c1;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #4a1f2b;
-            cursor: pointer;
             transition: 0.3s;
         }
 
+        .password-input:focus {
+            border-color: var(--rilakkuma-brown);
+            box-shadow: 0 0 0 5px rgba(198, 139, 89, 0.2);
+        }
+
+        .password-btn {
+            background: var(--rilakkuma-brown);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
         .password-btn:hover {
-            background: #ff9eb2;
-            transform: scale(1.05);
+            background: var(--rilakkuma-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 94, 60, 0.3);
         }
 
         .error-msg {
-            color: #d4506c;
+            color: #E87A90;
             margin-top: 10px;
             min-height: 25px;
+            font-size: 0.9rem;
         }
 
-        /* 主内容 */
+        /* ========== 主内容区域 ========== */
         .main-content {
-            max-width: 800px;
+            max-width: 700px;
             width: 100%;
-            background: #fff9fb;
-            border-radius: 60px;
+            background: #FFF9FB;
+            border-radius: 40px;
             padding: 2rem;
-            border: 3px solid #ffccd9;
-            box-shadow: 0 25px 50px rgba(205, 92, 126, 0.2);
+            border: 3px solid var(--pink-accent);
+            box-shadow: 0 20px 40px rgba(232, 122, 144, 0.15);
         }
 
         .header {
@@ -104,147 +337,134 @@
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            color: #b84a6a;
+            font-size: 2.2rem;
+            color: var(--pink-deep);
             margin-bottom: 0.5rem;
         }
 
         .header p {
-            color: #be6e84;
-            font-size: 1.2rem;
+            color: var(--rilakkuma-brown);
         }
 
         .section {
-            background: #fff5f9;
+            background: #FFF5F7;
             border-radius: 30px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 2px solid #ffccd9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #FFE4E9;
         }
 
         .section h2 {
-            color: #a6475e;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            color: var(--pink-deep);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
         /* 照片墙 */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 15px;
         }
 
         .photo-card {
-            background: #ffeef5;
+            background: white;
             border-radius: 20px;
             padding: 20px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
-            border: 2px solid #ffcdd9;
+            border: 2px solid #FFE4E9;
         }
 
         .photo-card:hover {
             transform: scale(1.05);
-            background: #ffe4ee;
+            box-shadow: 0 8px 20px rgba(232, 122, 144, 0.2);
         }
 
         .photo-emoji {
             font-size: 3rem;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .photo-label {
-            color: #a4586d;
-            font-size: 0.9rem;
+            color: #C68B59;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         /* 心愿 */
         .wish-textarea {
             width: 100%;
-            padding: 20px;
-            border: 3px solid #ffb6c1;
+            padding: 15px;
+            border: 2px solid #FFE4E9;
             border-radius: 20px;
-            font-size: 1.1rem;
-            min-height: 120px;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            min-height: 100px;
+            margin-bottom: 10px;
             outline: none;
             resize: vertical;
         }
 
         .wish-btn {
-            background: #fcd5e4;
+            background: var(--pink-accent);
             border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            color: #903552;
+            padding: 10px 25px;
+            border-radius: 25px;
             cursor: pointer;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
         /* 答题 */
         .quiz-question {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #a2455d;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--rilakkuma-dark);
+            margin-bottom: 15px;
             text-align: center;
         }
 
         .quiz-option {
             background: white;
-            border: 2px solid #f5becb;
-            border-radius: 30px;
-            padding: 15px;
-            margin-bottom: 10px;
+            border: 2px solid #FFE4E9;
+            border-radius: 20px;
+            padding: 12px;
+            margin-bottom: 8px;
             cursor: pointer;
             transition: 0.3s;
         }
 
         .quiz-option:hover {
-            background: #ffe2ec;
-            border-color: #f78ca0;
-        }
-
-        .quiz-feedback {
-            text-align: center;
-            color: #c2456b;
-            font-weight: bold;
-            margin-top: 15px;
-            min-height: 30px;
+            background: #FFF0F5;
+            border-color: var(--pink-accent);
         }
 
         /* 时间线 */
         .timeline-item {
             background: white;
             border-radius: 20px;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            border-left: 5px solid #f68ca6;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .timeline-item strong {
-            color: #b84a6a;
-            margin-right: 10px;
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--rilakkuma-brown);
+            font-size: 0.95rem;
         }
 
         /* 祝福墙 */
         .blessing-list {
             max-height: 200px;
             overflow-y: auto;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .blessing-item {
             background: white;
-            border-radius: 20px;
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-left: 4px solid #ffb6c1;
+            border-radius: 15px;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
 
         .blessing-input-group {
@@ -254,20 +474,20 @@
 
         .blessing-input {
             flex: 1;
-            padding: 12px 20px;
-            border: 2px solid #ffb6c1;
-            border-radius: 30px;
+            padding: 10px 15px;
+            border: 2px solid #FFE4E9;
+            border-radius: 20px;
             outline: none;
         }
 
         .blessing-btn {
-            background: #ffadc0;
+            background: var(--kiiroitori-yellow);
             border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: bold;
-            color: #4e2533;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
+            font-weight: 600;
+            color: var(--rilakkuma-dark);
         }
 
         .hidden {
@@ -276,53 +496,87 @@
 
         footer {
             text-align: center;
-            color: #bd8192;
+            color: #C68B59;
             margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px dashed #ffd9e8;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
     <!-- 密码界面 -->
     <div class="password-screen" id="passwordScreen">
-        <div class="bear-icons">🐻🎀🧸</div>
-        <h1 class="password-title">轻松熊生日入口</h1>
-        <p class="password-subtitle">🐻 只有你知道的小秘密 🍯</p>
+        <!-- 轻松熊大家族 -->
+        <div class="rilakkuma-container">
+            <!-- 牛奶熊 -->
+            <div class="korilakkuma-container">
+                <div class="korilakkuma-ear left"></div>
+                <div class="korilakkuma-ear right"></div>
+                <div class="korilakkuma-body">
+                    <div class="korilakkuma-eye"></div>
+                </div>
+            </div>
+            
+            <!-- 轻松熊 -->
+            <div class="rilakkuma-ear left"></div>
+            <div class="rilakkuma-ear right"></div>
+            <div class="rilakkuma-head">
+                <div class="rilakkuma-face">
+                    <div class="rilakkuma-eye left"></div>
+                    <div class="rilakkuma-eye right"></div>
+                    <div class="rilakkuma-nose"></div>
+                    <div class="rilakkuma-mouth"></div>
+                </div>
+            </div>
+            <div class="rilakkuma-body">
+                <div class="rilakkuma-zipper"></div>
+            </div>
+            
+            <!-- 奶油熊（小黄鸡） -->
+            <div class="kiiroitori-container">
+                <div class="kiiroitori-body">
+                    <div class="kiiroitori-beak"></div>
+                    <div class="kiiroitori-eye"></div>
+                    <div class="kiiroitori-wing"></div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="password-title">🎀 轻松熊生日入口 🎀</h2>
+        <p class="password-subtitle">🐻 Rilakkuma & Kiiroitori & Korilakkuma 🐤</p>
+        
         <input type="password" id="passwordInput" class="password-input" placeholder="输入密码">
-        <br>
-        <button class="password-btn" onclick="checkPassword()">🔐 进入</button>
+        <button class="password-btn" onclick="checkPassword()">进入生日派对</button>
         <div class="error-msg" id="errorMsg"></div>
-        <p style="color: #b78391; font-size: 0.9rem; margin-top: 15px;">提示：20041112</p>
+        <p style="color: #C68B59; font-size: 0.85rem; margin-top: 10px;">💕 提示：20041112</p>
     </div>
 
     <!-- 主内容 -->
     <div class="main-content hidden" id="mainContent">
         <div class="header">
             <h1>🎂 生日快乐 🎂</h1>
-            <p>轻松熊和小熊蜂蜜，全部给你🍯✨</p>
+            <p>轻松熊和朋友们一起为你庆祝！🐻🐤🤍</p>
         </div>
 
         <!-- 照片墙 -->
         <div class="section">
-            <h2>📸 我们的照片墙</h2>
+            <h2>📸 我们的回忆照片墙</h2>
             <div class="photo-grid" id="photoGrid"></div>
         </div>
 
         <!-- 生日心愿 -->
         <div class="section">
             <h2>🌠 生日心愿</h2>
-            <textarea class="wish-textarea" id="wishTextarea" placeholder="写下你的生日愿望吧～"></textarea>
-            <button class="wish-btn" onclick="saveWish()">💖 保存心愿</button>
-            <p id="wishHint" style="color: #bb6b82; margin-top: 10px;"></p>
+            <textarea class="wish-textarea" id="wishTextarea" placeholder="轻松熊想听你的生日愿望～"></textarea>
+            <button class="wish-btn" onclick="saveWish()">💖 告诉轻松熊</button>
+            <p id="wishHint" style="color: #C68B59; margin-top: 10px; font-size: 0.9rem;"></p>
         </div>
 
         <!-- 答题挑战 -->
         <div class="section">
-            <h2>🧸 甜蜜答题挑战</h2>
+            <h2>🧸 轻松熊问答挑战</h2>
             <div class="quiz-question" id="quizQuestion"></div>
             <div id="quizOptions"></div>
-            <div class="quiz-feedback" id="quizFeedback"></div>
+            <div id="quizFeedback" style="text-align: center; color: #E87A90; font-weight: 600; margin-top: 10px;"></div>
         </div>
 
         <!-- 时间线 -->
@@ -333,15 +587,18 @@
 
         <!-- 祝福墙 -->
         <div class="section">
-            <h2>💌 甜蜜祝福墙</h2>
+            <h2>💌 祝福留言墙</h2>
             <div class="blessing-list" id="blessingList"></div>
             <div class="blessing-input-group">
-                <input type="text" class="blessing-input" id="blessingInput" placeholder="写一句祝福吧...">
+                <input type="text" class="blessing-input" id="blessingInput" placeholder="写下祝福...">
                 <button class="blessing-btn" onclick="sendBlessing()">发送💕</button>
             </div>
         </div>
 
-        <footer>🐻 轻松熊主题 · 专属于你的生日派对 🎀</footer>
+        <footer>
+            🐻 Rilakkuma 轻松熊 · Kiiroitori 奶油熊 · Korilakkuma 牛奶熊 🐤<br>
+            一起祝最爱的你生日快乐！
+        </footer>
     </div>
 
     <script>
@@ -358,62 +615,53 @@
                 errorMsg.textContent = '';
                 initContent();
             } else {
-                errorMsg.textContent = '🐻 密码不对哦，再想想～';
+                errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
                 document.getElementById('passwordInput').value = '';
             }
         }
 
-        // 允许回车键提交密码
+        // 回车键提交
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
+            if (e.key === 'Enter') checkPassword();
         });
 
-        // 初始化所有内容
+        // 初始化内容
         function initContent() {
-            // 照片墙数据
+            // 照片墙
             const photos = [
-                { emoji: '🐻‍❄️', label: '轻松熊' },
-                { emoji: '🍯', label: '蜂蜜罐子' },
+                { emoji: '🐻', label: '轻松熊' },
+                { emoji: '🐤', label: '奶油熊' },
+                { emoji: '🤍', label: '牛奶熊' },
                 { emoji: '🎂', label: '生日蛋糕' },
+                { emoji: '🍯', label: '蜂蜜' },
                 { emoji: '🎀', label: '蝴蝶结' },
-                { emoji: '🌷', label: '花束' },
-                { emoji: '✨', label: '星星' },
-                { emoji: '🧸', label: '抱抱熊' },
-                { emoji: '💖', label: '爱心' },
-                { emoji: '🎈', label: '气球' },
-                { emoji: '🍰', label: '甜点' },
-                { emoji: '🎁', label: '礼物' },
-                { emoji: '🌈', label: '彩虹' }
+                { emoji: '💕', label: '爱心' },
+                { emoji: '🌸', label: '樱花' }
             ];
 
             const photoGrid = document.getElementById('photoGrid');
             photos.forEach(photo => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
-                card.innerHTML = `
-                    <span class="photo-emoji">${photo.emoji}</span>
-                    <span class="photo-label">${photo.label}</span>
-                `;
-                card.onclick = () => alert(`🐻 ${photo.label} - 我们的美好回忆！`);
+                card.innerHTML = `<span class="photo-emoji">${photo.emoji}</span><span class="photo-label">${photo.label}</span>`;
+                card.onclick = () => alert(`🐻 ${photo.label} - 轻松熊记录的美好回忆！`);
                 photoGrid.appendChild(card);
             });
 
-            // 加载答题
-            loadQuiz();
-
-            // 加载时间线
-            loadTimeline();
-
-            // 加载祝福
-            loadBlessings();
-
-            // 从localStorage加载心愿
-            const savedWish = localStorage.getItem('birthdayWish');
+            // 加载心愿
+            const savedWish = localStorage.getItem('rilakkumaWish');
             if (savedWish) {
                 document.getElementById('wishTextarea').value = savedWish;
             }
+
+            // 加载答题
+            loadQuiz();
+            
+            // 加载时间线
+            loadTimeline();
+            
+            // 加载祝福
+            loadBlessings();
         }
 
         // 保存心愿
@@ -421,32 +669,32 @@
             const wish = document.getElementById('wishTextarea').value.trim();
             const hint = document.getElementById('wishHint');
             if (wish) {
-                localStorage.setItem('birthdayWish', wish);
-                hint.textContent = '🐻 轻松熊已经收到心愿！一定会实现❤️';
+                localStorage.setItem('rilakkumaWish', wish);
+                hint.textContent = '🐻 轻松熊收到啦！会和奶油熊一起帮你实现～';
             } else {
-                hint.textContent = '写点愿望吧～小熊想听～';
+                hint.textContent = '写点愿望吧～轻松熊和奶油熊都在听～';
             }
         }
 
-        // 答题挑战
+        // 答题
         const quizData = [
             {
-                question: '我们第一次约会是在哪里？',
-                options: ['电影院', '公园', '咖啡店', '商场'],
+                question: '轻松熊的好朋友奶油熊是什么动物？',
+                options: ['小熊', '小鸡', '小鸭', '小兔'],
                 correct: 1,
-                correctText: '🐻 答对啦！就是公园～'
+                correctText: '🐤 答对啦！奶油熊是小黄鸡哦～'
             },
             {
-                question: '轻松熊最喜欢吃什么？',
-                options: ['蜂蜜', '蛋糕', '水果', '牛奶'],
-                correct: 0,
-                correctText: '🍯 正确！轻松熊最爱蜂蜜～'
+                question: '轻松熊背后有什么特点？',
+                options: ['有翅膀', '有拉链', '有口袋', '有蝴蝶结'],
+                correct: 1,
+                correctText: '🐻 正确！轻松熊背后有拉链呢～'
             },
             {
-                question: '我最喜欢你的什么？',
-                options: ['全部', '全部', '全部', '全部'],
-                correct: 0,
-                correctText: '❤️ 当然全部啦！'
+                question: '牛奶熊是什么颜色的？',
+                options: ['棕色', '黄色', '白色', '粉色'],
+                correct: 2,
+                correctText: '🤍 对啦！牛奶熊是白色的小熊～'
             }
         ];
 
@@ -470,9 +718,9 @@
                         setTimeout(() => {
                             currentQuiz = (currentQuiz + 1) % quizData.length;
                             loadQuiz();
-                        }, 1500);
+                        }, 2000);
                     } else {
-                        document.getElementById('quizFeedback').textContent = '🐻 再想想～轻松熊觉得不对哟';
+                        document.getElementById('quizFeedback').textContent = '🐻 再想想～轻松熊觉得不对哦';
                     }
                 };
                 optionsDiv.appendChild(option);
@@ -485,16 +733,15 @@
                 { time: '2023.03.14', text: '我们第一次相遇💕' },
                 { time: '2023.06.15', text: '第一次一起过生日🎂' },
                 { time: '2024.02.14', text: '第一个情人节🌹' },
-                { time: '2024.06.15', text: '第二次一起过生日🎉' },
-                { time: '2024.11.12', text: '你的破壳日🐣轻松熊纪念' },
-                { time: '今天', text: '未来每一天都要在一起✨' }
+                { time: '2024.11.12', text: '你的生日，轻松熊来庆祝🎉' },
+                { time: '今天', text: '未来的每一天都有轻松熊陪伴✨' }
             ];
 
             const timelineList = document.getElementById('timelineList');
             timelineData.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'timeline-item';
-                div.innerHTML = `<strong>${item.time}</strong> — ${item.text}`;
+                div.innerHTML = `<strong style="color: #C68B59;">${item.time}</strong> — ${item.text}`;
                 timelineList.appendChild(div);
             });
         }
@@ -502,10 +749,10 @@
         // 祝福墙
         function loadBlessings() {
             const blessings = [
-                '🐻 轻松熊祝你生日快乐！🎂',
-                '🍰 今天你是全宇宙最可爱的！',
-                '🎁 爱你forever～',
-                '💖 愿所有美好都如期而至'
+                '🐻 轻松熊：生日快乐！',
+                '🐤 奶油熊：叽叽叽～生日快乐！',
+                '🤍 牛奶熊：生日快乐呀！',
+                '🍯 送你一大罐蜂蜜蛋糕～'
             ];
 
             const blessingList = document.getElementById('blessingList');
@@ -525,7 +772,7 @@
                 const blessingList = document.getElementById('blessingList');
                 const div = document.createElement('div');
                 div.className = 'blessing-item';
-                div.textContent = `🧸 ${text}`;
+                div.textContent = `💕 ${text}`;
                 blessingList.appendChild(div);
                 input.value = '';
                 blessingList.scrollTop = blessingList.scrollHeight;
