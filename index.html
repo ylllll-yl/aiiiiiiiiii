@@ -7,31 +7,22 @@
     <link rel="stylesheet" href="css/1.css">
 </head>
 <body>
-    <!-- 鼠标点击特效容器 -->
     <div class="click-effects-container" id="clickEffects"></div>
 
-    <!-- 主容器 -->
     <div class="main-container">
-        <!-- ===== 密码界面 ===== -->
+        <!-- 密码界面 -->
         <div class="password-screen" id="passwordScreen">
-            <img 
-                src="images/rillakuma-family.png" 
-                alt="轻松熊和他的朋友们" 
-                class="rilakkuma-family-img"
-                onerror="this.style.display='none'"
-            >
-            
+            <img src="images/rillakuma-family.png" alt="轻松熊" class="rilakkuma-family-img" onerror="this.style.display='none'">
             <h2 class="password-title">🔞 警告！未满18周岁禁止进入 🔞</h2>
             <p class="password-subtitle">🐻 Rilakkuma & Kiiroitori & Korilakkuma 🐤</p>
-            
             <input type="password" id="passwordInput" class="password-input" placeholder="输入密码">
             <button class="password-btn" onclick="checkPassword()">小猪进入！</button>
             <div class="error-msg" id="errorMsg"></div>
             <p class="password-hint">💕 提示：8位，ブーブーの誕生日。A</p>
         </div>
 
-        <!-- ===== 主内容 ===== -->
-        <div class="main-content" id="mainContent">
+        <!-- 主内容 -->
+        <div class="main-content hidden" id="mainContent">
             <!-- 音乐播放器 -->
             <div class="music-player">
                 <div class="music-player-header">
@@ -43,12 +34,8 @@
                     <button class="music-btn music-play-btn" id="playBtn" onclick="togglePlay()">▶️</button>
                     <button class="music-btn" onclick="nextSong()">⏭</button>
                 </div>
-                <div class="music-info">
-                    <span id="currentSongName">点击播放</span>
-                </div>
-                <div class="music-progress">
-                    <div class="music-progress-bar" id="progressBar"></div>
-                </div>
+                <div class="music-info"><span id="currentSongName">点击播放</span></div>
+                <div class="music-progress"><div class="music-progress-bar" id="progressBar"></div></div>
                 <audio id="audioPlayer" ontimeupdate="updateProgress()" onended="nextSong()"></audio>
             </div>
 
@@ -56,22 +43,10 @@
             <div class="countdown-section">
                 <div class="countdown-title">🎂 距离生日还有 🎂</div>
                 <div class="countdown-display">
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="days">0</span>
-                        <span class="countdown-label">天</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="hours">0</span>
-                        <span class="countdown-label">时</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="minutes">0</span>
-                        <span class="countdown-label">分</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="seconds">0</span>
-                        <span class="countdown-label">秒</span>
-                    </div>
+                    <div class="countdown-item"><span class="countdown-number" id="days">0</span><span class="countdown-label">天</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="hours">0</span><span class="countdown-label">时</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="minutes">0</span><span class="countdown-label">分</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="seconds">0</span><span class="countdown-label">秒</span></div>
                 </div>
             </div>
 
@@ -86,7 +61,7 @@
                 <div class="photo-grid" id="photoGrid"></div>
             </div>
 
-            <!-- 许愿瓶游戏 -->
+            <!-- 许愿瓶 -->
             <div class="section wish-bottle-section">
                 <h2>🍾 许愿瓶 - 写下你的心愿</h2>
                 <div class="wish-bottle-container" id="wishBottleContainer"></div>
@@ -105,9 +80,7 @@
                             <span>📝 许愿纸条</span>
                             <button class="wish-modal-close" onclick="closeWishModal()">✕</button>
                         </div>
-                        <div class="wish-paper-lines">
-                            <p id="wishPaperText"></p>
-                        </div>
+                        <div class="wish-paper-lines"><p id="wishPaperText"></p></div>
                         <div class="wish-paper-footer">
                             <span id="wishPaperTime"></span>
                             <button class="wish-delete-btn" onclick="deleteWish()">🗑 删除</button>
@@ -128,7 +101,7 @@
                 </div>
             </div>
 
-            <!-- 神秘奖励视频弹窗 -->
+            <!-- 视频弹窗 -->
             <div class="video-modal hidden" id="videoModal">
                 <div class="video-modal-content">
                     <button class="video-modal-close" onclick="closeVideo()">✕</button>
@@ -154,18 +127,14 @@
                 </div>
             </div>
 
-            <footer>
-                🐻 Rilakkuma 轻松熊 · Kiiroitori 奶油熊 · Korilakkuma 牛奶熊 🐤<br>
-                一起祝最爱的你生日快乐！
-            </footer>
+            <footer>🐻 Rilakkuma 轻松熊 · Kiiroitori 奶油熊 · Korilakkuma 牛奶熊 🐤<br>一起祝最爱的你生日快乐！</footer>
         </div>
     </div>
 
     <script>
-        // ========== 鼠标点击特效 ==========
+        // 鼠标点击特效
         const clickEffects = document.getElementById('clickEffects');
-        const clickElements = ['🐻', '💕', '🐱', '🎀', '🌸', '💜', '💙', '🐰', '🦋', '⭐', '🌈', '🍀', '🐤', '🤍'];
-        
+        const clickElements = ['🐻','💕','🐱','🎀','🌸','💜','💙','🐰','🦋','⭐','🌈','🍀','🐤','🤍'];
         document.addEventListener('click', function(e) {
             for (let i = 0; i < 3; i++) {
                 const effect = document.createElement('div');
@@ -174,25 +143,22 @@
                 effect.style.left = (e.clientX + (Math.random() - 0.5) * 40) + 'px';
                 effect.style.top = (e.clientY + (Math.random() - 0.5) * 40) + 'px';
                 effect.style.fontSize = (20 + Math.random() * 20) + 'px';
-                effect.style.color = ['#FFB6C1', '#DDA0DD', '#87CEEB', '#FFD700'][Math.floor(Math.random() * 4)];
+                effect.style.color = ['#FFB6C1','#DDA0DD','#87CEEB','#FFD700'][Math.floor(Math.random()*4)];
                 clickEffects.appendChild(effect);
-                
-                setTimeout(() => { effect.remove(); }, 1500);
+                setTimeout(() => effect.remove(), 1500);
             }
         });
 
-        // ========== 密码验证 ==========
+        // 密码验证
         const CORRECT_PASSWORD = "20041112";
-
         function checkPassword() {
             const input = document.getElementById('passwordInput').value;
             const errorMsg = document.getElementById('errorMsg');
-            
             if (input === CORRECT_PASSWORD) {
                 alert('居然答对了 介于生日的原因勉强让你进去看一下~');
                 document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').classList.remove('hidden');
                 document.getElementById('mainContent').classList.add('show');
-                errorMsg.textContent = '';
                 initContent();
                 startCountdown();
             } else {
@@ -201,12 +167,11 @@
                 errorMsg.textContent = '不让笨猪猪进去！！';
             }
         }
-
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
 
-        // ========== 音乐播放器 ==========
+        // 音乐播放器
         const songList = [
             { name: '歌曲1', src: '11.mp3' },
             { name: '歌曲2', src: '22.mp3' },
@@ -215,82 +180,54 @@
             { name: '歌曲5', src: '55.mp3' },
             { name: '歌曲6', src: '66.mp3' }
         ];
-        
         let currentSongIndex = 0;
         const audioPlayer = document.getElementById('audioPlayer');
         const playBtn = document.getElementById('playBtn');
         const currentSongName = document.getElementById('currentSongName');
         const progressBar = document.getElementById('progressBar');
-        
+
         function loadSong(index) {
             currentSongIndex = index;
             audioPlayer.src = songList[index].src;
             currentSongName.textContent = songList[index].name;
             audioPlayer.load();
         }
-        
         function togglePlay() {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                playBtn.textContent = '⏸';
-            } else {
-                audioPlayer.pause();
-                playBtn.textContent = '▶️';
-            }
+            if (audioPlayer.paused) { audioPlayer.play(); playBtn.textContent = '⏸'; }
+            else { audioPlayer.pause(); playBtn.textContent = '▶️'; }
         }
-        
         function prevSong() {
             currentSongIndex = (currentSongIndex - 1 + songList.length) % songList.length;
-            loadSong(currentSongIndex);
-            audioPlayer.play();
-            playBtn.textContent = '⏸';
+            loadSong(currentSongIndex); audioPlayer.play(); playBtn.textContent = '⏸';
         }
-        
         function nextSong() {
             currentSongIndex = (currentSongIndex + 1) % songList.length;
-            loadSong(currentSongIndex);
-            audioPlayer.play();
-            playBtn.textContent = '⏸';
+            loadSong(currentSongIndex); audioPlayer.play(); playBtn.textContent = '⏸';
         }
-        
         function updateProgress() {
-            if (audioPlayer.duration) {
-                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-                progressBar.style.width = progress + '%';
-            }
+            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = progress + '%';
         }
-        
         loadSong(0);
 
-        // ========== 生日倒计时 ==========
+        // 倒计时
         function startCountdown() {
             function updateCountdown() {
                 const now = new Date();
-                const birthday = new Date(now.getFullYear(), 10, 12); // 11月12日
-                
-                if (now > birthday) {
-                    birthday.setFullYear(birthday.getFullYear() + 1);
-                }
-                
+                const birthday = new Date(now.getFullYear(), 10, 12);
+                if (now > birthday) birthday.setFullYear(birthday.getFullYear() + 1);
                 const diff = birthday - now;
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                document.getElementById('days').textContent = days;
-                document.getElementById('hours').textContent = hours;
-                document.getElementById('minutes').textContent = minutes;
-                document.getElementById('seconds').textContent = seconds;
+                document.getElementById('days').textContent = Math.floor(diff / (1000*60*60*24));
+                document.getElementById('hours').textContent = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+                document.getElementById('minutes').textContent = Math.floor((diff % (1000*60*60)) / (1000*60));
+                document.getElementById('seconds').textContent = Math.floor((diff % (1000*60)) / 1000);
             }
-            
             updateCountdown();
             setInterval(updateCountdown, 1000);
         }
 
-        // ========== 初始化内容 ==========
+        // 初始化
         function initContent() {
-            // 照片墙
             const photos = [
                 { src: 'images/1.png', label: '照片1' },
                 { src: 'images/2.png', label: '照片2' },
@@ -299,85 +236,63 @@
                 { src: 'images/5.png', label: '照片5' },
                 { src: 'images/6.png', label: '照片6' }
             ];
-
             const photoGrid = document.getElementById('photoGrid');
             photoGrid.innerHTML = '';
-            photos.forEach((photo) => {
+            photos.forEach(photo => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
-                card.innerHTML = '<img src="' + photo.src + '" alt="' + photo.label + '" onerror="this.style.display=\'none\'"><span class="photo-label">' + photo.label + '</span>';
-                card.onclick = function() { alert('💕 ' + photo.label); };
+                card.innerHTML = '<img src="'+photo.src+'" alt="'+photo.label+'" onerror="this.style.display=\'none\'"><span class="photo-label">'+photo.label+'</span>';
+                card.onclick = () => alert('💕 ' + photo.label);
                 photoGrid.appendChild(card);
             });
-
-            // 加载许愿瓶
             loadWishBottles();
-            // 加载问答
             loadQuiz();
-            // 加载时间线
             loadTimeline();
-            // 加载祝福
             loadBlessings();
         }
 
-        // ========== 许愿瓶 ==========
+        // 许愿瓶
         let wishes = [];
         let currentWishIndex = -1;
-
         function loadWishBottles() {
             const saved = localStorage.getItem('birthdayWishes');
-            if (saved) {
-                wishes = JSON.parse(saved);
-                renderWishBottles();
-            }
+            if (saved) { wishes = JSON.parse(saved); renderWishBottles(); }
         }
-
         function renderWishBottles() {
             const container = document.getElementById('wishBottleContainer');
             container.innerHTML = '';
-            wishes.forEach(function(wish, index) {
+            wishes.forEach((wish, index) => {
                 const bottle = document.createElement('div');
                 bottle.className = 'wish-bottle filled';
                 bottle.textContent = '💕';
-                bottle.onclick = function() { openWishModal(index); };
+                bottle.onclick = () => openWishModal(index);
                 container.appendChild(bottle);
             });
             if (wishes.length === 0) {
                 container.innerHTML = '<p class="wish-empty">还没有许愿瓶，快写下第一个心愿吧！</p>';
             }
         }
-
         function addWish() {
             const input = document.getElementById('wishInput');
             const wish = input.value.trim();
             const hint = document.getElementById('wishHint');
             if (wish) {
                 const now = new Date();
-                const timeStr = now.toLocaleString('zh-CN', { 
-                    year: 'numeric', month: '2-digit', day: '2-digit',
-                    hour: '2-digit', minute: '2-digit'
-                });
+                const timeStr = now.toLocaleString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
                 wishes.push({ text: wish, time: timeStr });
                 localStorage.setItem('birthdayWishes', JSON.stringify(wishes));
                 renderWishBottles();
                 input.value = '';
                 hint.textContent = '💕 心愿已放入许愿瓶！';
-            } else {
-                hint.textContent = '写点愿望吧～';
-            }
+            } else { hint.textContent = '写点愿望吧～'; }
         }
-
         function openWishModal(index) {
             currentWishIndex = index;
             document.getElementById('wishPaperText').textContent = wishes[index].text;
             document.getElementById('wishPaperTime').textContent = '🕐 ' + wishes[index].time;
             document.getElementById('wishModal').classList.remove('hidden');
         }
-
-        function closeWishModal() {
-            document.getElementById('wishModal').classList.add('hidden');
-        }
-
+        function closeWishModal() { document.getElementById('wishModal').classList.add('hidden'); }
         function deleteWish() {
             if (currentWishIndex >= 0) {
                 wishes.splice(currentWishIndex, 1);
@@ -387,15 +302,13 @@
             }
         }
 
-        // ========== 答题 ==========
+        // 答题
         const quizData = [
-            { question: '轻松熊的好朋友奶油熊是什么动物？', options: ['小熊', '小鸡', '小鸭', '小兔'], correct: 1, correctText: '🐤 答对啦！' },
-            { question: '轻松熊背后有什么特点？', options: ['有翅膀', '有拉链', '有口袋', '有蝴蝶结'], correct: 1, correctText: '🐻 正确！' },
-            { question: '牛奶熊是什么颜色的？', options: ['棕色', '黄色', '白色', '粉色'], correct: 2, correctText: '🤍 对啦！' }
+            { question: '轻松熊的好朋友奶油熊是什么动物？', options: ['小熊','小鸡','小鸭','小兔'], correct: 1, correctText: '🐤 答对啦！' },
+            { question: '轻松熊背后有什么特点？', options: ['有翅膀','有拉链','有口袋','有蝴蝶结'], correct: 1, correctText: '🐻 正确！' },
+            { question: '牛奶熊是什么颜色的？', options: ['棕色','黄色','白色','粉色'], correct: 2, correctText: '🤍 对啦！' }
         ];
-
         let currentQuiz = 0;
-
         function loadQuiz() {
             if (currentQuiz >= quizData.length) {
                 document.getElementById('quizQuestion').textContent = '';
@@ -409,18 +322,14 @@
             const optionsDiv = document.getElementById('quizOptions');
             optionsDiv.innerHTML = '';
             document.getElementById('quizFeedback').textContent = '';
-            
-            quiz.options.forEach(function(opt, index) {
+            quiz.options.forEach((opt, index) => {
                 const option = document.createElement('div');
                 option.className = 'quiz-option';
                 option.textContent = String.fromCharCode(65 + index) + '. ' + opt;
-                option.onclick = function() {
+                option.onclick = () => {
                     if (index === quiz.correct) {
                         document.getElementById('quizFeedback').textContent = quiz.correctText;
-                        setTimeout(function() { 
-                            currentQuiz++; 
-                            loadQuiz(); 
-                        }, 1500);
+                        setTimeout(() => { currentQuiz++; loadQuiz(); }, 1500);
                     } else {
                         document.getElementById('quizFeedback').textContent = '🐻 再想想～';
                     }
@@ -428,18 +337,16 @@
                 optionsDiv.appendChild(option);
             });
         }
-
         function showReward() {
             document.getElementById('videoModal').classList.remove('hidden');
             document.getElementById('rewardVideo').play();
         }
-
         function closeVideo() {
             document.getElementById('videoModal').classList.add('hidden');
             document.getElementById('rewardVideo').pause();
         }
 
-        // ========== 时间线 ==========
+        // 时间线
         function loadTimeline() {
             const data = [
                 { time: '2023.03.14', text: '我们第一次相遇💕' },
@@ -450,7 +357,7 @@
             ];
             const list = document.getElementById('timelineList');
             list.innerHTML = '';
-            data.forEach(function(item) {
+            data.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'timeline-item';
                 div.innerHTML = '<strong>' + item.time + '</strong> — ' + item.text;
@@ -458,19 +365,18 @@
             });
         }
 
-        // ========== 祝福墙 ==========
+        // 祝福墙
         function loadBlessings() {
             const blessings = ['🐻 轻松熊：生日快乐！', '🐤 奶油熊：叽叽叽～', '🤍 牛奶熊：生日快乐呀！', '🍯 送你蜂蜜蛋糕～'];
             const list = document.getElementById('blessingList');
             list.innerHTML = '';
-            blessings.forEach(function(b) {
+            blessings.forEach(b => {
                 const div = document.createElement('div');
                 div.className = 'blessing-item';
                 div.textContent = b;
                 list.appendChild(div);
             });
         }
-
         function sendBlessing() {
             const input = document.getElementById('blessingInput');
             const text = input.value.trim();
