@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rilakkuma · 轻松熊生日祝福</title>
     <style>
-        /* ========== 轻松熊主题全局样式 ========== */
+        /* ========== 全局ins风格主题 ========== */
         :root {
-            --rilakkuma-brown: #C68B59;
-            --rilakkuma-light: #E8C4A0;
-            --rilakkuma-dark: #8B5E3C;
-            --korilakkuma-white: #FFF5EE;
-            --kiiroitori-yellow: #FFD700;
-            --kiiroitori-orange: #FFA500;
-            --pink-bg: #FFF0F5;
-            --pink-card: #FFE4E9;
-            --pink-accent: #FFB6C1;
-            --pink-deep: #E87A90;
+            --pink: #FFB6C1;
+            --pink-light: #FFE4E9;
+            --purple: #DDA0DD;
+            --purple-light: #E6E6FA;
+            --blue: #87CEEB;
+            --blue-light: #E0F0FF;
+            --white: #FFFFFF;
+            --cream: #FFF8F0;
+            --text-dark: #5A5A6E;
+            --text-light: #8B8B9E;
+            --shadow-soft: 0 8px 25px rgba(200, 180, 220, 0.15);
+            --shadow-hover: 0 12px 35px rgba(200, 180, 220, 0.25);
         }
 
         * {
@@ -26,8 +28,13 @@
         }
 
         body {
-            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E9 30%, #FFF5EE 70%, #FFE4E9 100%);
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, 
+                #FFF0F5 0%, 
+                #F5F0FF 25%, 
+                #F0F8FF 50%, 
+                #FFF5F7 75%, 
+                #F8F0FF 100%);
+            font-family: '楷体', 'KaiTi', 'STKaiti', '华文楷体', 'Microsoft YaHei', serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -35,39 +42,76 @@
             padding: 20px;
             position: relative;
             overflow-x: hidden;
+            cursor: pointer;
+        }
+
+        /* ========== 鼠标点击特效容器 ========== */
+        .click-effects-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .click-effect {
+            position: fixed;
+            pointer-events: none;
+            animation: floatUp 1.5s ease-out forwards;
+            font-size: 24px;
+            z-index: 9999;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.3);
+            }
+        }
+
+        /* ========== 主容器 ========== */
+        .main-container {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 2rem;
+            border: 2px solid rgba(221, 160, 221, 0.3);
+            box-shadow: var(--shadow-soft);
+            position: relative;
         }
 
         /* ========== 密码界面 ========== */
         .password-screen {
-            background: #FFF9FB;
-            border-radius: 40px;
-            padding: 3rem 2rem;
-            box-shadow: 0 20px 40px rgba(232, 122, 144, 0.2);
-            border: 3px solid var(--pink-accent);
             text-align: center;
-            max-width: 400px;
-            width: 100%;
-            position: relative;
+            padding: 2rem 1rem;
         }
 
         .rilakkuma-family-img {
-            width: 245px;
+            width: 200px;
             height: auto;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
             display: block;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(139, 94, 60, 0.15);
+            box-shadow: var(--shadow-soft);
         }
 
         .password-title {
-            font-size: 1.8rem;
-            color: var(--pink-deep);
+            font-size: 1.5rem;
+            color: #DDA0DD;
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
 
         .password-subtitle {
-            color: #C68B59;
+            color: #8B8B9E;
             margin-bottom: 2rem;
             font-size: 1rem;
         }
@@ -75,22 +119,24 @@
         .password-input {
             width: 100%;
             padding: 15px;
-            border: 3px solid var(--pink-accent);
-            border-radius: 30px;
+            border: 2px solid #FFB6C1;
+            border-radius: 25px;
             font-size: 1.2rem;
             text-align: center;
             margin-bottom: 1rem;
             outline: none;
             transition: 0.3s;
+            font-family: '楷体', 'KaiTi', serif;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .password-input:focus {
-            border-color: var(--rilakkuma-brown);
-            box-shadow: 0 0 0 5px rgba(198, 139, 89, 0.2);
+            border-color: #DDA0DD;
+            box-shadow: 0 0 0 5px rgba(221, 160, 221, 0.2);
         }
 
         .password-btn {
-            background: var(--rilakkuma-brown);
+            background: linear-gradient(135deg, #FFB6C1, #DDA0DD);
             color: white;
             border: none;
             padding: 15px 40px;
@@ -99,137 +145,214 @@
             cursor: pointer;
             transition: 0.3s;
             font-weight: 600;
+            font-family: '楷体', 'KaiTi', serif;
         }
 
         .password-btn:hover {
-            background: var(--rilakkuma-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 94, 60, 0.3);
+            box-shadow: var(--shadow-hover);
         }
 
-        .error-msg {
-            color: #E87A90;
-            margin-top: 10px;
-            min-height: 25px;
-            font-size: 0.9rem;
+        /* ========== 倒计时 ========== */
+        .countdown-section {
+            background: linear-gradient(135deg, #F5F0FF, #E0F0FF);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 2px solid rgba(221, 160, 221, 0.3);
         }
 
-        /* ========== 主内容区域 ========== */
+        .countdown-title {
+            font-size: 1.2rem;
+            color: #8B5E8B;
+            margin-bottom: 15px;
+        }
+
+        .countdown-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 70px;
+            box-shadow: 0 4px 12px rgba(200, 180, 220, 0.2);
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #DDA0DD;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.85rem;
+            color: #8B8B9E;
+            margin-top: 5px;
+        }
+
+        /* ========== 内容区域 ========== */
         .main-content {
-            max-width: 700px;
-            width: 100%;
-            background: #FFF9FB;
-            border-radius: 40px;
-            padding: 2rem;
-            border: 3px solid var(--pink-accent);
-            box-shadow: 0 20px 40px rgba(232, 122, 144, 0.15);
+            display: none;
         }
 
         .header {
             text-align: center;
             margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(221, 160, 221, 0.2));
+            border-radius: 20px;
         }
 
         .header h1 {
-            font-size: 2.2rem;
-            color: var(--pink-deep);
+            font-size: 2rem;
+            color: #8B5E8B;
             margin-bottom: 0.5rem;
         }
 
         .header p {
-            color: var(--rilakkuma-brown);
+            color: #8B8B9E;
         }
 
         .section {
-            background: #FFF5F7;
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 2px solid #FFE4E9;
+            border: 2px solid rgba(255, 182, 193, 0.3);
         }
 
         .section h2 {
-            color: var(--pink-deep);
+            color: #DDA0DD;
             margin-bottom: 15px;
             font-size: 1.3rem;
         }
 
+        /* ========== 照片墙 ========== */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 15px;
         }
 
         .photo-card {
             background: white;
-            border-radius: 20px;
-            padding: 15px;
+            border-radius: 15px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
-            border: 2px solid #FFE4E9;
+            border: 2px solid rgba(255, 182, 193, 0.3);
         }
 
         .photo-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(232, 122, 144, 0.2);
+            box-shadow: var(--shadow-hover);
         }
 
         .photo-card img {
             width: 100%;
-            height: auto;
-            max-height: 120px;
-            object-fit: contain;
-            border-radius: 12px;
-            display: block;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
             margin-bottom: 8px;
         }
 
         .photo-label {
-            color: #C68B59;
+            color: #8B8B9E;
             font-size: 0.85rem;
-            font-weight: 500;
         }
 
-        .wish-textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #FFE4E9;
-            border-radius: 20px;
-            font-size: 1rem;
-            min-height: 100px;
-            margin-bottom: 10px;
-            outline: none;
-            resize: vertical;
+        /* ========== 许愿瓶游戏 ========== */
+        .wish-bottle-section {
+            position: relative;
+            min-height: 300px;
         }
 
-        .wish-btn {
-            background: var(--pink-accent);
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
+        .wish-bottle-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .wish-bottle {
+            width: 60px;
+            height: 100px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.8), 
+                rgba(255, 182, 193, 0.3));
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-radius: 20px 20px 10px 10px;
+            position: relative;
             cursor: pointer;
-            color: white;
-            font-weight: 600;
             transition: 0.3s;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+            font-size: 1.5rem;
         }
 
-        .wish-btn:hover {
-            background: var(--pink-deep);
+        .wish-bottle:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
 
+        .wish-bottle::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .wish-bottle.filled {
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.8), 
+                rgba(221, 160, 221, 0.5));
+        }
+
+        .wish-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .wish-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-radius: 20px;
+            font-family: '楷体', 'KaiTi', serif;
+            outline: none;
+        }
+
+        /* ========== 答题区域 ========== */
         .quiz-question {
             font-size: 1.1rem;
             font-weight: 600;
-            color: var(--rilakkuma-dark);
+            color: #8B5E8B;
             margin-bottom: 15px;
             text-align: center;
         }
 
         .quiz-option {
             background: white;
-            border: 2px solid #FFE4E9;
-            border-radius: 20px;
+            border: 2px solid rgba(221, 160, 221, 0.3);
+            border-radius: 15px;
             padding: 12px;
             margin-bottom: 8px;
             cursor: pointer;
@@ -237,19 +360,21 @@
         }
 
         .quiz-option:hover {
-            background: #FFF0F5;
-            border-color: var(--pink-accent);
+            background: rgba(240, 240, 255, 0.5);
+            border-color: #DDA0DD;
         }
 
+        /* ========== 时间线 ========== */
         .timeline-item {
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 12px 18px;
             margin-bottom: 10px;
-            border-left: 4px solid var(--rilakkuma-brown);
+            border-left: 4px solid #DDA0DD;
             font-size: 0.95rem;
         }
 
+        /* ========== 祝福墙 ========== */
         .blessing-list {
             max-height: 200px;
             overflow-y: auto;
@@ -272,19 +397,21 @@
         .blessing-input {
             flex: 1;
             padding: 10px 15px;
-            border: 2px solid #FFE4E9;
+            border: 2px solid rgba(255, 182, 193, 0.5);
             border-radius: 20px;
+            font-family: '楷体', 'KaiTi', serif;
             outline: none;
         }
 
         .blessing-btn {
-            background: var(--kiiroitori-yellow);
+            background: linear-gradient(135deg, #FFB6C1, #DDA0DD);
             border: none;
             padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
-            color: var(--rilakkuma-dark);
+            color: white;
+            font-family: '楷体', 'KaiTi', serif;
         }
 
         .hidden {
@@ -293,93 +420,153 @@
 
         footer {
             text-align: center;
-            color: #C68B59;
+            color: #8B8B9E;
             margin-top: 20px;
             font-size: 0.9rem;
         }
 
+        /* ========== 响应式 ========== */
         @media (max-width: 480px) {
-            .rilakkuma-family-img {
-                width: 180px;
+            .main-container {
+                padding: 1rem;
             }
             .photo-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .main-content {
-                padding: 1.2rem;
+            .countdown-display {
+                gap: 8px;
             }
-            .password-screen {
-                padding: 2rem 1.2rem;
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== 密码界面 ===== -->
-    <div class="password-screen" id="passwordScreen">
-        <img 
-            src="https://www.pngsucai.com/uploadfile/png/2023/09/06/11741621.png" 
-            alt="轻松熊和他的朋友们" 
-            class="rilakkuma-family-img"
-            onerror="this.style.display='none'"
-        >
-        
-        <h2 class="password-title">🔞 警告！未满18周岁禁止进入 🔞</h2>
-        <p class="password-subtitle">🐻 Rilakkuma & Kiiroitori & Korilakkuma 🐤</p>
-        
-        <input type="password" id="passwordInput" class="password-input" placeholder="输入密码">
-        <button class="password-btn" onclick="checkPassword()">小猪进入！</button>
-        <div class="error-msg" id="errorMsg"></div>
-        <p style="color: #C68B59; font-size: 0.85rem; margin-top: 10px;">💕 提示：8位，ブーブーの誕生日。A</p>
-    </div>
+    <!-- 鼠标点击特效容器 -->
+    <div class="click-effects-container" id="clickEffects"></div>
 
-    <!-- ===== 主内容 ===== -->
-    <div class="main-content hidden" id="mainContent">
-        <div class="header">
-            <h1>🎂 生日快乐 🎂</h1>
-            <p>轻松熊和朋友们一起为你庆祝！🐻🐤🤍</p>
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- ===== 密码界面 ===== -->
+        <div class="password-screen" id="passwordScreen">
+            <img 
+                src="images/rillakuma-family.png" 
+                alt="轻松熊和他的朋友们" 
+                class="rilakkuma-family-img"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23FFE4E9%22 width=%22200%22 height=%22200%22 rx=%2220%22/%3E%3Ctext x=%22100%22 y=%22100%22 text-anchor=%22middle%22 font-size=%2280%22%3E🐻%3C/text%3E%3C/svg%3E'"
+            >
+            
+            <h2 class="password-title">🔞 警告！未满18周岁禁止进入 🔞</h2>
+            <p class="password-subtitle">🐻 Rilakkuma & Kiiroitori & Korilakkuma 🐤</p>
+            
+            <input type="password" id="passwordInput" class="password-input" placeholder="输入密码">
+            <button class="password-btn" onclick="checkPassword()">小猪进入！</button>
+            <div class="error-msg" id="errorMsg" style="color: #E87A90; margin-top: 10px; min-height: 25px;"></div>
+            <p style="color: #8B8B9E; font-size: 0.85rem; margin-top: 10px;">💕 提示：8位，ブーブーの誕生日。A</p>
         </div>
 
-        <div class="section">
-            <h2>📸 我们的回忆照片墙</h2>
-            <div class="photo-grid" id="photoGrid"></div>
-        </div>
-
-        <div class="section">
-            <h2>🌠 生日心愿</h2>
-            <textarea class="wish-textarea" id="wishTextarea" placeholder="轻松熊想听你的生日愿望～"></textarea>
-            <button class="wish-btn" onclick="saveWish()">💖 告诉轻松熊</button>
-            <p id="wishHint" style="color: #C68B59; margin-top: 10px; font-size: 0.9rem;"></p>
-        </div>
-
-        <div class="section">
-            <h2>🧸 轻松熊问答挑战</h2>
-            <div class="quiz-question" id="quizQuestion"></div>
-            <div id="quizOptions"></div>
-            <div id="quizFeedback" style="text-align: center; color: #E87A90; font-weight: 600; margin-top: 10px;"></div>
-        </div>
-
-        <div class="section">
-            <h2>⏳ 我们的时间线</h2>
-            <div id="timelineList"></div>
-        </div>
-
-        <div class="section">
-            <h2>💌 祝福留言墙</h2>
-            <div class="blessing-list" id="blessingList"></div>
-            <div class="blessing-input-group">
-                <input type="text" class="blessing-input" id="blessingInput" placeholder="写下祝福...">
-                <button class="blessing-btn" onclick="sendBlessing()">发送💕</button>
+        <!-- ===== 主内容 ===== -->
+        <div class="main-content" id="mainContent">
+            <!-- 倒计时 -->
+            <div class="countdown-section">
+                <div class="countdown-title">🎂 距离生日还有 🎂</div>
+                <div class="countdown-display" id="countdownDisplay">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">天</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">时</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">分</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">秒</span>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <footer>
-            🐻 Rilakkuma 轻松熊 · Kiiroitori 奶油熊 · Korilakkuma 牛奶熊 🐤<br>
-            一起祝最爱的你生日快乐！
-        </footer>
+            <div class="header">
+                <h1>🎂 生日快乐 🎂</h1>
+                <p>轻松熊和朋友们一起为你庆祝！🐻🐤🤍</p>
+            </div>
+
+            <!-- 照片墙 -->
+            <div class="section">
+                <h2>📸 我们的回忆照片墙</h2>
+                <div class="photo-grid" id="photoGrid"></div>
+            </div>
+
+            <!-- 许愿瓶游戏 -->
+            <div class="section wish-bottle-section">
+                <h2>🍾 许愿瓶 - 写下你的心愿</h2>
+                <div class="wish-bottle-container" id="wishBottleContainer"></div>
+                <div class="wish-input-group">
+                    <input type="text" class="wish-input" id="wishInput" placeholder="写下心愿，放入许愿瓶...">
+                    <button class="blessing-btn" onclick="addWish()">放入瓶子💕</button>
+                </div>
+                <p id="wishHint" style="color: #8B8B9E; margin-top: 10px; font-size: 0.9rem;"></p>
+            </div>
+
+            <!-- 答题 -->
+            <div class="section">
+                <h2>🧸 轻松熊问答挑战</h2>
+                <div class="quiz-question" id="quizQuestion"></div>
+                <div id="quizOptions"></div>
+                <div id="quizFeedback" style="text-align: center; color: #E87A90; font-weight: 600; margin-top: 10px;"></div>
+            </div>
+
+            <!-- 时间线 -->
+            <div class="section">
+                <h2>⏳ 我们的时间线</h2>
+                <div id="timelineList"></div>
+            </div>
+
+            <!-- 祝福墙 -->
+            <div class="section">
+                <h2>💌 祝福留言墙</h2>
+                <div class="blessing-list" id="blessingList"></div>
+                <div class="blessing-input-group">
+                    <input type="text" class="blessing-input" id="blessingInput" placeholder="写下祝福...">
+                    <button class="blessing-btn" onclick="sendBlessing()">发送💕</button>
+                </div>
+            </div>
+
+            <footer>
+                🐻 Rilakkuma 轻松熊 · Kiiroitori 奶油熊 · Korilakkuma 牛奶熊 🐤<br>
+                一起祝最爱的你生日快乐！
+            </footer>
+        </div>
     </div>
 
     <script>
+        // ========== 鼠标点击特效 ==========
+        const clickEffects = document.getElementById('clickEffects');
+        const clickElements = ['🐻', '💕', '🐱', '🎀', '🌸', '💜', '💙', '🐰', '🦋', '⭐', '🌈', '🍀'];
+        
+        document.addEventListener('click', function(e) {
+            for (let i = 0; i < 3; i++) {
+                const effect = document.createElement('div');
+                effect.className = 'click-effect';
+                effect.textContent = clickElements[Math.floor(Math.random() * clickElements.length)];
+                effect.style.left = (e.clientX + (Math.random() - 0.5) * 40) + 'px';
+                effect.style.top = (e.clientY + (Math.random() - 0.5) * 40) + 'px';
+                effect.style.fontSize = (20 + Math.random() * 20) + 'px';
+                effect.style.color = ['#FFB6C1', '#DDA0DD', '#87CEEB', '#FFD700'][Math.floor(Math.random() * 4)];
+                clickEffects.appendChild(effect);
+                
+                setTimeout(() => {
+                    effect.remove();
+                }, 1500);
+            }
+        });
+
         // ========== 密码验证 ==========
         const CORRECT_PASSWORD = "20041112";
 
@@ -388,53 +575,63 @@
             const errorMsg = document.getElementById('errorMsg');
             
             if (input === CORRECT_PASSWORD) {
-                // ✅ 密码正确：弹窗提示
-                alert('🎉 欢迎进入轻松熊生日派对！\n🐻 轻松熊、🐤奶油熊和🤍牛奶熊都在等你哦～');
-                
-                document.getElementById('passwordScreen').classList.add('hidden');
-                document.getElementById('mainContent').classList.remove('hidden');
+                alert('居然答对了 介于生日的原因勉强让你进去看一下~');
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
                 errorMsg.textContent = '';
                 initContent();
+                startCountdown();
             } else {
-                // ❌ 密码错误：弹窗警告
-                alert('🔞 密码错误！未满18周岁禁止进入！\n请确认密码后再试～');
-                
+                alert('你是哪块笨蛋奶油小饼干');
                 document.getElementById('passwordInput').value = '';
-                errorMsg.textContent = '🐻 密码不对哦，轻松熊不让你进去～';
+                errorMsg.textContent = '不让笨猪猪进去！！';
             }
         }
 
-        // 回车键提交
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
 
+        // ========== 生日倒计时 ==========
+        function startCountdown() {
+            function updateCountdown() {
+                const now = new Date();
+                const birthday = new Date(now.getFullYear(), 10, 12); // 11月12日
+                
+                if (now > birthday) {
+                    birthday.setFullYear(birthday.getFullYear() + 1);
+                }
+                
+                const diff = birthday - now;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
         // ========== 初始化内容 ==========
         function initContent() {
+            // 照片墙 - 使用本地图片
             const photos = [
-                { 
-                    src: 'https://www.nicepng.com/png/detail/306-3063775_free-high-quality-rilakkuma-icon-rilakkuma-png.png',
-                    label: '轻松熊头像',
-                    alt: '轻松熊头像'
-                },
-                { 
-                    src: 'https://toppng.com/public/uploads/preview/transparent-rilakkuma-kiiroitori-rilakkuma-korilakkuma-kiiroitori-11562864591kkwdtlw40x.png',
-                    label: '小白熊 & 小黄鸡',
-                    alt: '小白熊和小黄鸡'
-                },
-                { 
-                    src: 'https://toppng.com/public/uploads/preview/rilakkuma-bear-eating-sandwich-oso-kawaii-rilakkuma-11563084924egjcxr9cxn.png',
-                    label: '吃面包的轻松熊',
-                    alt: '轻松熊吃面包'
-                },
-                { 
-                    src: 'https://toppng.com/public/uploads/preview/sctoast-toast-bread-rilakkuma-korilakkuma-kiiroitori-rilakkuma-bakery-11563128367qqm8jfepbc.png',
-                    label: '面包店主题',
-                    alt: '轻松熊面包店'
-                }
+                { src: 'images/1.png', label: '我们的第一张照片', alt: '照片1' },
+                { src: 'images/2.png', label: '我们的第二张照片', alt: '照片2' },
+                { src: 'images/3.png', label: '我们的第三张照片', alt: '照片3' },
+                { src: 'images/4.png', label: '我们的第四张照片', alt: '照片4' },
+                { src: 'images/5.png', label: '我们的第五张照片', alt: '照片5' },
+                { src: 'images/6.png', label: '我们的第六张照片', alt: '照片6' }
             ];
 
             const photoGrid = document.getElementById('photoGrid');
+            photoGrid.innerHTML = '';
             photos.forEach((photo) => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
@@ -442,29 +639,67 @@
                     <img src="${photo.src}" alt="${photo.alt}" loading="lazy" onerror="this.style.display='none'">
                     <span class="photo-label">${photo.label}</span>
                 `;
-                card.onclick = () => alert(`🐻 ${photo.label} - 轻松熊记录的美好回忆！`);
+                card.onclick = () => alert(`💕 ${photo.label}`);
                 photoGrid.appendChild(card);
             });
 
-            const savedWish = localStorage.getItem('rilakkumaWish');
-            if (savedWish) {
-                document.getElementById('wishTextarea').value = savedWish;
-            }
-
+            // 许愿瓶
+            loadWishBottles();
+            
+            // 加载问答
             loadQuiz();
+            
+            // 加载时间线
             loadTimeline();
+            
+            // 加载祝福
             loadBlessings();
         }
 
-        // ========== 保存心愿 ==========
-        function saveWish() {
-            const wish = document.getElementById('wishTextarea').value.trim();
+        // ========== 许愿瓶游戏 ==========
+        let wishes = [];
+
+        function loadWishBottles() {
+            const savedWishes = localStorage.getItem('birthdayWishes');
+            if (savedWishes) {
+                wishes = JSON.parse(savedWishes);
+                renderWishBottles();
+            }
+        }
+
+        function renderWishBottles() {
+            const container = document.getElementById('wishBottleContainer');
+            container.innerHTML = '';
+            
+            wishes.forEach((wish, index) => {
+                const bottle = document.createElement('div');
+                bottle.className = 'wish-bottle filled';
+                bottle.textContent = '💕';
+                bottle.title = wish;
+                bottle.onclick = () => {
+                    alert(`🍾 许愿瓶 #${index + 1}: ${wish}`);
+                };
+                container.appendChild(bottle);
+            });
+            
+            if (wishes.length === 0) {
+                container.innerHTML = '<p style="color: #8B8B9E;">还没有许愿瓶，快写下第一个心愿吧！</p>';
+            }
+        }
+
+        function addWish() {
+            const input = document.getElementById('wishInput');
+            const wish = input.value.trim();
             const hint = document.getElementById('wishHint');
+            
             if (wish) {
-                localStorage.setItem('rilakkumaWish', wish);
-                hint.textContent = '🐻 轻松熊收到啦！会和奶油熊一起帮你实现～';
+                wishes.push(wish);
+                localStorage.setItem('birthdayWishes', JSON.stringify(wishes));
+                renderWishBottles();
+                input.value = '';
+                hint.textContent = '💕 心愿已放入许愿瓶！';
             } else {
-                hint.textContent = '写点愿望吧～轻松熊和奶油熊都在听～';
+                hint.textContent = '写点愿望吧～';
             }
         }
 
@@ -530,10 +765,11 @@
             ];
 
             const timelineList = document.getElementById('timelineList');
+            timelineList.innerHTML = '';
             timelineData.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'timeline-item';
-                div.innerHTML = `<strong style="color: #C68B59;">${item.time}</strong> — ${item.text}`;
+                div.innerHTML = `<strong style="color: #DDA0DD;">${item.time}</strong> — ${item.text}`;
                 timelineList.appendChild(div);
             });
         }
@@ -548,6 +784,7 @@
             ];
 
             const blessingList = document.getElementById('blessingList');
+            blessingList.innerHTML = '';
             blessings.forEach(blessing => {
                 const div = document.createElement('div');
                 div.className = 'blessing-item';
