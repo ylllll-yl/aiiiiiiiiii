@@ -1,17 +1,54 @@
-/* ==================== 全局样式 ==================== */
+/* ========================================
+   轻松熊生日祝福 - Ins风格主题
+   配色：粉色、浅紫、淡蓝、白色
+   字体：楷体
+   ======================================== */
+
+/* ========== 全局变量 ========== */
 :root {
-    --pink-light: #fff0f5;
-    --pink-mid: #ffd9e8;
-    --pink-strong: #ffb6c1;
-    --pink-deep: #f78ca0;
-    --pink-dark: #d4506c;
-    --brown-bear: #c68b59;
-    --brown-dark: #a06b3f;
-    --cream: #fffaf3;
-    --shadow-pink: rgba(255, 182, 193, 0.25);
-    --shadow-deep: rgba(205, 92, 126, 0.2);
+    /* 主色调 */
+    --pink: #FFB6C1;
+    --pink-light: #FFE4E9;
+    --pink-lighter: #FFF0F5;
+    
+    /* 紫色调 */
+    --purple: #DDA0DD;
+    --purple-light: #E6E6FA;
+    --purple-lighter: #F5F0FF;
+    --purple-dark: #8B5E8B;
+    
+    /* 蓝色调 */
+    --blue: #87CEEB;
+    --blue-light: #E0F0FF;
+    --blue-lighter: #F0F8FF;
+    
+    /* 基础色 */
+    --white: #FFFFFF;
+    --cream: #FFF8F0;
+    
+    /* 文字颜色 */
+    --text-dark: #5A5A6E;
+    --text-medium: #8B8B9E;
+    --text-light: #A0A0B0;
+    
+    /* 阴影 */
+    --shadow-soft: 0 8px 25px rgba(200, 180, 220, 0.15);
+    --shadow-hover: 0 12px 35px rgba(200, 180, 220, 0.25);
+    --shadow-card: 0 4px 15px rgba(200, 180, 220, 0.1);
+    
+    /* 圆角 */
+    --radius-small: 10px;
+    --radius-medium: 15px;
+    --radius-large: 20px;
+    --radius-xl: 30px;
+    
+    /* 边框 */
+    --border-pink: 2px solid rgba(255, 182, 193, 0.3);
+    --border-purple: 2px solid rgba(221, 160, 221, 0.3);
+    --border-soft: 2px solid rgba(255, 182, 193, 0.5);
 }
 
+/* ========== 全局重置 ========== */
 * {
     margin: 0;
     padding: 0;
@@ -19,481 +56,549 @@
 }
 
 body {
-    background: linear-gradient(145deg, #ffe4ec 0%, #fff0f5 40%, #ffdde6 100%);
-    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, 
+        var(--pink-lighter) 0%, 
+        var(--purple-lighter) 25%, 
+        var(--blue-lighter) 50%, 
+        #FFF5F7 75%, 
+        #F8F0FF 100%);
+    font-family: '楷体', 'KaiTi', 'STKaiti', '华文楷体', 'Microsoft YaHei', serif;
     min-height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 18px;
+    align-items: center;
+    padding: 20px;
     position: relative;
     overflow-x: hidden;
+    cursor: pointer;
+    transition: background 0.5s ease;
 }
 
-/* 轻松熊和波点背景装饰 */
-body::before {
-    content: "🐻🍰🎀🧸🍯🐻🍰🎀🧸🍯";
-    position: absolute;
-    top: 12px;
-    left: 0;
-    width: 100%;
-    font-size: 2rem;
-    opacity: 0.1;
-    letter-spacing: 20px;
-    white-space: nowrap;
-    pointer-events: none;
-    transform: rotate(-2deg);
-    color: #d36b8b;
-}
-
-body::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: radial-gradient(#ffb6c1 1.5px, transparent 1.5px);
-    background-size: 35px 35px;
-    opacity: 0.2;
-    pointer-events: none;
-}
-
-/* ==================== 密码界面样式 ==================== */
-.password-overlay {
+/* ========== 鼠标点击特效 ========== */
+.click-effects-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(145deg, #ffe4ec 0%, #fff0f5 40%, #ffdde6 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.click-effect {
+    position: fixed;
+    pointer-events: none;
+    animation: floatUp 1.5s ease-out forwards;
+    font-size: 24px;
+    z-index: 9999;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-50px) scale(0.8) rotate(10deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.3) rotate(-10deg);
+    }
+}
+
+/* ========== 主容器 ========== */
+.main-container {
+    max-width: 750px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    border: var(--border-purple);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.main-container:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+/* ========== 密码界面 ========== */
+.password-screen {
+    text-align: center;
+    padding: 2rem 1rem;
     animation: fadeIn 0.5s ease;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.password-container {
-    background: #fff9fb;
-    border-radius: 60px;
-    padding: 3rem 2.5rem;
-    box-shadow: 0 25px 50px var(--shadow-deep), 0 8px 20px rgba(0, 0, 0, 0.05);
-    border: 3px solid #ffccd9;
-    text-align: center;
-    max-width: 450px;
-    width: 90%;
-    position: relative;
+.rillakuma-family-img {
+    width: 200px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease;
 }
 
-/* 轻松熊耳朵装饰 */
-.password-container::before,
-.password-container::after {
-    content: "";
-    position: absolute;
-    top: -25px;
-    width: 60px;
-    height: 60px;
-    background: #e3a87c;
-    border-radius: 50% 50% 45% 45%;
-    box-shadow: inset -8px -8px 0 var(--brown-bear);
-}
-
-.password-container::before {
-    left: 30px;
-    transform: rotate(-15deg);
-}
-
-.password-container::after {
-    right: 30px;
-    transform: rotate(15deg);
-}
-
-.password-bear {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 8px 8px rgba(227, 168, 124, 0.5));
-}
-
-.password-bear .bear-emoji {
-    margin: 0 5px;
-    animation: bounce 2s infinite;
-}
-
-.password-bear .bear-emoji:nth-child(2) {
-    animation-delay: 0.3s;
-}
-
-.password-bear .bear-emoji:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+.rillakuma-family-img:hover {
+    transform: scale(1.05);
 }
 
 .password-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #b14e6b;
-    letter-spacing: 2px;
-    text-shadow: 3px 3px 0 #ffe1ea;
+    font-size: 1.5rem;
+    color: var(--purple);
     margin-bottom: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(221, 160, 221, 0.2);
 }
 
 .password-subtitle {
-    font-size: 1.1rem;
-    color: #d47a94;
+    color: var(--text-medium);
     margin-bottom: 2rem;
-}
-
-.password-input-group {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-}
-
-.password-input {
-    background: #ffffff;
-    border: 3px solid var(--pink-strong);
-    border-radius: 60px;
-    padding: 16px 28px;
-    font-size: 1.2rem;
-    letter-spacing: 6px;
-    text-align: center;
-    width: 220px;
-    outline: none;
-    transition: 0.3s;
-    color: #4f2d3b;
-    font-weight: 600;
-}
-
-.password-input:focus {
-    border-color: var(--pink-deep);
-    box-shadow: 0 0 0 6px var(--pink-mid);
-}
-
-.password-btn {
-    background: var(--pink-strong);
-    border: none;
-    border-radius: 60px;
-    padding: 16px 32px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #4a1f2b;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 8px 0 #e78ba1;
-    border: 1px solid #ff97ac;
-}
-
-.password-btn:hover {
-    background: #ff9eb2;
-    transform: translateY(-3px);
-    box-shadow: 0 11px 0 #d9738a;
-}
-
-.password-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 4px 0 #d9738a;
-}
-
-.password-error {
-    color: var(--pink-dark);
-    font-weight: 600;
-    min-height: 30px;
-    margin: 10px 0;
     font-size: 1rem;
 }
 
-.password-hint {
-    font-size: 0.9rem;
-    color: #b78391;
-    margin-top: 1rem;
+.password-input {
+    width: 100%;
+    padding: 15px;
+    border: var(--border-soft);
+    border-radius: 25px;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: '楷体', 'KaiTi', serif;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-dark);
 }
 
-/* ==================== 主内容区域样式 ==================== */
+.password-input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 5px rgba(221, 160, 221, 0.2);
+    background: var(--white);
+}
+
+.password-input::placeholder {
+    color: var(--text-light);
+}
+
+.password-btn {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: var(--radius-xl);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-family: '楷体', 'KaiTi', serif;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(221, 160, 221, 0.3);
+}
+
+.password-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    background: linear-gradient(135deg, #FF9EB5, #CE8DD0);
+}
+
+.password-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-soft);
+}
+
+.error-msg {
+    color: #E87A90;
+    margin-top: 10px;
+    min-height: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.password-hint {
+    color: var(--text-medium);
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+
+/* ========== 倒计时区域 ========== */
+.countdown-section {
+    background: linear-gradient(135deg, var(--purple-lighter), var(--blue-light));
+    border-radius: var(--radius-large);
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    border: var(--border-purple);
+    box-shadow: var(--shadow-card);
+}
+
+.countdown-title {
+    font-size: 1.2rem;
+    color: var(--purple-dark);
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.countdown-display {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-medium);
+    padding: 15px;
+    min-width: 70px;
+    box-shadow: 0 4px 12px rgba(200, 180, 220, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: scale(1.05);
+}
+
+.countdown-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--purple);
+    display: block;
+    text-shadow: 1px 1px 2px rgba(221, 160, 221, 0.3);
+}
+
+.countdown-label {
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    margin-top: 5px;
+}
+
+/* ========== 主内容区域 ========== */
 .main-content {
-    max-width: 750px;
-    width: 100%;
-    background: #fff9fb;
-    border-radius: 60px;
-    padding: 2.5rem 2rem;
-    border: 3px solid #ffccd9;
-    box-shadow: 0 25px 50px var(--shadow-deep);
-    position: relative;
-    z-index: 10;
+    display: none;
     animation: fadeIn 0.5s ease;
 }
 
-.main-header {
+.main-content.show {
+    display: block;
+}
+
+.header {
     text-align: center;
     margin-bottom: 2rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, 
+        rgba(255, 182, 193, 0.2), 
+        rgba(221, 160, 221, 0.2),
+        rgba(135, 206, 235, 0.2));
+    border-radius: var(--radius-large);
+    border: var(--border-soft);
 }
 
-.header-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #b84a6a;
-    letter-spacing: 3px;
-    text-shadow: 3px 3px 0 #ffe0ea;
+.header h1 {
+    font-size: 2rem;
+    color: var(--purple-dark);
     margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(221, 160, 221, 0.2);
 }
 
-.header-subtitle {
-    font-size: 1.2rem;
-    color: #be6e84;
+.header p {
+    color: var(--text-medium);
+    font-size: 1rem;
 }
 
-.section-title {
-    font-size: 1.5rem;
+/* ========== 通用区域样式 ========== */
+.section {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-large);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: var(--border-pink);
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+}
+
+.section:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-soft);
+}
+
+.section h2 {
+    color: var(--purple);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
     font-weight: 600;
-    color: #a6475e;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    letter-spacing: 1px;
+    position: relative;
+    padding-left: 10px;
 }
 
-/* ==================== 照片墙样式 ==================== */
-.photo-section,
-.wish-section,
-.quiz-section,
-.timeline-section,
-.blessing-section {
-    background: #fff5f9;
-    border-radius: 45px;
-    padding: 25px 20px;
-    border: 2px solid #ffccd9;
-    box-shadow: 0 10px 16px rgba(220, 130, 154, 0.1);
-    margin-bottom: 2rem;
+.section h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: linear-gradient(to bottom, var(--pink), var(--purple));
+    border-radius: 3px;
 }
 
+/* ========== 照片墙 ========== */
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
 }
 
 .photo-card {
-    background: #ffeef5;
-    border-radius: 28px;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 10px #f0c0ce;
-    border: 2px solid #ffcdd9;
-    transition: 0.3s;
+    background: var(--white);
+    border-radius: var(--radius-medium);
+    padding: 10px;
+    text-align: center;
     cursor: pointer;
-    padding: 12px;
+    transition: all 0.3s ease;
+    border: var(--border-pink);
+    box-shadow: var(--shadow-card);
 }
 
 .photo-card:hover {
     transform: scale(1.05);
-    background: #ffe4ee;
-    box-shadow: 0 10px 20px rgba(240, 192, 206, 0.5);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--purple);
 }
 
-.photo-emoji {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
+.photo-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--radius-small);
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.02);
 }
 
 .photo-label {
-    font-size: 0.9rem;
-    color: #a4586d;
+    color: var(--text-medium);
+    font-size: 0.85rem;
     font-weight: 500;
-    text-align: center;
 }
 
-/* ==================== 生日心愿样式 ==================== */
-.wish-textarea {
-    width: 100%;
-    background: #ffffff;
-    border: 3px solid var(--pink-strong);
-    border-radius: 30px;
-    padding: 18px;
-    font-size: 1.1rem;
-    color: #4f2d3b;
-    resize: vertical;
-    min-height: 120px;
-    outline: none;
-    transition: 0.3s;
-    font-family: inherit;
+/* ========== 许愿瓶游戏 ========== */
+.wish-bottle-section {
+    position: relative;
+    min-height: 300px;
+    background: linear-gradient(135deg, 
+        rgba(255, 182, 193, 0.1), 
+        rgba(221, 160, 221, 0.1),
+        rgba(135, 206, 235, 0.1));
 }
 
-.wish-textarea:focus {
-    border-color: var(--pink-deep);
-    box-shadow: 0 0 0 6px var(--pink-mid);
-}
-
-.wish-save-btn {
-    margin-top: 15px;
-    background: #fcd5e4;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 40px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #903552;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 6px 0 #dfa3b6;
-    border: 1px solid #f3b3c7;
-}
-
-.wish-save-btn:hover {
-    background: #f8bed1;
-    transform: translateY(-2px);
-}
-
-.wish-saved-hint {
-    margin-top: 10px;
-    color: #bb6b82;
-    font-style: italic;
-}
-
-/* ==================== 答题挑战样式 ==================== */
-.quiz-container {
-    background: #fff;
-    border-radius: 30px;
-    padding: 20px;
-    border: 2px dashed #f1a7bb;
-}
-
-.quiz-question {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #a2455d;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.quiz-options {
+.wish-bottle-container {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
     margin-bottom: 20px;
+    min-height: 120px;
+    align-items: center;
+}
+
+.wish-bottle {
+    width: 60px;
+    height: 100px;
+    background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0.8), 
+        rgba(255, 182, 193, 0.3));
+    border: 2px solid rgba(255, 182, 193, 0.5);
+    border-radius: 20px 20px 10px 10px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-card);
+}
+
+.wish-bottle::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 182, 193, 0.5);
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+}
+
+.wish-bottle:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.wish-bottle.filled {
+    background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0.8), 
+        rgba(221, 160, 221, 0.5),
+        rgba(135, 206, 235, 0.3));
+    animation: bottleGlow 2s infinite;
+}
+
+@keyframes bottleGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(221, 160, 221, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(221, 160, 221, 0.6);
+    }
+}
+
+.wish-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.wish-input {
+    flex: 1;
+    padding: 12px;
+    border: var(--border-soft);
+    border-radius: var(--radius-large);
+    font-family: '楷体', 'KaiTi', serif;
+    outline: none;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.wish-input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(221, 160, 221, 0.2);
+}
+
+/* ========== 答题区域 ========== */
+.quiz-question {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--purple-dark);
+    margin-bottom: 15px;
+    text-align: center;
+    letter-spacing: 1px;
 }
 
 .quiz-option {
-    background: #fffafc;
-    border: 2px solid #f5becb;
-    border-radius: 40px;
-    padding: 16px 20px;
-    font-size: 1rem;
+    background: var(--white);
+    border: 2px solid rgba(221, 160, 221, 0.3);
+    border-radius: var(--radius-medium);
+    padding: 12px;
+    margin-bottom: 8px;
     cursor: pointer;
-    transition: 0.3s;
-    color: #57313e;
-    text-align: left;
-    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .quiz-option:hover {
-    background: #ffe2ec;
-    border-color: var(--pink-deep);
+    background: rgba(240, 240, 255, 0.5);
+    border-color: var(--purple);
     transform: translateX(5px);
 }
 
+.quiz-option:active {
+    transform: scale(0.98);
+}
+
 .quiz-feedback {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #c2456b;
-    min-height: 2em;
     text-align: center;
+    color: #E87A90;
+    font-weight: 600;
+    margin-top: 10px;
+    min-height: 30px;
 }
 
-/* ==================== 时间线样式 ==================== */
-.timeline-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
-    padding-left: 24px;
-}
-
-.timeline-list::before {
-    content: "";
-    position: absolute;
-    left: 8px;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(to bottom, #ffb6c1, #ffd9e8, #ffb6c1);
-    border-radius: 3px;
-}
-
+/* ========== 时间线 ========== */
 .timeline-item {
-    background: #fff;
-    border-radius: 30px;
-    padding: 15px 22px;
-    box-shadow: 0 4px 8px #fbc7d6;
-    border-left: 8px solid #f68ca6;
-    font-size: 1rem;
-    color: #4d2b38;
-    transition: 0.3s;
-    position: relative;
-}
-
-.timeline-item::before {
-    content: "🐻";
-    position: absolute;
-    left: -32px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
+    background: var(--white);
+    border-radius: var(--radius-medium);
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--purple);
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
 }
 
 .timeline-item:hover {
     transform: translateX(5px);
-    box-shadow: 0 6px 12px #fbc7d6;
+    box-shadow: var(--shadow-soft);
+    border-left-color: var(--pink);
 }
 
 .timeline-item strong {
-    color: #b84a6a;
-    font-size: 1.1rem;
+    color: var(--purple-dark);
     margin-right: 8px;
 }
 
-/* ==================== 祝福留言板样式 ==================== */
+/* ========== 祝福墙 ========== */
 .blessing-list {
-    max-height: 250px;
+    max-height: 200px;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 16px;
-    padding-right: 6px;
+    margin-bottom: 10px;
+    padding-right: 5px;
 }
 
 .blessing-list::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
+}
+
+.blessing-list::-webkit-scrollbar-track {
+    background: rgba(255, 182, 193, 0.1);
+    border-radius: 5px;
 }
 
 .blessing-list::-webkit-scrollbar-thumb {
-    background: #ffb6c1;
-    border-radius: 3px;
+    background: rgba(221, 160, 221, 0.5);
+    border-radius: 5px;
 }
 
 .blessing-item {
-    background: #fff;
-    border-radius: 26px;
-    padding: 14px 18px;
-    box-shadow: 0 3px 6px #edc0ce;
-    border-left: 6px solid var(--pink-strong);
-    font-size: 0.98rem;
-    color: #4a2c36;
-    word-break: break-word;
+    background: var(--white);
+    border-radius: var(--radius-medium);
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-card);
+    border-left: 3px solid var(--pink);
     animation: slideIn 0.3s ease;
 }
 
@@ -511,77 +616,95 @@ body::after {
 .blessing-input-group {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .blessing-input {
     flex: 1;
-    border-radius: 40px;
-    border: 2px solid var(--pink-strong);
-    padding: 14px 20px;
-    font-size: 1rem;
+    padding: 10px 15px;
+    border: var(--border-soft);
+    border-radius: var(--radius-large);
+    font-family: '楷体', 'KaiTi', serif;
     outline: none;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .blessing-input:focus {
-    border-color: var(--pink-deep);
-    box-shadow: 0 0 0 4px var(--pink-mid);
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(221, 160, 221, 0.2);
 }
 
-.blessing-send-btn {
-    background: #ffadc0;
+.blessing-btn {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
     border: none;
-    border-radius: 40px;
-    padding: 12px 24px;
-    font-weight: bold;
-    color: #4e2533;
+    padding: 10px 20px;
+    border-radius: var(--radius-large);
     cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 5px 0 #df8ba2;
+    font-weight: 600;
+    color: white;
+    font-family: '楷体', 'KaiTi', serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(221, 160, 221, 0.3);
+    white-space: nowrap;
 }
 
-.blessing-send-btn:hover {
-    background: #ff97b0;
+.blessing-btn:hover {
     transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
-.blessing-send-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #df8ba2;
-}
-
-/* ==================== 页脚样式 ==================== */
-.main-footer {
+/* ========== 页脚 ========== */
+footer {
     text-align: center;
-    margin-top: 2rem;
-    padding: 1rem;
-    color: #bd8192;
-    letter-spacing: 1px;
-    border-top: 2px dashed #ffd9e8;
+    color: var(--text-medium);
+    margin-top: 20px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
 }
 
-/* ==================== 响应式设计 ==================== */
+/* ========== 工具类 ========== */
+.hidden {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+/* ========== 响应式设计 ========== */
 @media (max-width: 768px) {
-    .password-container {
-        padding: 2rem 1.5rem;
-    }
-    
-    .main-content {
-        padding: 1.5rem 1rem;
-        border-radius: 40px;
-    }
-    
-    .header-title {
-        font-size: 2rem;
+    .main-container {
+        padding: 1.5rem;
+        border-radius: var(--radius-large);
     }
     
     .photo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
     }
     
-    .photo-emoji {
-        font-size: 2.5rem;
+    .photo-card img {
+        height: 100px;
+    }
+    
+    .countdown-display {
+        gap: 8px;
+    }
+    
+    .countdown-item {
+        min-width: 60px;
+        padding: 10px;
+    }
+    
+    .countdown-number {
+        font-size: 1.5rem;
+    }
+    
+    .wish-bottle {
+        width: 50px;
+        height: 80px;
     }
 }
 
@@ -590,16 +713,58 @@ body::after {
         padding: 10px;
     }
     
-    .password-input-group {
-        flex-direction: column;
-        align-items: center;
+    .main-container {
+        padding: 1rem;
+        border-radius: var(--radius-large);
     }
     
-    .password-input {
-        width: 100%;
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
     }
     
+    .photo-card img {
+        height: 80px;
+    }
+    
+    .countdown-display {
+        gap: 5px;
+    }
+    
+    .countdown-item {
+        min-width: 50px;
+        padding: 8px;
+    }
+    
+    .countdown-number {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.7rem;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section h2 {
+        font-size: 1.1rem;
+    }
+    
+    .wish-bottle {
+        width: 40px;
+        height: 70px;
+        font-size: 1rem;
+    }
+    
+    .wish-input-group,
     .blessing-input-group {
         flex-direction: column;
+        gap: 8px;
+    }
+    
+    .blessing-btn {
+        width: 100%;
     }
 }
