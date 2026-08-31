@@ -4,7 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rilakkuma · 轻松熊生日祝福</title>
-    <link rel="stylesheet" href="css/1.css">
+    <style>
+        /* ========== 全局变量 ========== */
+        :root {
+            --pink: #FFB6C1;
+            --pink-light: #FFE4E9;
+            --pink-lighter: #FFF0F5;
+            --purple: #DDA0DD;
+            --purple-light: #E6E6FA;
+            --purple-lighter: #F5F0FF;
+            --purple-dark: #8B5E8B;
+            --blue: #87CEEB;
+            --blue-light: #E0F0FF;
+            --blue-lighter: #F0F8FF;
+            --white: #FFFFFF;
+            --cream: #FFF8F0;
+            --text-dark: #5A5A6E;
+            --text-medium: #8B8B9E;
+            --text-light: #A0A0B0;
+            --shadow-soft: 0 8px 25px rgba(200, 180, 220, 0.15);
+            --shadow-hover: 0 12px 35px rgba(200, 180, 220, 0.25);
+            --shadow-card: 0 4px 15px rgba(200, 180, 220, 0.1);
+            --radius-small: 10px;
+            --radius-medium: 15px;
+            --radius-large: 20px;
+            --radius-xl: 30px;
+            --border-pink: 2px solid rgba(255, 182, 193, 0.3);
+            --border-purple: 2px solid rgba(221, 160, 221, 0.3);
+            --border-soft: 2px solid rgba(255, 182, 193, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #FFF0F5 0%, #F5F0FF 25%, #F0F8FF 50%, #FFF5F7 75%, #F8F0FF 100%);
+            font-family: '楷体', 'KaiTi', 'STKaiti', '华文楷体', 'Microsoft YaHei', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            cursor: pointer;
+        }
+
+        .click-effects-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+        .click-effect { position: fixed; pointer-events: none; animation: floatUp 1.5s ease-out forwards; font-size: 24px; z-index: 9999; }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+            50% { opacity: 0.8; transform: translateY(-50px) scale(0.8) rotate(10deg); }
+            100% { opacity: 0; transform: translateY(-100px) scale(0.3) rotate(-10deg); }
+        }
+
+        .main-container {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 2rem;
+            border: 2px solid rgba(221, 160, 221, 0.3);
+            box-shadow: 0 8px 25px rgba(200, 180, 220, 0.15);
+            position: relative;
+            z-index: 10;
+        }
+
+        .password-screen { text-align: center; padding: 2rem 1rem; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .rilakkuma-family-img { width: 200px; height: auto; margin: 0 auto 20px; display: block; border-radius: 20px; box-shadow: 0 8px 25px rgba(200, 180, 220, 0.15); }
+        .password-title { font-size: 1.5rem; color: #DDA0DD; margin-bottom: 0.5rem; font-weight: 700; }
+        .password-subtitle { color: #8B8B9E; margin-bottom: 2rem; font-size: 1rem; }
+        .password-input { width: 100%; padding: 15px; border: 2px solid rgba(255, 182, 193, 0.5); border-radius: 25px; font-size: 1.2rem; text-align: center; margin-bottom: 1rem; outline: none; font-family: '楷体', 'KaiTi', serif; background: rgba(255, 255, 255, 0.9); }
+        .password-input:focus { border-color: #DDA0DD; box-shadow: 0 0 0 5px rgba(221, 160, 221, 0.2); }
+        .password-btn { background: linear-gradient(135deg, #FFB6C1, #DDA0DD); color: white; border: none; padding: 15px 40px; border-radius: 30px; font-size: 1.1rem; cursor: pointer; font-weight: 600; font-family: '楷体', 'KaiTi', serif; letter-spacing: 2px; box-shadow: 0 4px 15px rgba(221, 160, 221, 0.3); }
+        .password-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(200, 180, 220, 0.25); }
+        .error-msg { color: #E87A90; margin-top: 10px; min-height: 25px; font-size: 0.9rem; font-weight: 600; }
+        .password-hint { color: #8B8B9E; font-size: 0.85rem; margin-top: 10px; }
+
+        /* 音乐播放器 */
+        .music-player { background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(221,160,221,0.2), rgba(135,206,235,0.2)); border-radius: 20px; padding: 15px 20px; margin-bottom: 20px; text-align: center; border: 2px solid rgba(221,160,221,0.3); }
+        .music-player-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
+        .music-icon { font-size: 1.5rem; animation: musicBounce 1s infinite; }
+        @keyframes musicBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .music-title { font-size: 1.1rem; color: #8B5E8B; font-weight: 600; }
+        .music-controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; }
+        .music-btn { background: white; border: 2px solid rgba(221,160,221,0.5); border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+        .music-play-btn { width: 50px; height: 50px; font-size: 1.5rem; background: linear-gradient(135deg, #FFB6C1, #DDA0DD); color: white; border: none; }
+        .music-info { margin-bottom: 10px; color: #8B8B9E; font-size: 0.9rem; }
+        .music-progress { width: 100%; height: 5px; background: rgba(255,182,193,0.2); border-radius: 5px; overflow: hidden; }
+        .music-progress-bar { height: 100%; background: linear-gradient(to right, #FFB6C1, #DDA0DD, #87CEEB); width: 0%; transition: width 0.3s ease; }
+
+        /* 倒计时 */
+        .countdown-section { background: linear-gradient(135deg, #F5F0FF, #E0F0FF); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: center; border: 2px solid rgba(221,160,221,0.3); }
+        .countdown-title { font-size: 1.2rem; color: #8B5E8B; margin-bottom: 15px; font-weight: 600; }
+        .countdown-display { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .countdown-item { background: rgba(255,255,255,0.9); border-radius: 15px; padding: 15px; min-width: 70px; box-shadow: 0 4px 12px rgba(200,180,220,0.2); }
+        .countdown-number { font-size: 2rem; font-weight: 700; color: #DDA0DD; display: block; }
+        .countdown-label { font-size: 0.85rem; color: #8B8B9E; margin-top: 5px; }
+
+        /* 主内容 */
+        .main-content { display: none; animation: fadeIn 0.5s ease; }
+        .header { text-align: center; margin-bottom: 2rem; padding: 1rem; background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(221,160,221,0.2), rgba(135,206,235,0.2)); border-radius: 20px; border: 2px solid rgba(255,182,193,0.5); }
+        .header h1 { font-size: 2rem; color: #8B5E8B; margin-bottom: 0.5rem; }
+        .header p { color: #8B8B9E; }
+
+        .section { background: rgba(255,255,255,0.7); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 2px solid rgba(255,182,193,0.3); box-shadow: 0 4px 15px rgba(200,180,220,0.1); }
+        .section h2 { color: #DDA0DD; margin-bottom: 15px; font-size: 1.3rem; font-weight: 600; padding-left: 10px; position: relative; }
+        .section h2::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: linear-gradient(to bottom, #FFB6C1, #DDA0DD); border-radius: 3px; }
+
+        /* 照片墙 */
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .photo-card { background: white; border-radius: 15px; padding: 10px; text-align: center; cursor: pointer; border: 2px solid rgba(255,182,193,0.3); transition: all 0.3s ease; }
+        .photo-card:hover { transform: scale(1.05); box-shadow: 0 12px 35px rgba(200,180,220,0.25); }
+        .photo-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
+        .photo-label { color: #8B8B9E; font-size: 0.85rem; }
+
+        /* 许愿瓶 */
+        .wish-bottle-section { min-height: 200px; }
+        .wish-bottle-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; min-height: 120px; align-items: center; }
+        .wish-bottle { width: 60px; height: 100px; background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,182,193,0.3)); border: 2px solid rgba(255,182,193,0.5); border-radius: 20px 20px 10px 10px; position: relative; cursor: pointer; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; font-size: 1.5rem; }
+        .wish-bottle::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 20px; height: 15px; background: rgba(255,255,255,0.8); border: 2px solid rgba(255,182,193,0.5); border-bottom: none; border-radius: 5px 5px 0 0; }
+        .wish-bottle:hover { transform: translateY(-5px); }
+        .wish-bottle.filled { background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(221,160,221,0.5), rgba(135,206,235,0.3)); animation: bottleGlow 2s infinite; }
+        @keyframes bottleGlow { 0%, 100% { box-shadow: 0 0 10px rgba(221,160,221,0.3); } 50% { box-shadow: 0 0 20px rgba(221,160,221,0.6); } }
+        .wish-input-group { display: flex; gap: 10px; align-items: center; }
+        .wish-input { flex: 1; padding: 12px; border: 2px solid rgba(255,182,193,0.5); border-radius: 20px; font-family: '楷体', 'KaiTi', serif; outline: none; }
+        .wish-empty { color: #8B8B9E; text-align: center; font-size: 0.9rem; }
+        .wish-hint { color: #8B8B9E; margin-top: 10px; font-size: 0.9rem; }
+
+        /* 许愿瓶弹窗 */
+        .wish-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .wish-modal-content { max-width: 400px; width: 90%; }
+        .wish-paper { background: linear-gradient(to bottom, #FFF9F0, #FFF5E6); border-radius: 10px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; border: 1px solid #E8D5C8; }
+        .wish-paper::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 20px; background: rgba(255,182,193,0.5); border-radius: 5px; }
+        .wish-paper-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px dashed #E8D5C8; }
+        .wish-paper-header span { font-size: 1.1rem; color: #8B5E8B; font-weight: 600; }
+        .wish-modal-close { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #8B8B9E; }
+        .wish-paper-lines { min-height: 100px; padding: 10px; background-image: repeating-linear-gradient(transparent, transparent 28px, #E8D5C8 28px, #E8D5C8 29px); line-height: 29px; margin-bottom: 15px; }
+        .wish-paper-lines p { color: #5A5A6E; font-size: 1rem; line-height: 29px; }
+        .wish-paper-footer { display: flex; justify-content: space-between; align-items: center; }
+        .wish-paper-footer span { color: #8B8B9E; font-size: 0.85rem; }
+        .wish-delete-btn { background: rgba(232,122,144,0.1); border: 1px solid #E87A90; color: #E87A90; padding: 5px 15px; border-radius: 15px; cursor: pointer; font-size: 0.85rem; }
+        .wish-delete-btn:hover { background: #E87A90; color: white; }
+
+        /* 答题 */
+        .quiz-question { font-size: 1.1rem; font-weight: 600; color: #8B5E8B; margin-bottom: 15px; text-align: center; }
+        .quiz-option { background: white; border: 2px solid rgba(221,160,221,0.3); border-radius: 15px; padding: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .quiz-option:hover { background: rgba(240,240,255,0.5); border-color: #DDA0DD; transform: translateX(5px); }
+        .quiz-feedback { text-align: center; color: #E87A90; font-weight: 600; margin-top: 10px; min-height: 30px; }
+        .quiz-complete { text-align: center; padding: 20px; }
+        .quiz-complete-text { font-size: 1.3rem; color: #8B5E8B; margin-bottom: 15px; font-weight: 600; }
+        .quiz-reward-btn { background: linear-gradient(135deg, #FFD700, #FFA500); border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; font-weight: 600; color: white; font-family: '楷体', 'KaiTi', serif; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(255,165,0,0.3); }
+        .quiz-reward-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,165,0,0.5); }
+
+        /* 视频弹窗 */
+        .video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+        .video-modal-content { position: relative; max-width: 800px; width: 90%; }
+        .video-modal-close { position: absolute; top: -40px; right: 0; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; z-index: 2001; }
+        .video-modal-close:hover { background: #E87A90; color: white; }
+        #rewardVideo { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+        /* 时间线 */
+        .timeline-item { background: white; border-radius: 15px; padding: 12px 18px; margin-bottom: 10px; border-left: 4px solid #DDA0DD; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(200,180,220,0.1); }
+
+        /* 祝福墙 */
+        .blessing-list { max-height: 200px; overflow-y: auto; margin-bottom: 10px; padding-right: 5px; }
+        .blessing-item { background: white; border-radius: 15px; padding: 10px 15px; margin-bottom: 8px; font-size: 0.9rem; border-left: 3px solid #FFB6C1; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .blessing-input-group { display: flex; gap: 10px; align-items: center; }
+        .blessing-input { flex: 1; padding: 10px 15px; border: 2px solid rgba(255,182,193,0.5); border-radius: 20px; font-family: '楷体', 'KaiTi', serif; outline: none; }
+        .blessing-btn { background: linear-gradient(135deg, #FFB6C1, #DDA0DD); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; color: white; font-family: '楷体', 'KaiTi', serif; white-space: nowrap; }
+
+        .hidden { display: none !important; }
+        footer { text-align: center; color: #8B8B9E; margin-top: 20px; font-size: 0.9rem; line-height: 1.6; }
+
+        @media (max-width: 480px) {
+            .main-container { padding: 1rem; }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); }
+            .countdown-display { gap: 5px; }
+            .countdown-item { min-width: 50px; padding: 8px; }
+            .countdown-number { font-size: 1.2rem; }
+            .wish-input-group, .blessing-input-group { flex-direction: column; }
+            .blessing-btn { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <div class="click-effects-container" id="clickEffects"></div>
@@ -14,7 +200,7 @@
         <div class="password-screen" id="passwordScreen">
             <img src="images/rillakuma-family.png" alt="轻松熊" class="rilakkuma-family-img" onerror="this.style.display='none'">
             <h2 class="password-title">🔞 警告！未满18周岁禁止进入 🔞</h2>
-            <p class="password-subtitle">🐻 Rilakkuma & Kiiroitori & Korilakkuma 🐤</p>
+            <p class="password-subtitle">🐻 Rilakkuma &amp; Kiiroitori &amp; Korilakkuma 🐤</p>
             <input type="password" id="passwordInput" class="password-input" placeholder="输入密码">
             <button class="password-btn" onclick="checkPassword()">小猪进入！</button>
             <div class="error-msg" id="errorMsg"></div>
@@ -134,7 +320,7 @@
     <script>
         // 鼠标点击特效
         const clickEffects = document.getElementById('clickEffects');
-        const clickElements = ['🐻','💕','🐱','🎀','🌸','💜','💙','🐰','🦋','⭐','🌈','🍀','🐤','🤍'];
+        const clickElements = ['🐻', '💕', '🐱', '🎀', '🌸', '💜', '💙', '🐰', '🦋', '⭐', '🌈', '🍀', '🐤', '🤍'];
         document.addEventListener('click', function(e) {
             for (let i = 0; i < 3; i++) {
                 const effect = document.createElement('div');
@@ -143,9 +329,9 @@
                 effect.style.left = (e.clientX + (Math.random() - 0.5) * 40) + 'px';
                 effect.style.top = (e.clientY + (Math.random() - 0.5) * 40) + 'px';
                 effect.style.fontSize = (20 + Math.random() * 20) + 'px';
-                effect.style.color = ['#FFB6C1','#DDA0DD','#87CEEB','#FFD700'][Math.floor(Math.random()*4)];
+                effect.style.color = ['#FFB6C1', '#DDA0DD', '#87CEEB', '#FFD700'][Math.floor(Math.random() * 4)];
                 clickEffects.appendChild(effect);
-                setTimeout(() => effect.remove(), 1500);
+                setTimeout(() => { effect.remove(); }, 1500);
             }
         });
 
@@ -158,7 +344,8 @@
                 alert('居然答对了 介于生日的原因勉强让你进去看一下~');
                 document.getElementById('passwordScreen').style.display = 'none';
                 document.getElementById('mainContent').classList.remove('hidden');
-                document.getElementById('mainContent').classList.add('show');
+                document.getElementById('mainContent').style.display = 'block';
+                errorMsg.textContent = '';
                 initContent();
                 startCountdown();
             } else {
@@ -217,10 +404,10 @@
                 const birthday = new Date(now.getFullYear(), 10, 12);
                 if (now > birthday) birthday.setFullYear(birthday.getFullYear() + 1);
                 const diff = birthday - now;
-                document.getElementById('days').textContent = Math.floor(diff / (1000*60*60*24));
-                document.getElementById('hours').textContent = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-                document.getElementById('minutes').textContent = Math.floor((diff % (1000*60*60)) / (1000*60));
-                document.getElementById('seconds').textContent = Math.floor((diff % (1000*60)) / 1000);
+                document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('minutes').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('seconds').textContent = Math.floor((diff % (1000 * 60)) / 1000);
             }
             updateCountdown();
             setInterval(updateCountdown, 1000);
@@ -238,11 +425,11 @@
             ];
             const photoGrid = document.getElementById('photoGrid');
             photoGrid.innerHTML = '';
-            photos.forEach(photo => {
+            photos.forEach((photo) => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
-                card.innerHTML = '<img src="'+photo.src+'" alt="'+photo.label+'" onerror="this.style.display=\'none\'"><span class="photo-label">'+photo.label+'</span>';
-                card.onclick = () => alert('💕 ' + photo.label);
+                card.innerHTML = '<img src="' + photo.src + '" alt="' + photo.label + '" onerror="this.style.display=\'none\'"><span class="photo-label">' + photo.label + '</span>';
+                card.onclick = function() { alert('💕 ' + photo.label); };
                 photoGrid.appendChild(card);
             });
             loadWishBottles();
@@ -261,11 +448,11 @@
         function renderWishBottles() {
             const container = document.getElementById('wishBottleContainer');
             container.innerHTML = '';
-            wishes.forEach((wish, index) => {
+            wishes.forEach(function(wish, index) {
                 const bottle = document.createElement('div');
                 bottle.className = 'wish-bottle filled';
                 bottle.textContent = '💕';
-                bottle.onclick = () => openWishModal(index);
+                bottle.onclick = function() { openWishModal(index); };
                 container.appendChild(bottle);
             });
             if (wishes.length === 0) {
@@ -278,13 +465,15 @@
             const hint = document.getElementById('wishHint');
             if (wish) {
                 const now = new Date();
-                const timeStr = now.toLocaleString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+                const timeStr = now.toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
                 wishes.push({ text: wish, time: timeStr });
                 localStorage.setItem('birthdayWishes', JSON.stringify(wishes));
                 renderWishBottles();
                 input.value = '';
                 hint.textContent = '💕 心愿已放入许愿瓶！';
-            } else { hint.textContent = '写点愿望吧～'; }
+            } else {
+                hint.textContent = '写点愿望吧～';
+            }
         }
         function openWishModal(index) {
             currentWishIndex = index;
@@ -304,9 +493,9 @@
 
         // 答题
         const quizData = [
-            { question: '轻松熊的好朋友奶油熊是什么动物？', options: ['小熊','小鸡','小鸭','小兔'], correct: 1, correctText: '🐤 答对啦！' },
-            { question: '轻松熊背后有什么特点？', options: ['有翅膀','有拉链','有口袋','有蝴蝶结'], correct: 1, correctText: '🐻 正确！' },
-            { question: '牛奶熊是什么颜色的？', options: ['棕色','黄色','白色','粉色'], correct: 2, correctText: '🤍 对啦！' }
+            { question: '轻松熊的好朋友奶油熊是什么动物？', options: ['小熊', '小鸡', '小鸭', '小兔'], correct: 1, correctText: '🐤 答对啦！' },
+            { question: '轻松熊背后有什么特点？', options: ['有翅膀', '有拉链', '有口袋', '有蝴蝶结'], correct: 1, correctText: '🐻 正确！' },
+            { question: '牛奶熊是什么颜色的？', options: ['棕色', '黄色', '白色', '粉色'], correct: 2, correctText: '🤍 对啦！' }
         ];
         let currentQuiz = 0;
         function loadQuiz() {
@@ -322,14 +511,14 @@
             const optionsDiv = document.getElementById('quizOptions');
             optionsDiv.innerHTML = '';
             document.getElementById('quizFeedback').textContent = '';
-            quiz.options.forEach((opt, index) => {
+            quiz.options.forEach(function(opt, index) {
                 const option = document.createElement('div');
                 option.className = 'quiz-option';
                 option.textContent = String.fromCharCode(65 + index) + '. ' + opt;
-                option.onclick = () => {
+                option.onclick = function() {
                     if (index === quiz.correct) {
                         document.getElementById('quizFeedback').textContent = quiz.correctText;
-                        setTimeout(() => { currentQuiz++; loadQuiz(); }, 1500);
+                        setTimeout(function() { currentQuiz++; loadQuiz(); }, 1500);
                     } else {
                         document.getElementById('quizFeedback').textContent = '🐻 再想想～';
                     }
@@ -357,7 +546,7 @@
             ];
             const list = document.getElementById('timelineList');
             list.innerHTML = '';
-            data.forEach(item => {
+            data.forEach(function(item) {
                 const div = document.createElement('div');
                 div.className = 'timeline-item';
                 div.innerHTML = '<strong>' + item.time + '</strong> — ' + item.text;
@@ -370,7 +559,7 @@
             const blessings = ['🐻 轻松熊：生日快乐！', '🐤 奶油熊：叽叽叽～', '🤍 牛奶熊：生日快乐呀！', '🍯 送你蜂蜜蛋糕～'];
             const list = document.getElementById('blessingList');
             list.innerHTML = '';
-            blessings.forEach(b => {
+            blessings.forEach(function(b) {
                 const div = document.createElement('div');
                 div.className = 'blessing-item';
                 div.textContent = b;
