@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rilakkuma · 轻松熊生日祝福</title>
+    <title>Rilakkuma ·discard </title>
     <style>
         /* ========== 全局变量 ========== */
         :root {
@@ -470,9 +470,9 @@
                 localStorage.setItem('birthdayWishes', JSON.stringify(wishes));
                 renderWishBottles();
                 input.value = '';
-                hint.textContent = '💕 心愿已放入许愿瓶！';
+                hint.textContent = '已经被悄咪咪放进去咯！';
             } else {
-                hint.textContent = '写点愿望吧～';
+                hint.textContent = '猫猫尾草的悄悄话或者小愿望是什么呢';
             }
         }
         function openWishModal(index) {
@@ -494,8 +494,8 @@
         // 答题
         const quizData = [
             { question: '我们认识的第一天具体日期是什么时候？', options: ['7月5日', '7月4日', '7月3日', '7月2日'], correct: 3, correctText: '我去有点东西哈！' },
-            { question: '轻松熊背后有什么特点？', options: ['有翅膀', '有拉链', '有口袋', '有蝴蝶结'], correct: 1, correctText: '🐻 正确！' },
-            { question: '牛奶熊是什么颜色的？', options: ['棕色', '黄色', '白色', '粉色'], correct: 2, correctText: '🤍 对啦！' }
+            { question: '以下哪些不是金珠的梗', options: ['挠屁屁', 'wc好爽', 'rap篮球', '不是我们的好朋友吗'], correct: 1, correctText: '我去金珠来了' },
+            { question: '以下哪个用于表示22岁', options: ['にじゅうにかい', 'にじゅういっかい', 'にじゅういっさい', 'にじゅうにさい'], correct: 4, correctText: '这个题对于N1的你来说是不是像我吃缺牙齿一样简单' }
         ];
         let currentQuiz = 0;
         function loadQuiz() {
@@ -554,7 +554,7 @@
             });
         }
 
-        // 祝福墙
+        // 留言祝福墙
         function loadBlessings() {
             const blessings = ['🐻 轻松熊：生日快乐！', '🐤 奶油熊：叽叽叽～', '🤍 牛奶熊：生日快乐呀！', '🍯 送你蜂蜜蛋糕～'];
             const list = document.getElementById('blessingList');
