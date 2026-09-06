@@ -661,22 +661,22 @@
         // 扭蛋机
         const GACHA_STORAGE_KEY = 'gachaData';
         const GACHA_TICKETS = [
-            { emoji: '🤗', text: '一个超级大抱抱券！' },
-            { emoji: '😘', text: '一个亲亲券～' },
-            { emoji: '🎬', text: '一次约会电影券！' },
-            { emoji: '🍰', text: '一块蛋糕券～' },
-            { emoji: '💆', text: '一次按摩券！' },
-            { emoji: '🎁', text: '一个小礼物券～' },
-            { emoji: '🌙', text: '一起看星星券！' },
-            { emoji: '☕', text: '一杯奶茶券～' },
-            { emoji: '📸', text: '一次拍照券！' },
-            { emoji: '🎵', text: '一首歌的专属演唱券～' },
-            { emoji: '🦋', text: '一次说走就走的散步券！' },
-            { emoji: '💌', text: '一封手写情书券～' },
-            { emoji: '🌹', text: '一朵玫瑰花券！' },
-            { emoji: '🍜', text: '一顿美食券～' },
-            { emoji: '🏠', text: '一次宅家陪伴券！' },
-            { emoji: '✨', text: '一个愿望实现券～' }
+            { emoji: '🤗', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！！' },
+            { emoji: '😘', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！一个亲亲券～' },
+            { emoji: '🎬', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！券！' },
+            { emoji: '🍰', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '💆', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '🎁', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '🌙', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '☕', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！ '},
+            { emoji: '📸', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '🎵', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '🦋', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '💌', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！ '},
+            { emoji: '🌹', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '🍜', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' },
+            { emoji: '🏠', text: '一2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！！' },
+            { emoji: '✨', text: '2026.09.06 你就在我的身边 我希望以后每天都可以是你 想到你 就是不自觉的发笑 真是奇怪 水仙被我感化了吗！' }
         ];
         let gachaData = { lastGachaDate: null, tickets: [] };
 
@@ -771,7 +771,7 @@
                 container.appendChild(bottle);
             });
             if (wishes.length === 0) {
-                container.innerHTML = '<p class="wish-empty">还没有许愿瓶，快写下第一个心愿吧！</p>';
+                container.innerHTML = '<p class="wish-empty">听说悄悄写在这里就会实现！</p>';
             }
         }
         function addWish() {
@@ -808,8 +808,8 @@
 
         // 答题
         const quizData = [
-            { question: '我们认识的第一天具体日期是什么时候？', options: ['7月5日', '7月4日', '7月3日', '7月2日'], correct: 3, correctText: '我去有点东西哈！' },
-            { question: '以下哪些不是金珠的梗', options: ['挠屁屁', 'wc好爽', 'rap篮球', '不是我们的好朋友吗'], correct: 1, correctText: '我去金珠来了' },
+            { question: '我们认识的第一天具体日期是什么时候？', options: ['7月5日', '7月4日', '7月3日', '7月2日'], correct: 2, correctText: '我去有点东西哈！' },
+            { question: '以下哪些不是金珠的梗', options: ['挠屁屁', 'wc好爽', 'rap篮球', '不是我们的好朋友吗'], correct: 0, correctText: '我去金珠来了' },
             { question: '以下哪个用于表示22岁', options: ['にじゅうにかい', 'にじゅういっかい', 'にじゅういっさい', 'にじゅうにさい'], correct: 3, correctText: '这个题对于N1的你来说是不是像我吃缺牙齿一样简单' }
         ];
         let currentQuiz = 0;
@@ -835,7 +835,7 @@
                         document.getElementById('quizFeedback').textContent = quiz.correctText;
                         setTimeout(function() { currentQuiz++; loadQuiz(); }, 1500);
                     } else {
-                        document.getElementById('quizFeedback').textContent = '🐻 再想想～';
+                        document.getElementById('quizFeedback').textContent = '笨笨笨笨笨笨笨笨笨猪';
                     }
                 };
                 optionsDiv.appendChild(option);
@@ -853,8 +853,8 @@
         // 时间线
         function loadTimeline() {
             const data = [
-                { time: '2023.03.14', text: '我们第一次相遇💕' },
-                { time: '2023.06.15', text: '第一次一起过生日🎂' },
+                { time: '2026.5.31', text: '我们第一次相遇  遇见了一个穿的非常有攻击性的小屁孩 不敢看！' },
+                { time: '2026.06.15', text: '第一次一起过生日🎂' },
                 { time: '2024.02.14', text: '第一个情人节🌹' },
                 { time: '2024.11.12', text: '你的生日🎉' },
                 { time: '今天', text: '未来的每一天✨' }
