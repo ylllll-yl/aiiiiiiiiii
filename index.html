@@ -895,5 +895,7 @@
             }
         }
     </script>
+    <!-- 隐藏重置按钮（右下角小点） -->
+<div style="position: fixed; bottom: 3px; right: 3px; width: 12px; height: 12px; background: rgba(0,0,0,0.05); border-radius: 50%; z-index: 9999; cursor: pointer;" onclick="if(confirm('重置所有数据？')){localStorage.clear();location.reload();}" title="重置数据"></div>
 </body>
 </html>
