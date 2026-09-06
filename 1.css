@@ -1071,3 +1071,280 @@ footer {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
+/* ========== 树成长游戏样式 ========== */
+.tree-game-section {
+    background: linear-gradient(135deg, 
+        rgba(200, 255, 200, 0.3), 
+        rgba(255, 255, 200, 0.3),
+        rgba(200, 230, 255, 0.3));
+    border-radius: var(--radius-large);
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(150, 200, 150, 0.4);
+    text-align: center;
+}
+
+.tree-container {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.tree {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.tree-crown {
+    position: absolute;
+    width: 0;
+    height: 0;
+    transition: all 1s ease;
+}
+
+.tree-crown.stage-1 {
+    width: 40px;
+    height: 40px;
+    background: #90EE90;
+    border-radius: 50%;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tree-crown.stage-2 {
+    width: 60px;
+    height: 60px;
+    background: #7CCD7C;
+    border-radius: 50% 50% 45% 45%;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tree-crown.stage-3 {
+    width: 80px;
+    height: 80px;
+    background: #66CDAA;
+    border-radius: 45% 55% 50% 50%;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tree-crown.stage-4 {
+    width: 100px;
+    height: 100px;
+    background: #3CB371;
+    border-radius: 50% 50% 45% 45%;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 10px 30px rgba(60, 179, 113, 0.4);
+}
+
+.tree-trunk {
+    width: 20px;
+    height: 60px;
+    background: #8B6914;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: all 0.5s ease;
+}
+
+.tree-trunk.grown {
+    height: 80px;
+    background: #6B4F10;
+}
+
+.fruit {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #FF6347;
+    border-radius: 50%;
+    animation: fruitGlow 2s infinite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fruit:hover {
+    transform: scale(1.5);
+    box-shadow: 0 0 20px rgba(255, 99, 71, 0.8);
+}
+
+@keyframes fruitGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 99, 71, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 99, 71, 0.8); }
+}
+
+.soil {
+    width: 120px;
+    height: 20px;
+    background: #8B5E3C;
+    border-radius: 10px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.growth-progress {
+    width: 100%;
+    height: 15px;
+    background: #E0E0E0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.growth-progress-bar {
+    height: 100%;
+    background: linear-gradient(to right, #90EE90, #3CB371, #2E8B57);
+    border-radius: 10px;
+    transition: width 1s ease;
+    width: 0%;
+}
+
+.growth-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #5A5A6E;
+    font-size: 0.95rem;
+}
+
+.growth-days {
+    font-weight: 600;
+    color: #3CB371;
+    font-size: 1.1rem;
+}
+
+.water-btn {
+    background: linear-gradient(135deg, #87CEEB, #4A90D9);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: '楷体', 'KaiTi', serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(74, 144, 217, 0.3);
+}
+
+.water-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 144, 217, 0.5);
+}
+
+.water-btn:disabled {
+    background: #CCCCCC;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.water-btn.ready {
+    animation: waterPulse 1s infinite;
+}
+
+@keyframes waterPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.water-drop {
+    position: absolute;
+    font-size: 2rem;
+    animation: dropFall 1s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes dropFall {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(100px); }
+}
+
+.fruit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+}
+
+.fruit-modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+.fruit-modal-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.fruit-modal-text {
+    font-size: 1.2rem;
+    color: #5A5A6E;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.fruit-modal-btn {
+    background: linear-gradient(135deg, #FF6347, #FF4500);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: '楷体', 'KaiTi', serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
+
+.fruit-modal-btn:hover {
+    transform: translateY(-2px);
+}
+
+.fruit-modal-close {
+    background: #E0E0E0;
+    color: #5A5A6E;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: '楷体', 'KaiTi', serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
