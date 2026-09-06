@@ -65,7 +65,6 @@
             <div class="section tree-game-section">
                 <h2>🌳 我们的爱情树</h2>
                 <p style="color: #8B8B9E; margin-bottom: 15px;">每天浇水，一起等待它开花结果 💕</p>
-                
                 <div class="tree-container" id="treeContainer">
                     <div class="tree" id="tree">
                         <div class="tree-crown" id="treeCrown"></div>
@@ -74,16 +73,13 @@
                         <div id="fruitsContainer"></div>
                     </div>
                 </div>
-                
                 <div class="growth-progress">
                     <div class="growth-progress-bar" id="growthProgressBar"></div>
                 </div>
-                
                 <div class="growth-info">
                     <span>成长天数：<span class="growth-days" id="growthDays">0</span> / 40 天</span>
                     <span id="waterStatus">💧 今天还没浇水</span>
                 </div>
-                
                 <button class="water-btn" id="waterBtn" onclick="waterTree()">💧 浇水</button>
             </div>
 
@@ -91,10 +87,7 @@
             <div class="fruit-modal hidden" id="fruitModal">
                 <div class="fruit-modal-content">
                     <div class="fruit-modal-icon">🍎</div>
-                    <div class="fruit-modal-text">
-                        🎉 恭喜！爱情树已经结果啦！<br>
-                        这个果实可以向你的另一半兑现哦～
-                    </div>
+                    <div class="fruit-modal-text">🎉 恭喜！爱情树已经结果啦！<br>这个果实可以向你的另一半兑现哦～</div>
                     <button class="fruit-modal-btn" onclick="claimFruit()">🎁 我要兑现</button>
                     <button class="fruit-modal-close" onclick="closeFruitModal()">关闭</button>
                 </div>
@@ -104,7 +97,6 @@
             <div class="section gacha-section">
                 <h2>🎰 恋爱扭蛋机</h2>
                 <p style="color: #8B8B9E; margin-bottom: 15px;">每天扭一次，看看今天抽到什么小心愿 💕</p>
-                
                 <div class="gacha-machine">
                     <div class="gacha-body">
                         <div class="gacha-window" id="gachaWindow">
@@ -118,11 +110,9 @@
                         <div class="gacha-ball" id="gachaBall">🥚</div>
                     </div>
                 </div>
-                
                 <div class="gacha-info">
                     <span id="gachaStatus">🎰 今天还没扭蛋</span>
                 </div>
-                
                 <div class="gacha-modal hidden" id="gachaModal">
                     <div class="gacha-modal-content">
                         <div class="gacha-modal-icon" id="gachaModalIcon">🎁</div>
@@ -130,7 +120,6 @@
                         <button class="gacha-modal-btn" onclick="closeGachaModal()">收下啦💕</button>
                     </div>
                 </div>
-                
                 <div class="gacha-collection">
                     <h3>🎫 我的收藏</h3>
                     <div class="gacha-collection-list" id="gachaCollection"></div>
@@ -208,7 +197,7 @@
     </div>
 
     <script>
-        // ========== 鼠标点击特效 ==========
+        // 鼠标点击特效
         const clickEffects = document.getElementById('clickEffects');
         const clickElements = ['🐻', '💕', '🐱', '🎀', '🌸', '💜', '💙', '🐰', '🦋', '⭐', '🌈', '🍀', '🐤', '🤍'];
         document.addEventListener('click', function(e) {
@@ -225,7 +214,7 @@
             }
         });
 
-        // ========== 密码验证 ==========
+        // 密码验证
         const CORRECT_PASSWORD = "20041112";
         function checkPassword() {
             const input = document.getElementById('passwordInput').value;
@@ -250,7 +239,7 @@
             if (e.key === 'Enter') checkPassword();
         });
 
-        // ========== 音乐播放器 ==========
+        // 音乐播放器
         const songList = [
             { name: '歌曲1', src: '11.mp3' },
             { name: '歌曲2', src: '22.mp3' },
@@ -289,7 +278,7 @@
         }
         loadSong(0);
 
-        // ========== 倒计时 ==========
+        // 倒计时
         function startCountdown() {
             function updateCountdown() {
                 const now = new Date();
@@ -305,7 +294,7 @@
             setInterval(updateCountdown, 1000);
         }
 
-        // ========== 初始化 ==========
+        // 初始化
         function initContent() {
             const photos = [
                 { src: 'images/1.png', label: '照片1' },
@@ -333,19 +322,13 @@
         // ========== 树成长游戏 ==========
         const MAX_GROWTH_DAYS = 40;
         const TREE_STORAGE_KEY = 'treeGrowthData';
-        let treeData = {
-            growthDays: 0,
-            lastWaterDate: null,
-            fruitClaimed: false
-        };
+        let treeData = { growthDays: 0, lastWaterDate: null, fruitClaimed: false };
 
         function loadTreeData() {
             const saved = localStorage.getItem(TREE_STORAGE_KEY);
             if (saved) { treeData = JSON.parse(saved); }
         }
-        function saveTreeData() {
-            localStorage.setItem(TREE_STORAGE_KEY, JSON.stringify(treeData));
-        }
+        function saveTreeData() { localStorage.setItem(TREE_STORAGE_KEY, JSON.stringify(treeData)); }
         function hasWateredToday() {
             if (!treeData.lastWaterDate) return false;
             const today = new Date().toDateString();
@@ -367,16 +350,10 @@
             progressBar.style.width = progressPercent + '%';
             
             crown.className = 'tree-crown';
-            if (growthDays >= 30) {
-                crown.classList.add('stage-4');
-                trunk.classList.add('grown');
-            } else if (growthDays >= 20) {
-                crown.classList.add('stage-3');
-            } else if (growthDays >= 10) {
-                crown.classList.add('stage-2');
-            } else if (growthDays >= 1) {
-                crown.classList.add('stage-1');
-            }
+            if (growthDays >= 30) { crown.classList.add('stage-4'); trunk.classList.add('grown'); }
+            else if (growthDays >= 20) { crown.classList.add('stage-3'); }
+            else if (growthDays >= 10) { crown.classList.add('stage-2'); }
+            else if (growthDays >= 1) { crown.classList.add('stage-1'); }
             
             fruitsContainer.innerHTML = '';
             if (growthDays >= MAX_GROWTH_DAYS && !treeData.fruitClaimed) {
@@ -411,14 +388,9 @@
             }
         }
         function waterTree() {
-            if (treeData.growthDays >= MAX_GROWTH_DAYS) {
-                alert('🌳 大树已经长大了！');
-                return;
-            }
-            if (hasWateredToday()) {
-                alert('💧 今天已经浇过水啦，明天再来吧～');
-                return;
-            }
+            if (treeData.growthDays >= MAX_GROWTH_DAYS) { alert('🌳 大树已经长大了！'); return; }
+            if (hasWateredToday()) { alert('💧 今天已经浇过水啦，明天再来吧～'); return; }
+            
             const treeContainer = document.getElementById('treeContainer');
             for (let i = 0; i < 5; i++) {
                 setTimeout(function() {
@@ -431,24 +403,20 @@
                     setTimeout(function() { drop.remove(); }, 1000);
                 }, i * 200);
             }
+            
             treeData.growthDays += 1;
             treeData.lastWaterDate = new Date().toISOString();
             saveTreeData();
+            
             setTimeout(function() {
                 updateTreeDisplay();
                 if (treeData.growthDays >= MAX_GROWTH_DAYS) {
-                    setTimeout(function() {
-                        alert('🎉 太棒了！爱情树终于结果了！');
-                    }, 500);
+                    setTimeout(function() { alert('🎉 太棒了！爱情树终于结果了！'); }, 500);
                 }
             }, 800);
         }
-        function openFruitModal() {
-            document.getElementById('fruitModal').classList.remove('hidden');
-        }
-        function closeFruitModal() {
-            document.getElementById('fruitModal').classList.add('hidden');
-        }
+        function openFruitModal() { document.getElementById('fruitModal').classList.remove('hidden'); }
+        function closeFruitModal() { document.getElementById('fruitModal').classList.add('hidden'); }
         function claimFruit() {
             treeData.fruitClaimed = true;
             saveTreeData();
@@ -456,10 +424,7 @@
             updateTreeDisplay();
             alert('🎁 果实已兑现！记得找你的另一半要奖励哦～');
         }
-        function initTreeGame() {
-            loadTreeData();
-            updateTreeDisplay();
-        }
+        function initTreeGame() { loadTreeData(); updateTreeDisplay(); }
 
         // ========== 扭蛋机 ==========
         const GACHA_STORAGE_KEY = 'gachaData';
@@ -481,20 +446,14 @@
             { emoji: '🏠', text: '一次宅家陪伴券！' },
             { emoji: '✨', text: '一个愿望实现券～' }
         ];
-
-        let gachaData = {
-            lastGachaDate: null,
-            tickets: []
-        };
+        let gachaData = { lastGachaDate: null, tickets: [] };
 
         function loadGachaData() {
             const saved = localStorage.getItem(GACHA_STORAGE_KEY);
             if (saved) { gachaData = JSON.parse(saved); }
             renderGachaCollection();
         }
-        function saveGachaData() {
-            localStorage.setItem(GACHA_STORAGE_KEY, JSON.stringify(gachaData));
-        }
+        function saveGachaData() { localStorage.setItem(GACHA_STORAGE_KEY, JSON.stringify(gachaData)); }
         function hasGachaToday() {
             if (!gachaData.lastGachaDate) return false;
             const today = new Date().toDateString();
@@ -502,10 +461,7 @@
             return today === lastGacha;
         }
         function turnGacha() {
-            if (hasGachaToday()) {
-                alert('🎰 今天已经扭过蛋啦，明天再来试试手气吧～');
-                return;
-            }
+            if (hasGachaToday()) { alert('🎰 今天已经扭过蛋啦，明天再来试试手气吧～'); return; }
             
             const knob = document.getElementById('gachaKnob');
             const resultText = document.getElementById('gachaResult');
@@ -546,9 +502,7 @@
                 knob.style.pointerEvents = 'auto';
             }, 1000);
         }
-        function closeGachaModal() {
-            document.getElementById('gachaModal').classList.add('hidden');
-        }
+        function closeGachaModal() { document.getElementById('gachaModal').classList.add('hidden'); }
         function renderGachaCollection() {
             const collection = document.getElementById('gachaCollection');
             if (!collection) return;
@@ -562,9 +516,7 @@
                 ticketEl.className = 'gacha-ticket';
                 ticketEl.textContent = ticket.emoji + ' ' + ticket.text;
                 ticketEl.title = '获得日期：' + ticket.date;
-                ticketEl.onclick = function() {
-                    alert(ticket.emoji + ' ' + ticket.text + '\n\n获得日期：' + ticket.date);
-                };
+                ticketEl.onclick = function() { alert(ticket.emoji + ' ' + ticket.text + '\n\n获得日期：' + ticket.date); };
                 collection.appendChild(ticketEl);
             });
         }
