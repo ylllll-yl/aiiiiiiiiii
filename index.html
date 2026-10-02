@@ -1,383 +1,1611 @@
+HTML.txt
+文档
+CSS.txt
+文档
+用户是一名网页设计师，目前前端的代码是这样子的，但是感觉整体的功能有点空，并且界面不是很好看，请为我提供一些优化的方案，详细阅读我的代码内容，网页上传平台是GITHUB
+
+我已经把你上传的 HTML + CSS 两份代码整体结构、交互逻辑和样式体系都看过了。先给你一个比较明确的判断：
+
+你现在这个网页并不是“功能少”，而是“功能很多，但缺少产品级的信息架构和视觉层级”。
+
+目前已经有：密码入口、音乐播放器、生日倒计时、照片墙、成长树、每日浇水、果实奖励、扭蛋机、许愿瓶、答题、视频奖励、时间线、祝福墙、点击粒子特效、LocalStorage 数据保存等。
+
+所以我不建议继续无止境地“加小游戏”。现在最值得做的是把它从“很多可玩的组件堆在一起”，升级成一个真正有故事线、层级、探索感和视觉主题的生日互动网站。
+
+一、先分析你现在最大的问题
+① 功能其实已经非常丰富，但页面像“功能清单”
+
+你现在的结构大致是：
+
+密码
+ ↓
+生日标题
+ ↓
+照片墙
+ ↓
+成长树
+ ↓
+扭蛋机
+ ↓
+许愿瓶
+ ↓
+答题
+ ↓
+视频
+ ↓
+时间线
+ ↓
+祝福墙
+ ↓
+Footer
+
+例如 HTML 里照片墙后面直接进入“一颗小树”，再进入扭蛋机。
+
+这在功能层面没有问题，但从网页设计角度，会产生一个很明显的问题：
+
+用户不知道“我为什么要继续往下滚？”
+
+每个模块都是一个独立卡片。
+
+所以视觉感受会变成：
+
+卡片 → 卡片 → 卡片 → 卡片 → 卡片
+
+而不是：
+
+进入秘密空间 → 发现回忆 → 完成任务 → 获得奖励 → 解锁秘密 → 最后看到真正的祝福
+
+这两种体验差别非常大。
+
+二、我建议把整个网站重新定义成：
+「一份可以探索的生日礼物」
+
+而不是：
+
+「一个生日功能集合」
+
+这是我最推荐你的设计方向。
+
+三、整体视觉建议：从“浅色可爱”升级为“Rilakkuma Dream Diary”
+
+你现在的配色：
+
+粉色
+紫色
+蓝色
+白色
+
+本身没有问题，而且 CSS 已经建立了比较完整的变量体系。
+
+但是目前的问题是：
+
+颜色太平均了。
+
+粉、紫、蓝都在抢存在感。
+
+建议改成：
+
+主色
+奶油米白
+#FFF9F2
+主背景
+暖奶油
+#FFF7ED
+Rilakkuma 棕
+#8B6F5A
+蜂蜜黄
+#E8B95B
+牛奶粉
+#F5C8CF
+辅助蓝
+#BFDCE5
+
+这样整个网站会从：
+
+🌈 Ins可爱风
+
+变成：
+
+🍯 Rilakkuma × 手帐 × 梦境 × 生日礼物
+
+四、第一屏必须重做
+
+你现在密码页面本质上是：
+
+图片
+
+生日标题
+
+输入密码
+
+按钮
+
+目前密码页面的样式其实比较传统，例如输入框和按钮主要依靠圆角、渐变和阴影来营造可爱感。
+
+我建议直接把它做成：
+
+          ✦
+     今天有一份礼物
+          ↓
+
+       [Rilakkuma]
+       
+     给小猪猪的秘密生日信
+
+ ───────────────────
+
+       🔐 输入生日密码
+
+       [  • • • • • •  ]
+
+       [ 打开礼物 ]
+
+  “只有你知道答案哦”
+
+并且增加：
+
+① 背景漂浮元素
+
+例如：
+
+🍯       ✦       🧸
+
+    🌸       🐻
+
+         ☁️
+
+  ✦              🍃
+
+不要让它们全部移动，而是非常缓慢地漂浮。
+
+五、密码页面不要马上进入主页面
+
+这是我非常推荐你改的一点。
+
+现在验证成功以后直接：
+
+alert(...)
+passwordScreen.style.display = 'none'
+mainContent.style.display = 'block'
+
+然后初始化所有内容。
+
+可以改成：
+
+密码正确
+   ↓
+屏幕变暗
+   ↓
+Rilakkuma出现
+   ↓
+礼物盒打开
+   ↓
+“欢迎来到属于你的生日空间”
+   ↓
+进入网站
+
+甚至只需要一个 1～2 秒的过渡动画。
+
+这个小改动会极大提升“作品感”。
+
+六、首页应该增加“Hero区域”
+
+进入以后不要马上出现照片墙。
+
+应该先有一个真正的首页。
+
+例如：
+
+╭──────────────────────────────╮
+
+       🧸
+
+    Happy Birthday
+
+       小猪猪
+
+   2026 · 11 · 12
+
+   “今天是属于你的第 22 个年头”
+
+       ↓
+   开始探索
+
+╰──────────────────────────────╯
+
+下面才进入：
+
+        ✦ 你的生日空间 ✦
+
+      ┌──────┐
+      │ 回忆 │
+      └──────┘
+
+      ┌──────┐
+      │ 游戏 │
+      └──────┘
+
+      ┌──────┐
+      │ 心愿 │
+      └──────┘
+
+      ┌──────┐
+      │ 秘密 │
+      └──────┘
+
+这样网站马上就有了导航意义。
+
+七、照片墙：不要只是照片 Card
+
+目前照片墙是：
+
+照片1
+照片2
+照片3
+照片4
+照片5
+照片6
+
+而且点击以后实际上只是：
+
+alert('💕 ' + photo.label);
+
+这其实是目前一个非常明显的“功能浪费”。
+
+建议升级成「回忆胶卷」
+
+例如：
+
+        📷 MEMORY
+
+   我们的一些小片段
+
+┌─────────┬─────────┐
+│         │         │
+│  IMAGE  │  IMAGE  │
+│         │         │
+│ 2026.03 │ 2026.05 │
+└─────────┴─────────┘
+
+        ↓ 点击照片
+
+ ┌──────────────────┐
+ │       IMAGE      │
+ │                  │
+ │  “那天真的很好笑” │
+ │                  │
+ │   2026.09.06     │
+ └──────────────────┘
+
+也就是：
+
+点击照片
+
+不要 alert()。
+
+改成：
+
+全屏照片 Modal + 日期 + 一句话回忆。
+
+这样会高级很多。
+
+八、音乐播放器建议彻底改成“唱片机”
+
+你现在已经有完整的：
+
+上一首
+播放
+下一首
+进度条
+6首歌曲
+
+逻辑其实已经不错。
+
+但是视觉上可以升级。
+
+现在：
+
+🎵 歌曲1
+
+◀  ▶  ▶
+
+━━━━━━
+
+建议变成：
+
+       ♫ NOW PLAYING
+
+      ┌─────────┐
+      │  唱片    │
+      │   🧸     │
+      └─────────┘
+
+      11.mp3
+   “我们的背景音乐”
+
+     ◀   ▶   ▶
+
+   ━━━━━━━━━━━
+
+唱片缓慢旋转。
+
+播放：
+
+animation: rotate 8s linear infinite;
+
+暂停：
+
+animation-play-state: paused;
+
+这个视觉效果非常适合你的主题。
+
+九、倒计时不要只是“数字”
+
+你现在倒计时逻辑是直接计算距离 11 月 12 日还有多少：
+
+const birthday = new Date(now.getFullYear(), 10, 12);
+
+这个功能可以保留。
+
+但是视觉可以改成：
+
+      🎂 距离下一次生日
+
+       41
+      DAYS
+
+       08
+      HOURS
+
+       24
+      MINUTES
+
+       12
+      SECONDS
+
+并增加一句：
+
+“时间正在一点一点靠近你的生日。”
+
+甚至可以让秒数卡片每秒轻微跳动。
+
+十、你最有潜力的功能其实是“成长树”
+
+这个功能我认为是你整个网页里面最值得重点发展的核心玩法之一。
+
+你现在已经做了：
+
+40天成长
+每日浇水
+LocalStorage
+4个成长阶段
+最终果实
+果实奖励
+
+而且已经有明确的数据结构：
+
+growthDays
+lastWaterDate
+fruitClaimed
+
+以及：
+
+1天 → stage 1
+10天 → stage 2
+20天 → stage 3
+30天 → stage 4
+40天 → 果实
+
+这已经不是普通动画了。
+
+我建议把它升级成：
+「给未来的你种一棵树」
+每次浇水增加一个“记忆”
+
+例如：
+
+🌱 DAY 07
+
+今天也要好好生活。
+
+[ 💧 浇水 ]
+
+────────────
+
+成长值
+
+████████░░░░ 35%
+
+第10天：
+
+🌿 小树长出了第一片叶子
+
+第20天：
+
+🌳 它开始有点像一棵树了
+
+第30天：
+
+🌸 好像有什么东西正在开花
+
+第40天：
+
+🍎 你终于发现了它藏起来的东西
+
+然后果实打开：
+
+          🍎
+
+    “恭喜你发现隐藏奖励”
+
+       ↓
+
+    解锁秘密页面
+
+这就形成了完整的：
+
+期待 → 每日行为 → 成长 → 解锁 → 奖励
+
+十一、扭蛋机也不要只是“随机弹一句话”
+
+你现在的扭蛋机制已经做得不错：
+
+每日一次
+随机奖励
+奖励收藏
+LocalStorage
+弹窗
+每日限制
+
+这些逻辑已经存在。
+
+所以不需要重新开发。
+
+应该改的是：
+
+把它做成真正的“收藏系统”
+
+例如：
+
+        🎰
+
+    今日扭蛋
+
+   ┌─────────┐
+   │    🎁   │
+   └─────────┘
+
+      转动
+
+────────────────
+
+       我的收藏
+
+ 🧸  ×1
+ 🍰  ×2
+ 💌  ×3
+ 🌸  ×1
+
+     7 / 20
+
+然后：
+
+收集 5 个
+
+解锁：
+
+🐻 “轻松熊秘密档案”
+
+收集 10 个
+
+解锁：
+
+💌 “一封没有署名的信”
+
+收集 20 个
+
+解锁：
+
+🔐 最终隐藏内容
+
+这样扭蛋机就不再是一个孤立小游戏，而成为整个网站的进度系统。
+
+十二、许愿瓶可以成为“情绪核心”
+
+你现在的许愿瓶已经支持：
+
+输入
+保存
+点击瓶子
+查看
+删除
+LocalStorage
+
+这是很好的基础。
+
+建议视觉改成：
+
+             🌙
+
+       今晚想许什么愿？
+
+    ┌────────────────┐
+    │                │
+    │  写下你的愿望   │
+    │                │
+    └────────────────┘
+
+          [ 放进去 ]
+
+       ✦ ✦ ✦
+
+       🫙 🫙 🫙
+
+然后瓶子随机漂浮。
+
+点击瓶子：
+
+╭────────────────────╮
+
+        📝
+
+     我的愿望
+
+ “希望未来每天都能开心”
+
+       2026.10.02
+
+       [ 收好 ]
+
+╰────────────────────╯
+
+这比普通 Modal 更有仪式感。
+
+十三、答题部分建议增加“游戏化进度”
+
+现在你已经有三道题：
+
+问题1
+问题2
+问题3
+
+答完显示奖励视频。
+
+建议增加：
+
+        🧠 小猪猪认证考试
+
+        Question 2 / 3
+
+        ██████████░░░ 66%
+
+────────────────────
+
+我们认识的第一天是？
+
+○ 7月5日
+○ 7月4日
+○ 7月3日
+○ 7月2日
+
+回答正确：
+
+       ✨
+
+   答对啦！！
+
+ “我就知道你记得。”
+
+       +1 ❤️
+
+回答错误：
+
+       🥺
+
+   再想一下！
+
+   “这个你都忘了？”
+
+这样会比单纯的 Option Card 有趣很多。
+
+十四、时间线现在太“平”
+
+目前时间线只是：
+
+timeline-item
+
+然后 JS 动态生成：
+
+<strong>时间</strong> — 内容
+
+建议直接做成：
+
+「我们的时间轴」
+
+视觉：
+
+2024
+ │
+ ● ─── 第一次认识
+ │
+ │
+ ● ─── 第一次一起……
+ │
+2025
+ │
+ ● ─── 那一天
+ │
+ │
+ ● ─── 你生日
+ │
+2026
+ │
+ ● ─── 今天
+
+并且每个节点：
+
+日期
+标题
+照片
+一句话
+
+这样它才是真正的 Timeline。
+
+十五、祝福墙可以升级成“留言漂浮墙”
+
+目前用户输入以后：
+
+div.className = 'blessing-item';
+list.appendChild(div);
+
+功能没有问题。
+
+但是视觉可以变成：
+
+       💌 祝福漂流瓶
+
+   ╭────────────╮
+   │ 生日快乐！ │
+   │            │
+   │   🐻       │
+   ╰────────────╯
+
+        ╭──────╮
+        │ 天天开心 │
+        ╰──────╯
+
+   ╭────────────╮
+   │ 永远快乐！ │
+   ╰────────────╯
+
+让每条祝福有：
+
+不同旋转角度
+不同位置
+不同纸张颜色
+轻微漂浮
+
+页面会立刻变得有生命力。
+
+十六、你现在最需要解决的不是 CSS，而是“页面宽度”
+
+目前：
+
+.main-container {
+    max-width: 750px;
+}
+
+750px 对这种功能非常多的网站来说偏窄。
+
+你现在其实在做一个：
+
+Interactive Story / Personal Microsite
+
+而不是普通手机端生日卡片。
+
+建议：
+
+.main-container {
+    max-width: 1100px;
+}
+
+然后：
+
+Desktop
+
+┌──────────────────────────────────────┐
+│              HEADER                  │
+├───────────────────┬──────────────────┤
+│                   │                  │
+│      CONTENT      │     SIDE CARD    │
+│                   │                  │
+│                   │                  │
+└───────────────────┴──────────────────┘
+十七、进一步可以采用 Bento Grid
+
+这个特别适合你的项目。
+
+例如首页：
+
+┌──────────────────────┬──────────────┐
+│                      │              │
+│    🎂 生日倒计时      │    🎵 音乐   │
+│                      │              │
+├──────────┬───────────┼──────────────┤
+│          │           │              │
+│  📷      │    🌳     │     🎰       │
+│  回忆    │    小树   │     扭蛋     │
+│          │           │              │
+├──────────┴─────┬─────┴──────────────┤
+│                │                    │
+│    🍾 许愿瓶    │     🧠 答题        │
+│                │                    │
+└────────────────┴────────────────────┘
+
+这会比现在：
+
+卡片
+卡片
+卡片
+卡片
+卡片
+
+现代很多。
+
+十八、我建议增加一个“进度系统”
+
+这是我认为你目前最缺的功能。
+
+现在每个游戏彼此独立。
+
+建议建立：
+
+🎟️ Birthday Passport
+
+例如右上角：
+
+┌──────────────────┐
+│ 🧸 BIRTHDAY PASS │
+│                  │
+│ ✦ 已探索  4 / 7  │
+│                  │
+│ ████████░░  65%  │
+└──────────────────┘
+
+完成：
+
+📷 看完照片
+🎵 播放音乐
+🌳 浇树
+🎰 扭蛋
+🍾 写愿望
+🧠 答题
+💌 留言
+
+就获得一个：
+
+✦
+
+最后：
+
+      🎉
+
+   全部探索完成！
+
+   你找到了
+   这个生日网站的
+   所有秘密。
+
+       [ 最后一份礼物 ]
+
+然后进入真正的最终页面。
+
+十九、最终页面应该成为整个网站的高潮
+
+你现在有视频奖励：
+
+<video id="rewardVideo">
+    <source src="99.mp4">
+</video>
+
+我建议不要让视频只是“答题完成后的奖励”。
+
+而是：
+
+所有任务完成 → 最终礼物
+
+例如：
+
+            ✦
+
+       CONGRATULATIONS
+
+        你完成了
+      生日探索计划
+
+            🧸
+
+       [ 打开最后的礼物 ]
+
+            ↓
+
+       🎁 打开礼物
+
+            ↓
+
+       视频 / 信 / 照片
+
+这样整个网站就有了一个完整故事。
+
+二十、还有一个非常重要的技术问题
+
+你现在密码是直接写在前端 JS 里面：
+
+const CORRECT_PASSWORD = "20041112";
+
+如果部署到 GitHub Pages，这个密码不是安全密码。
+
+因为：
+
+GitHub Pages
+      ↓
+HTML
+      ↓
+JavaScript
+      ↓
+用户查看网页源代码
+      ↓
+看到 CORRECT_PASSWORD
+
+所以：
+
+如果你的目的只是“生日网页仪式感”
+
+没问题。
+
+它只是一个视觉上的密码门。
+
+如果你真的希望保护私人照片/视频
+
+就不能依赖前端密码。
+
+因为 GitHub Pages 本质上是静态网站。
+
+这一点一定要区分。
+
+二十一、你的 CSS 还有一个可以马上优化的问题
+
+你的 HTML 本身已经包含了一套完整 <style>，同时你又上传了一份 CSS。
+
+HTML 里面从：
+
+<style>
+
+开始已经定义了大量变量和组件样式。
+
+而独立 CSS 又重复定义了一套：
+
+:root
+body
+.main-container
+.password-screen
+.countdown
+.photo-grid
+...
+
+这会造成后期非常容易出现：
+
+“我明明改了 CSS，
+为什么网页没变化？”
+
+或者：
+
+HTML里的样式覆盖CSS
+CSS又覆盖HTML
+GitHub 项目建议最终整理成：
+birthday-site/
+│
+├── index.html
+│
+├── css/
+│   └── style.css
+│
+├── js/
+│   └── app.js
+│
+├── images/
+│   ├── 1.png
+│   ├── 2.png
+│   ├── 3.png
+│   └── ...
+│
+├── music/
+│   ├── 11.mp3
+│   ├── 22.mp3
+│   └── ...
+│
+└── video/
+    └── reward.mp4
+
+而不是把大量 CSS 和 JS 全塞进 HTML。
+
+二十二、如果让我给你的项目重新规划，我会这样设计
+🌸 V2 页面结构
+                    ┌─────────────┐
+                    │ 🧸 PASS 4/7 │
+                    └─────────────┘
+
+                       ↓
+
+╭──────────────────────────────────────╮
+│                                      │
+│               🧸                     │
+│                                      │
+│          HAPPY BIRTHDAY              │
+│                                      │
+│             小猪猪                    │
+│                                      │
+│       2026 · 11 · 12                 │
+│                                      │
+│         [ 开始探索 ]                  │
+│                                      │
+╰──────────────────────────────────────╯
+
+                    ↓
+
+              🎂 生日倒计时
+
+       41       08       24       12
+      DAYS     HOURS    MINUTES   SECONDS
+
+
+────────────────────────────────────────
+
+
+             📷 MEMORY
+
+           我们的小回忆
+
+       ┌────────┐ ┌────────┐
+       │        │ │        │
+       │ PHOTO  │ │ PHOTO  │
+       │        │ │        │
+       └────────┘ └────────┘
+
+
+────────────────────────────────────────
+
+
+               🌱 GROW
+
+            给未来种一棵树
+
+               🌳
+
+          ███████░░░ 72%
+
+             💧 浇水
+
+
+────────────────────────────────────────
+
+
+              🎰 DAILY GACHA
+
+               🎁
+
+             [ 转动 ]
+
+
+────────────────────────────────────────
+
+
+              🍾 WISHES
+
+        写一个只属于你的愿望
+
+              🫙 🫙 🫙
+
+
+────────────────────────────────────────
+
+
+              🧠 QUIZ
+
+          “你真的记得吗？”
+
+          Question 2 / 3
+
+          ███████░░░
+
+
+────────────────────────────────────────
+
+
+              🕰 TIMELINE
+
+              2024
+               │
+               ●
+               │
+              2025
+               │
+               ●
+               │
+              2026
+
+
+────────────────────────────────────────
+
+
+              💌 LETTERS
+
+         写一句想对我说的话
+
+       ╭──────────────╮
+       │              │
+       │  生日快乐！   │
+       │              │
+       ╰──────────────╯
+
+
+────────────────────────────────────────
+
+
+              🎁 FINAL
+
+        你已经探索了所有秘密
+
+                🧸
+
+         [ 打开最后的礼物 ]
+
+                ↓
+
+              VIDEO
+
+
+────────────────────────────────────────
+
+         🐻 Rilakkuma Birthday
+二十三、我给你的优化优先级
+
+不要一次把所有东西全部推翻。
+
+按照这个顺序做，效果最好：
+
+优先级	改造	重要程度
+⭐⭐⭐⭐⭐	重做首页 Hero	极高
+⭐⭐⭐⭐⭐	建立统一视觉系统	极高
+⭐⭐⭐⭐⭐	增加网站导航/探索逻辑	极高
+⭐⭐⭐⭐⭐	Bento Grid / 页面布局	极高
+⭐⭐⭐⭐	照片墙升级为 Memory	高
+⭐⭐⭐⭐	成长树升级为主线玩法	高
+⭐⭐⭐⭐	扭蛋变成收藏系统	高
+⭐⭐⭐⭐	增加 Birthday Passport	高
+⭐⭐⭐	音乐播放器唱片化	中
+⭐⭐⭐	时间线升级	中
+⭐⭐⭐	祝福墙视觉升级	中
+⭐⭐	点击特效优化	低
+⭐⭐	增加更多小游戏	暂时不要
+二十四、最关键的一句话
+
+你现在的问题不是“网页功能不够”。
+
+恰恰相反：
+
+你现在已经进入了“功能足够，需要做产品设计”的阶段。
+
+目前代码已经有相当多实际交互，例如成长树使用 LocalStorage 保存成长数据、每日限制浇水，并根据成长天数切换树的不同阶段；扭蛋同样有每日限制和收藏数据；许愿瓶也可以持久化保存。
+
+所以继续增加“第8个、第9个、第10个小游戏”反而会让网站越来越杂。
+
+真正值得做的是把现在这些东西串起来：
+
+密码 → 进入 → 生日 → 回忆 → 游戏 → 收集 → 解锁 → 最终礼物
+
+这样它就从一个：
+
+“可爱的生日网页”
+
+变成一个：
+
+“只有这个人才能完整体验一次的互动生日礼物。”
+
+我建议你的下一步
+
+如果你准备继续做这个项目，我建议不要只做“零碎优化”。
+
+我可以直接基于你现在上传的 HTML.txt + CSS.txt，按照上面这个方向给你做一版 V2 重构方案：
+
+保留你现在已有的所有功能和 JS 逻辑，但重新设计：
+
+🎨 全套视觉系统
+🧸 Rilakkuma 主题
+🏠 全新首页
+📷 照片 Lightbox
+🎵 唱片式音乐播放器
+🌱 成长树视觉升级
+🎰 扭蛋收藏系统视觉升级
+🍾 许愿瓶升级
+🧠 Quiz 进度系统
+🕰 Timeline
+💌 祝福墙
+🎟 Birthday Passport
+🎁 最终礼物页面
+📱 手机端适配
+🗂 GitHub Pages 文件结构整理
+
+而且可以做到尽量不破坏你现有的图片、MP3、MP4 和 LocalStorage 数据逻辑。
+
+这会比继续单独修改几个 CSS 属性有效得多。
+
+目前我感觉装饰的元素还是有点少，包括树的外观不太美观，树的样式很简陋有“像素感”，结合你提供的改进方案，为我提供完整的修改后的html代码和配对的css代码。
+
+可以。这一版我不是简单“换几个颜色”，而是直接按照你原来的 HTML 结构 + JS 功能逻辑 做了 V2 视觉重构。你原来的核心功能都保留了，包括密码入口、音乐、倒计时、照片墙、40 天成长树、扭蛋、许愿瓶、答题、视频、时间线和祝福墙。
+
+这次重点改了 5 个地方
+树完全重做
+不再使用原来简单的圆形 box-shadow 树冠。
+改成多层树冠 + 12 个独立叶片 + 树枝 + 树干纹理 + 根部 + 花朵 + 果实。
+保留原来的 stage-1 / stage-2 / stage-3 / stage-4 成长逻辑，所以你原来的 40 天机制不用重写。
+加入天空、云朵、星星、蝴蝶、地面花草等装饰。
+
+整体从“粉紫卡片风”改成
+奶油手帐 × Rilakkuma × 小花园 × 生日礼物
+
+你原来的 CSS 是粉色、浅紫、淡蓝的统一卡片体系。
+现在改成奶油、蜂蜜、木棕、鼠尾草绿、雾蓝和淡粉，视觉会更统一。
+
+增加大量环境装饰
+漂浮星星
+云朵
+花朵
+蝴蝶
+背景纸张纹理
+手帐虚线
+胶带
+纸片
+邮票
+唱片
+夜空
+小山丘
+花园地面
+
+页面宽度从原来的 750px 扩展到约 1120px
+
+原项目主体确实只有 750px，对于你现在这么多互动模块会显得拥挤。
+
+增加了真正的 Hero + 探索导航
+
+现在进入以后不是马上“卡片接卡片”，而是：
+
+生日 Hero → 探索地图 → 音乐 → 倒计时 → 回忆 → 成长树 → 扭蛋 → 许愿 → 答题 → 时间线 → 祝福
+
+已经给你生成完整文件
+HTML
+
+下载完整 V2 HTML
+
+CSS
+
+下载配套 style.css
+
+GitHub 上建议最终这样放
+
+把原来的 HTML 改名/替换为：
+
+your-github-project/
+│
+├── birthday-v2.html
+├── style.css
+│
+├── images/
+│   ├── 1.png
+│   ├── 2.png
+│   ├── 3.png
+│   ├── 4.png
+│   ├── 5.png
+│   ├── 6.png
+│   └── rillakuma-family.png
+│
+├── 11.mp3
+├── 22.mp3
+├── 33.mp3
+├── 44.mp3
+├── 55.mp3
+├── 66.mp3
+│
+└── 99.mp4
+
+如果你希望 GitHub Pages 直接识别首页，最终把 birthday-v2.html 改名成 index.html：
+
+your-github-project/
+│
+├── index.html
+├── style.css
+├── images/
+├── 11.mp3
+├── 22.mp3
+├── 33.mp3
+├── 44.mp3
+├── 55.mp3
+├── 66.mp3
+└── 99.mp4
+特别说一下这次的树
+
+这是我这次最重点改的部分。
+
+你原来的树实际上是：
+
+       ●
+    ●  ●  ●
+       │
+       │
+      土
+
+主要依靠几个圆形 box-shadow 拼出树冠，所以确实很容易产生你说的**“像素块 / 简陋圆球感”**。原 CSS 中 stage-1 到 stage-4 基本就是不断增加圆形阴影。
+
+新版变成：
+
+              ✦
+       ☁              ✧
+
+            🍃
+       🍃  🌸  🍃
+    🍃    🌿🌿🌿    🍃
+       🌿🌿🌳🌿🌿
+         ╲  │  ╱
+       ╲   │   ╱
+          ║
+        ╱ ║ ╲
+      🌱  ║  🌱
+    ─────────────
+      🌼  🍀  🌷
+
+而且不是用图片，所以 GitHub Pages 不需要额外下载树素材，纯 CSS 就可以渲染。
+
+同时你的原 JS 仍然控制：
+
+Day 0
+ ↓
+Day 1
+ ↓
+Day 10
+ ↓
+Day 20
+ ↓
+Day 30
+ ↓
+Day 40
+ ↓
+🍎 神秘果实
+
+因此原来的 LocalStorage 成长数据逻辑也继续有效。
+
+你可以直接把这两个文件放进 GitHub 测试。
+
+如果下一步继续优化，我建议不要再大幅增加功能，而是重点做 “动画质量 + 照片点击后的高级 Lightbox + 成长树 40 天逐阶段视觉变化 + 最终礼物解锁动画”。这四项做好以后，整个网页的完成度会明显再上一个台阶。 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rilakkuma · 轻松熊生日祝福</title>
-    <style>
-        :root {
-            --pink: #FFB6C1;
-            --pink-light: #FFE4E9;
-            --pink-lighter: #FFF0F5;
-            --purple: #DDA0DD;
-            --purple-light: #E6E6FA;
-            --purple-lighter: #F5F0FF;
-            --purple-dark: #8B5E8B;
-            --blue: #87CEEB;
-            --blue-light: #E0F0FF;
-            --blue-lighter: #F0F8FF;
-            --white: #FFFFFF;
-            --text-dark: #5A5A6E;
-            --text-medium: #8B8B9E;
-            --shadow-soft: 0 8px 25px rgba(200, 180, 220, 0.15);
-            --shadow-hover: 0 12px 35px rgba(200, 180, 220, 0.25);
-            --shadow-card: 0 4px 15px rgba(200, 180, 220, 0.1);
-            --radius-medium: 15px;
-            --radius-large: 20px;
-            --radius-xl: 30px;
-            --border-pink: 2px solid rgba(255, 182, 193, 0.3);
-            --border-purple: 2px solid rgba(221, 160, 221, 0.3);
-            --border-soft: 2px solid rgba(255, 182, 193, 0.5);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background: linear-gradient(135deg, #FFF0F5 0%, #F5F0FF 25%, #F0F8FF 50%, #FFF5F7 75%, #F8F0FF 100%);
-            font-family: '楷体', 'KaiTi', 'STKaiti', '华文楷体', 'Microsoft YaHei', serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            cursor: pointer;
-        }
-
-        .click-effects-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
-        .click-effect { position: fixed; pointer-events: none; animation: floatUp 1.5s ease-out forwards; font-size: 24px; z-index: 9999; }
-
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
-            50% { opacity: 0.8; transform: translateY(-50px) scale(0.8) rotate(10deg); }
-            100% { opacity: 0; transform: translateY(-100px) scale(0.3) rotate(-10deg); }
-        }
-
-        .main-container {
-            max-width: 750px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 2rem;
-            border: 2px solid rgba(221, 160, 221, 0.3);
-            box-shadow: 0 8px 25px rgba(200, 180, 220, 0.15);
-            position: relative;
-            z-index: 10;
-        }
-
-        .password-screen { text-align: center; padding: 2rem 1rem; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .rilakkuma-family-img { width: 200px; height: auto; margin: 0 auto 20px; display: block; border-radius: 20px; box-shadow: 0 8px 25px rgba(200, 180, 220, 0.15); }
-        .password-title { font-size: 1.5rem; color: #DDA0DD; margin-bottom: 0.5rem; font-weight: 700; }
-        .password-subtitle { color: #8B8B9E; margin-bottom: 2rem; font-size: 1rem; }
-        .password-input { width: 100%; padding: 15px; border: 2px solid rgba(255, 182, 193, 0.5); border-radius: 25px; font-size: 1.2rem; text-align: center; margin-bottom: 1rem; outline: none; font-family: '楷体', 'KaiTi', serif; background: rgba(255, 255, 255, 0.9); }
-        .password-input:focus { border-color: #DDA0DD; box-shadow: 0 0 0 5px rgba(221, 160, 221, 0.2); }
-        .password-btn { background: linear-gradient(135deg, #FFB6C1, #DDA0DD); color: white; border: none; padding: 15px 40px; border-radius: 30px; font-size: 1.1rem; cursor: pointer; font-weight: 600; font-family: '楷体', 'KaiTi', serif; letter-spacing: 2px; box-shadow: 0 4px 15px rgba(221, 160, 221, 0.3); }
-        .password-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(200, 180, 220, 0.25); }
-        .error-msg { color: #E87A90; margin-top: 10px; min-height: 25px; font-size: 0.9rem; font-weight: 600; }
-        .password-hint { color: #8B8B9E; font-size: 0.85rem; margin-top: 10px; }
-
-        .music-player { background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(221,160,221,0.2), rgba(135,206,235,0.2)); border-radius: 20px; padding: 15px 20px; margin-bottom: 20px; text-align: center; border: 2px solid rgba(221,160,221,0.3); }
-        .music-player-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
-        .music-icon { font-size: 1.5rem; animation: musicBounce 1s infinite; }
-        @keyframes musicBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        .music-title { font-size: 1.1rem; color: #8B5E8B; font-weight: 600; }
-        .music-controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; }
-        .music-btn { background: white; border: 2px solid rgba(221,160,221,0.5); border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
-        .music-play-btn { width: 50px; height: 50px; font-size: 1.5rem; background: linear-gradient(135deg, #FFB6C1, #DDA0DD); color: white; border: none; }
-        .music-info { margin-bottom: 10px; color: #8B8B9E; font-size: 0.9rem; }
-        .music-progress { width: 100%; height: 5px; background: rgba(255,182,193,0.2); border-radius: 5px; overflow: hidden; }
-        .music-progress-bar { height: 100%; background: linear-gradient(to right, #FFB6C1, #DDA0DD, #87CEEB); width: 0%; transition: width 0.3s ease; }
-
-        .countdown-section { background: linear-gradient(135deg, #F5F0FF, #E0F0FF); border-radius: 20px; padding: 20px; margin-bottom: 25px; text-align: center; border: 2px solid rgba(221,160,221,0.3); }
-        .countdown-title { font-size: 1.2rem; color: #8B5E8B; margin-bottom: 15px; font-weight: 600; }
-        .countdown-display { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .countdown-item { background: rgba(255,255,255,0.9); border-radius: 15px; padding: 15px; min-width: 70px; box-shadow: 0 4px 12px rgba(200,180,220,0.2); }
-        .countdown-number { font-size: 2rem; font-weight: 700; color: #DDA0DD; display: block; }
-        .countdown-label { font-size: 0.85rem; color: #8B8B9E; margin-top: 5px; }
-
-        .main-content { display: none; animation: fadeIn 0.5s ease; }
-        .header { text-align: center; margin-bottom: 2rem; padding: 1rem; background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(221,160,221,0.2), rgba(135,206,235,0.2)); border-radius: 20px; border: 2px solid rgba(255,182,193,0.5); }
-        .header h1 { font-size: 2rem; color: #8B5E8B; margin-bottom: 0.5rem; }
-        .header p { color: #8B8B9E; }
-
-        .section { background: rgba(255,255,255,0.7); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 2px solid rgba(255,182,193,0.3); box-shadow: 0 4px 15px rgba(200,180,220,0.1); }
-        .section h2 { color: #DDA0DD; margin-bottom: 15px; font-size: 1.3rem; font-weight: 600; padding-left: 10px; position: relative; }
-        .section h2::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: linear-gradient(to bottom, #FFB6C1, #DDA0DD); border-radius: 3px; }
-
-        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
-        .photo-card { background: white; border-radius: 15px; padding: 10px; text-align: center; cursor: pointer; border: 2px solid rgba(255,182,193,0.3); transition: all 0.3s ease; }
-        .photo-card:hover { transform: scale(1.05); box-shadow: 0 12px 35px rgba(200,180,220,0.25); }
-        .photo-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
-        .photo-label { color: #8B8B9E; font-size: 0.85rem; }
-
-        .wish-bottle-section { min-height: 200px; }
-        .wish-bottle-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; min-height: 120px; align-items: center; }
-        .wish-bottle { width: 60px; height: 100px; background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,182,193,0.3)); border: 2px solid rgba(255,182,193,0.5); border-radius: 20px 20px 10px 10px; position: relative; cursor: pointer; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; font-size: 1.5rem; }
-        .wish-bottle::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 20px; height: 15px; background: rgba(255,255,255,0.8); border: 2px solid rgba(255,182,193,0.5); border-bottom: none; border-radius: 5px 5px 0 0; }
-        .wish-bottle:hover { transform: translateY(-5px); }
-        .wish-bottle.filled { background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(221,160,221,0.5), rgba(135,206,235,0.3)); animation: bottleGlow 2s infinite; }
-        @keyframes bottleGlow { 0%, 100% { box-shadow: 0 0 10px rgba(221,160,221,0.3); } 50% { box-shadow: 0 0 20px rgba(221,160,221,0.6); } }
-        .wish-input-group { display: flex; gap: 10px; align-items: center; }
-        .wish-input { flex: 1; padding: 12px; border: 2px solid rgba(255,182,193,0.5); border-radius: 20px; font-family: '楷体', 'KaiTi', serif; outline: none; }
-        .wish-empty { color: #8B8B9E; text-align: center; font-size: 0.9rem; }
-        .wish-hint { color: #8B8B9E; margin-top: 10px; font-size: 0.9rem; }
-
-        .wish-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .wish-modal-content { max-width: 400px; width: 90%; }
-        .wish-paper { background: linear-gradient(to bottom, #FFF9F0, #FFF5E6); border-radius: 10px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; border: 1px solid #E8D5C8; }
-        .wish-paper::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 20px; background: rgba(255,182,193,0.5); border-radius: 5px; }
-        .wish-paper-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px dashed #E8D5C8; }
-        .wish-paper-header span { font-size: 1.1rem; color: #8B5E8B; font-weight: 600; }
-        .wish-modal-close { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #8B8B9E; }
-        .wish-paper-lines { min-height: 100px; padding: 10px; background-image: repeating-linear-gradient(transparent, transparent 28px, #E8D5C8 28px, #E8D5C8 29px); line-height: 29px; margin-bottom: 15px; }
-        .wish-paper-lines p { color: #5A5A6E; font-size: 1rem; line-height: 29px; }
-        .wish-paper-footer { display: flex; justify-content: space-between; align-items: center; }
-        .wish-paper-footer span { color: #8B8B9E; font-size: 0.85rem; }
-        .wish-delete-btn { background: rgba(232,122,144,0.1); border: 1px solid #E87A90; color: #E87A90; padding: 5px 15px; border-radius: 15px; cursor: pointer; font-size: 0.85rem; }
-        .wish-delete-btn:hover { background: #E87A90; color: white; }
-
-        .quiz-question { font-size: 1.1rem; font-weight: 600; color: #8B5E8B; margin-bottom: 15px; text-align: center; }
-        .quiz-option { background: white; border: 2px solid rgba(221,160,221,0.3); border-radius: 15px; padding: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.3s ease; }
-        .quiz-option:hover { background: rgba(240,240,255,0.5); border-color: #DDA0DD; transform: translateX(5px); }
-        .quiz-feedback { text-align: center; color: #E87A90; font-weight: 600; margin-top: 10px; min-height: 30px; }
-        .quiz-complete { text-align: center; padding: 20px; }
-        .quiz-complete-text { font-size: 1.3rem; color: #8B5E8B; margin-bottom: 15px; font-weight: 600; }
-        .quiz-reward-btn { background: linear-gradient(135deg, #FFD700, #FFA500); border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; font-weight: 600; color: white; font-family: '楷体', 'KaiTi', serif; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(255,165,0,0.3); }
-        .quiz-reward-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,165,0,0.5); }
-
-        .video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .video-modal-content { position: relative; max-width: 800px; width: 90%; }
-        .video-modal-close { position: absolute; top: -40px; right: 0; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; z-index: 2001; }
-        .video-modal-close:hover { background: #E87A90; color: white; }
-        #rewardVideo { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-
-        .timeline-item { background: white; border-radius: 15px; padding: 12px 18px; margin-bottom: 10px; border-left: 4px solid #DDA0DD; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(200,180,220,0.1); }
-
-        .blessing-list { max-height: 200px; overflow-y: auto; margin-bottom: 10px; padding-right: 5px; }
-        .blessing-item { background: white; border-radius: 15px; padding: 10px 15px; margin-bottom: 8px; font-size: 0.9rem; border-left: 3px solid #FFB6C1; animation: slideIn 0.3s ease; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-        .blessing-input-group { display: flex; gap: 10px; align-items: center; }
-        .blessing-input { flex: 1; padding: 10px 15px; border: 2px solid rgba(255,182,193,0.5); border-radius: 20px; font-family: '楷体', 'KaiTi', serif; outline: none; }
-        .blessing-btn { background: linear-gradient(135deg, #FFB6C1, #DDA0DD); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; color: white; font-family: '楷体', 'KaiTi', serif; white-space: nowrap; }
-
-        .hidden { display: none !important; }
-        footer { text-align: center; color: #8B8B9E; margin-top: 20px; font-size: 0.9rem; line-height: 1.6; }
-
-        /* 树成长游戏 */
-        .tree-game-section { background: linear-gradient(135deg, rgba(200,255,200,0.25), rgba(255,255,200,0.25), rgba(200,230,255,0.25)); border-radius: 20px; padding: 25px; margin-bottom: 20px; border: 2px solid rgba(150,200,150,0.4); text-align: center; }
-        .tree-container { position: relative; width: 220px; height: 260px; margin: 0 auto 15px; display: flex; align-items: flex-end; justify-content: center; }
-        .tree { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
-        .tree-trunk { width: 25px; height: 50px; background: linear-gradient(to right, #A0713C, #C68B59, #A0713C); border-radius: 8px; margin-bottom: 15px; transition: all 0.5s ease; position: relative; z-index: 2; }
-        .tree-trunk.grown { height: 65px; }
-        .tree-crown { position: absolute; width: 0; height: 0; transition: all 1s ease; z-index: 1; }
-        .tree-crown.stage-1 { width: 50px; height: 50px; background: radial-gradient(circle at 40% 40%, #B5E8B5, #7CCD7C); border-radius: 50%; top: 165px; left: 50%; transform: translateX(-50%); box-shadow: 15px 10px 0 -5px rgba(144,238,144,0.6), -15px 10px 0 -5px rgba(144,238,144,0.6); }
-        .tree-crown.stage-2 { width: 70px; height: 70px; background: radial-gradient(circle at 40% 40%, #A8D8A8, #66CDAA); border-radius: 50%; top: 145px; left: 50%; transform: translateX(-50%); box-shadow: 20px 15px 0 -8px rgba(124,205,124,0.6), -20px 15px 0 -8px rgba(124,205,124,0.6), 0 25px 0 -8px rgba(124,205,124,0.5); }
-        .tree-crown.stage-3 { width: 90px; height: 90px; background: radial-gradient(circle at 40% 40%, #90D890, #3CB371); border-radius: 50%; top: 125px; left: 50%; transform: translateX(-50%); box-shadow: 25px 20px 0 -10px rgba(102,205,170,0.6), -25px 20px 0 -10px rgba(102,205,170,0.6), 0 30px 0 -10px rgba(102,205,170,0.5), 12px 35px 0 -10px rgba(102,205,170,0.4), -12px 35px 0 -10px rgba(102,205,170,0.4); }
-        .tree-crown.stage-4 { width: 110px; height: 110px; background: radial-gradient(circle at 40% 40%, #80D880, #2E8B57); border-radius: 50%; top: 105px; left: 50%; transform: translateX(-50%); box-shadow: 30px 25px 0 -12px rgba(60,179,113,0.6), -30px 25px 0 -12px rgba(60,179,113,0.6), 0 35px 0 -12px rgba(60,179,113,0.5), 15px 40px 0 -12px rgba(60,179,113,0.4), -15px 40px 0 -12px rgba(60,179,113,0.4), 0 50px 0 -12px rgba(60,179,113,0.3); animation: treeSway 3s ease-in-out infinite; }
-        @keyframes treeSway { 0%, 100% { transform: translateX(-50%) rotate(0deg); } 50% { transform: translateX(-50%) rotate(2deg); } }
-        .soil { width: 100px; height: 25px; background: linear-gradient(to bottom, #C68B59, #A0713C); border-radius: 8px; margin: 0 auto; position: relative; z-index: 2; }
-        .soil::before { content: '🌱'; position: absolute; top: -30px; left: -10px; font-size: 1.5rem; }
-        .soil::after { content: '🌸'; position: absolute; top: -25px; right: -10px; font-size: 1.2rem; opacity: 0; transition: opacity 1s ease; }
-        .tree-crown.stage-4 ~ .soil::after { opacity: 1; }
-        .fruit { position: absolute; width: 18px; height: 18px; background: radial-gradient(circle at 40% 40%, #FF8C69, #FF4500); border-radius: 50%; animation: fruitGlow 2s infinite; cursor: pointer; transition: all 0.3s ease; z-index: 3; }
-        .fruit:hover { transform: scale(1.6); box-shadow: 0 0 25px rgba(255,69,0,0.8); }
-        @keyframes fruitGlow { 0%, 100% { box-shadow: 0 0 5px rgba(255,99,71,0.5); } 50% { box-shadow: 0 0 20px rgba(255,99,71,0.8); } }
-        .growth-progress { width: 100%; height: 12px; background: #E8E8E8; border-radius: 10px; overflow: hidden; margin: 15px 0; }
-        .growth-progress-bar { height: 100%; background: linear-gradient(to right, #90EE90, #3CB371, #2E8B57); border-radius: 10px; transition: width 1s ease; width: 0%; }
-        .growth-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: #5A5A6E; font-size: 0.95rem; }
-        .growth-days { font-weight: 600; color: #3CB371; font-size: 1.1rem; }
-        .water-btn { background: linear-gradient(135deg, #87CEEB, #4A90D9); color: white; border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer; font-weight: 600; font-family: '楷体', 'KaiTi', serif; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(74,144,217,0.3); }
-        .water-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(74,144,217,0.5); }
-        .water-btn:disabled { background: #CCCCCC; cursor: not-allowed; transform: none; box-shadow: none; }
-        .water-btn.ready { animation: waterPulse 1s infinite; }
-        @keyframes waterPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .water-drop { position: absolute; font-size: 1.8rem; animation: dropFall 1s ease-out forwards; pointer-events: none; z-index: 5; }
-        @keyframes dropFall { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(80px); } }
-        .fruit-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000; }
-        .fruit-modal-content { background: white; border-radius: 20px; padding: 30px; text-align: center; max-width: 350px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: fadeIn 0.3s ease; }
-        .fruit-modal-icon { font-size: 4rem; margin-bottom: 15px; animation: bounce 1s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .fruit-modal-text { font-size: 1.2rem; color: #5A5A6E; margin-bottom: 20px; line-height: 1.5; }
-        .fruit-modal-btn { background: linear-gradient(135deg, #FF6347, #FF4500); color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 600; font-family: '楷体', 'KaiTi', serif; font-size: 1rem; transition: all 0.3s ease; margin: 5px; }
-        .fruit-modal-btn:hover { transform: translateY(-2px); }
-        .fruit-modal-close { background: #E0E0E0; color: #5A5A6E; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 600; font-family: '楷体', 'KaiTi', serif; font-size: 1rem; transition: all 0.3s ease; margin: 5px; }
-
-        /* 扭蛋机 */
-        .gacha-section { background: linear-gradient(135deg, rgba(255,200,220,0.25), rgba(255,230,200,0.25), rgba(200,220,255,0.25)); border-radius: 20px; padding: 25px; margin-bottom: 20px; border: 2px solid rgba(255,180,200,0.4); text-align: center; }
-        .gacha-machine { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
-        .gacha-body { width: 180px; height: 200px; background: linear-gradient(145deg, #FFB6C1, #FF9EB5, #DDA0DD); border-radius: 30px; position: relative; box-shadow: 0 10px 30px rgba(255,150,180,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; border: 3px solid rgba(255,255,255,0.5); }
-        .gacha-window { width: 100px; height: 100px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid rgba(221,160,221,0.5); box-shadow: inset 0 0 20px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
-        .gacha-result-text { font-size: 3rem; transition: all 0.5s ease; }
-        .gacha-knob { width: 40px; height: 40px; background: linear-gradient(145deg, #FFD700, #FFA500); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(255,165,0,0.4); transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.5); }
-        .gacha-knob:hover { transform: scale(1.1) rotate(30deg); box-shadow: 0 6px 20px rgba(255,165,0,0.6); }
-        .gacha-knob:active { transform: scale(0.9) rotate(-30deg); }
-        .gacha-knob.spinning { animation: knobSpin 1s ease-in-out; }
-        @keyframes knobSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .gacha-chute { margin-top: -5px; width: 60px; height: 30px; background: rgba(200,200,200,0.5); border-radius: 0 0 20px 20px; position: relative; }
-        .gacha-ball { font-size: 2rem; transition: all 0.5s ease; animation: ballDrop 0.5s ease-out; }
-        @keyframes ballDrop { 0% { transform: translateY(-50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-        .gacha-info { margin-bottom: 15px; color: #8B8B9E; font-size: 0.95rem; }
-        .gacha-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 3500; animation: fadeIn 0.3s ease; }
-        .gacha-modal-content { background: linear-gradient(145deg, #FFF9FB, #FFF0F5); border-radius: 25px; padding: 30px; text-align: center; max-width: 320px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 3px solid rgba(255,182,193,0.5); }
-        .gacha-modal-icon { font-size: 4rem; margin-bottom: 15px; animation: bounce 1s infinite; }
-        .gacha-modal-text { font-size: 1.2rem; color: #5A5A6E; margin-bottom: 20px; line-height: 1.6; font-weight: 600; }
-        .gacha-modal-btn { background: linear-gradient(135deg, #FFB6C1, #DDA0DD); color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: 600; font-family: '楷体', 'KaiTi', serif; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(221,160,221,0.3); }
-        .gacha-modal-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(221,160,221,0.5); }
-        .gacha-collection { margin-top: 20px; padding-top: 15px; border-top: 2px dashed rgba(255,182,193,0.5); }
-        .gacha-collection h3 { color: #DDA0DD; font-size: 1rem; margin-bottom: 10px; }
-        .gacha-collection-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-height: 150px; overflow-y: auto; }
-        .gacha-ticket { background: white; border-radius: 10px; padding: 8px 12px; font-size: 0.85rem; color: #8B5E8B; border: 1px solid rgba(255,182,193,0.5); box-shadow: 0 2px 8px rgba(200,180,220,0.2); cursor: pointer; transition: all 0.3s ease; }
-        .gacha-ticket:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(200,180,220,0.4); }
-
-        @media (max-width: 480px) {
-            .main-container { padding: 1rem; }
-            .photo-grid { grid-template-columns: repeat(2, 1fr); }
-            .countdown-display { gap: 5px; }
-            .countdown-item { min-width: 50px; padding: 8px; }
-            .countdown-number { font-size: 1.2rem; }
-            .wish-input-group, .blessing-input-group { flex-direction: column; }
-            .blessing-btn { width: 100%; }
-            .tree-container { width: 180px; height: 220px; }
-        }
-    </style>
+    <meta name="theme-color" content="#f6ead9">
+    <title>Rilakkuma · 给小猪猪的生日花园</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 全局装饰层 -->
+    <div class="ambient-layer" aria-hidden="true">
+        <span class="ambient ambient-1">✦</span>
+        <span class="ambient ambient-2">♡</span>
+        <span class="ambient ambient-3">☁</span>
+        <span class="ambient ambient-4">✿</span>
+        <span class="ambient ambient-5">🍃</span>
+        <span class="ambient ambient-6">✦</span>
+        <span class="ambient ambient-7">☁</span>
+        <span class="ambient ambient-8">♡</span>
+    </div>
+
     <div class="click-effects-container" id="clickEffects"></div>
 
-    <div class="main-container">
-        <!-- 密码界面 -->
-        <div class="password-screen" id="passwordScreen">
-            <img src="images/rillakuma-family.png" alt="轻松熊" class="rilakkuma-family-img" onerror="this.style.display='none'">
-            <h2 class="password-title">🔞 警告！未满18周岁禁止进入 🔞</h2>
-            <p class="password-subtitle">🐻 Rilakkuma &amp; Kiiroitori &amp; Korilakkuma 🐤</p>
-            <input type="password" id="passwordInput" class="password-input" placeholder="输入密码">
-            <button class="password-btn" onclick="checkPassword()">小猪进入！</button>
-            <div class="error-msg" id="errorMsg"></div>
-            <p class="password-hint">💕 提示：8位，ブーブーの誕生日。A</p>
-        </div>
+    <main class="main-container">
+        <!-- 密码入口 -->
+        <section class="password-screen" id="passwordScreen">
+            <div class="secret-window">
+                <div class="secret-sparkles" aria-hidden="true">
+                    <span>✦</span><span>·</span><span>✧</span><span>·</span><span>✦</span>
+                </div>
+                <div class="password-cloud cloud-left" aria-hidden="true">☁</div>
+                <div class="password-cloud cloud-right" aria-hidden="true">☁</div>
+                <div class="password-badge">A LITTLE SECRET FOR YOU</div>
+                <img src="images/rillakuma-family.png" alt="轻松熊一家" class="rilakkuma-family-img"
+                     onerror="this.style.display='none'">
+                <div class="password-kicker">🐻 Rilakkuma's private garden 🐤</div>
+                <h1 class="password-title">今天有一份只给你的礼物</h1>
+                <p class="password-subtitle">输入那个只有你知道的答案，打开这座小小的生日花园。</p>
+
+                <div class="password-box">
+                    <div class="lock-orbit" aria-hidden="true">🔐</div>
+                    <label for="passwordInput">秘密入口</label>
+                    <input type="password" id="passwordInput" class="password-input"
+                           placeholder="输入 8 位生日密码" inputmode="numeric" autocomplete="off">
+                    <button class="password-btn" onclick="checkPassword()">
+                        <span>打开礼物</span><span>→</span>
+                    </button>
+                    <div class="error-msg" id="errorMsg"></div>
+                    <p class="password-hint">💕 提示：8位，ブーブーの生日。A</p>
+                </div>
+
+                <div class="password-note">
+                    <span>☕</span>
+                    <span>慢慢看，不需要一次把所有秘密找完。</span>
+                    <span>🌿</span>
+                </div>
+            </div>
+        </section>
 
         <!-- 主内容 -->
         <div class="main-content hidden" id="mainContent">
-            <!-- 音乐播放器 -->
-            <div class="music-player">
-                <div class="music-player-header">
-                    <span class="music-icon">🎵</span>
-                    <span class="music-title">我们的歌单</span>
+
+            <!-- 顶部装饰与 Hero -->
+            <section class="hero-card">
+                <div class="hero-decoration hero-decoration-left">🌿</div>
+                <div class="hero-decoration hero-decoration-right">🌼</div>
+                <div class="hero-stars" aria-hidden="true">
+                    <span>✦</span><span>·</span><span>✧</span><span>·</span><span>✦</span>
+                </div>
+                <div class="hero-label">A DAY MADE JUST FOR YOU</div>
+                <div class="hero-character">🧸</div>
+                <h1>生日快乐，小猪猪</h1>
+                <p class="hero-subtitle">愿今天的风是甜的，未来的每一天也都有人陪你慢慢走。</p>
+                <div class="hero-date"><span>2026</span><i>·</i><span>11</span><i>·</i><span>12</span></div>
+                <div class="hero-divider"><span>🍯</span><span></span><span>🌷</span></div>
+                <p class="hero-quote">“把普通的日子，过成值得收藏的小日子。”</p>
+            </section>
+
+            <!-- 探索索引 -->
+            <section class="explore-nav">
+                <div class="section-heading compact-heading">
+                    <div>
+                        <span class="eyebrow">YOUR LITTLE MAP</span>
+                        <h2>今天想先去哪里？</h2>
+                    </div>
+                    <span class="heading-icon">🧺</span>
+                </div>
+                <div class="explore-grid">
+                    <a href="#memory" class="explore-item"><span>📷</span><b>回忆</b><small>旧照片</small></a>
+                    <a href="#tree" class="explore-item"><span>🌳</span><b>小树</b><small>每日成长</small></a>
+                    <a href="#gacha" class="explore-item"><span>🎁</span><b>扭蛋</b><small>今日礼物</small></a>
+                    <a href="#wishes" class="explore-item"><span>🫙</span><b>愿望</b><small>悄悄写下</small></a>
+                    <a href="#quiz" class="explore-item"><span>🧠</span><b>答题</b><small>你记得吗</small></a>
+                    <a href="#timeline" class="explore-item"><span>🕰</span><b>时间</b><small>我们的片段</small></a>
+                </div>
+            </section>
+
+            <!-- 音乐 -->
+            <section class="music-player glass-card">
+                <div class="music-record">
+                    <div class="record-hole"></div>
+                    <span>♫</span>
+                </div>
+                <div class="music-copy">
+                    <span class="eyebrow">NOW PLAYING</span>
+                    <h2>我们的歌单</h2>
+                    <p id="currentSongName">点击播放</p>
+                    <div class="music-progress"><div class="music-progress-bar" id="progressBar"></div></div>
                 </div>
                 <div class="music-controls">
-                    <button class="music-btn" onclick="prevSong()">⏮</button>
-                    <button class="music-btn music-play-btn" id="playBtn" onclick="togglePlay()">▶️</button>
-                    <button class="music-btn" onclick="nextSong()">⏭</button>
+                    <button class="music-btn" onclick="prevSong()" aria-label="上一首">⏮</button>
+                    <button class="music-btn music-play-btn" id="playBtn" onclick="togglePlay()" aria-label="播放">▶</button>
+                    <button class="music-btn" onclick="nextSong()" aria-label="下一首">⏭</button>
                 </div>
-                <div class="music-info"><span id="currentSongName">点击播放</span></div>
-                <div class="music-progress"><div class="music-progress-bar" id="progressBar"></div></div>
                 <audio id="audioPlayer" ontimeupdate="updateProgress()" onended="nextSong()"></audio>
-            </div>
+            </section>
 
             <!-- 倒计时 -->
-            <div class="countdown-section">
-                <div class="countdown-title">🎂 一个有不一样的人的生日 🎂</div>
+            <section class="countdown-section">
+                <div class="countdown-orbit orbit-one"></div>
+                <div class="countdown-orbit orbit-two"></div>
+                <div class="section-heading center-heading">
+                    <div>
+                        <span class="eyebrow">COUNTING DOWN TO YOU</span>
+                        <h2>距离下一次生日</h2>
+                    </div>
+                </div>
+                <p class="countdown-message">时间正在一点一点靠近那个特别的日子。</p>
                 <div class="countdown-display">
-                    <div class="countdown-item"><span class="countdown-number" id="days">0</span><span class="countdown-label">天</span></div>
-                    <div class="countdown-item"><span class="countdown-number" id="hours">0</span><span class="countdown-label">时</span></div>
-                    <div class="countdown-item"><span class="countdown-number" id="minutes">0</span><span class="countdown-label">分</span></div>
-                    <div class="countdown-item"><span class="countdown-number" id="seconds">0</span><span class="countdown-label">秒</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="days">0</span><span class="countdown-label">DAYS</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="hours">0</span><span class="countdown-label">HOURS</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="minutes">0</span><span class="countdown-label">MINUTES</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="seconds">0</span><span class="countdown-label">SECONDS</span></div>
                 </div>
-            </div>
+                <div class="countdown-footer"><span>🎂</span><span>每一秒都值得被期待</span><span>🎂</span></div>
+            </section>
 
-            <div class="header">
-                <h1>🎂 生日快乐小猪猪 🎂</h1>
-                <p>听说又长大了一岁！？</p>
-            </div>
-
-            <!-- 照片墙 -->
-            <div class="section">
-                <h2>📸 承载回忆的小墙</h2>
+            <!-- Memory -->
+            <section class="section memory-section" id="memory">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">MEMORY ALBUM</span>
+                        <h2>承载回忆的小墙</h2>
+                        <p>有些照片不需要解释，看一眼就会想起那一天。</p>
+                    </div>
+                    <span class="heading-icon">📷</span>
+                </div>
+                <div class="memory-tape" aria-hidden="true">MEMORIES · LITTLE MOMENTS · MEMORIES · LITTLE MOMENTS · </div>
                 <div class="photo-grid" id="photoGrid"></div>
-            </div>
+            </section>
 
-            <!-- 树成长游戏 -->
-            <div class="section tree-game-section">
-                <h2>一颗小树</h2>
-                <p style="color: #8B8B9E; margin-bottom: 15px;">这里是一颗神秘的小树！据说成长成大树后会发生一些很神秘的事情~</p>
-                <div class="tree-container" id="treeContainer">
-                    <div class="tree" id="tree">
-                        <div class="tree-crown" id="treeCrown"></div>
-                        <div class="tree-trunk" id="treeTrunk"></div>
-                        <div class="soil"></div>
-                        <div id="fruitsContainer"></div>
+            <!-- Tree -->
+            <section class="section tree-game-section" id="tree">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">GROW SOMETHING</span>
+                        <h2>给未来种一棵树</h2>
+                        <p>每天浇一点水，看它慢慢长成属于你的小秘密。</p>
+                    </div>
+                    <span class="heading-icon">🌱</span>
+                </div>
+
+                <div class="tree-story">“有些礼物不会马上出现，它会等你一点一点把它养大。”</div>
+
+                <div class="tree-stage">
+                    <div class="garden-sky" aria-hidden="true">
+                        <span class="sky-star star-a">✦</span>
+                        <span class="sky-star star-b">✧</span>
+                        <span class="sky-star star-c">·</span>
+                        <span class="sky-cloud cloud-a">☁</span>
+                        <span class="sky-cloud cloud-b">☁</span>
+                        <span class="garden-butterfly butterfly-a">🦋</span>
+                        <span class="garden-butterfly butterfly-b">🦋</span>
+                    </div>
+
+                    <div class="tree-container" id="treeContainer">
+                        <div class="tree" id="treeVisual">
+                            <div class="tree-crown" id="treeCrown">
+                                <span class="leaf leaf-1"></span><span class="leaf leaf-2"></span>
+                                <span class="leaf leaf-3"></span><span class="leaf leaf-4"></span>
+                                <span class="leaf leaf-5"></span><span class="leaf leaf-6"></span>
+                                <span class="leaf leaf-7"></span><span class="leaf leaf-8"></span>
+                                <span class="leaf leaf-9"></span><span class="leaf leaf-10"></span>
+                                <span class="leaf leaf-11"></span><span class="leaf leaf-12"></span>
+                                <span class="tree-flower flower-1">✿</span>
+                                <span class="tree-flower flower-2">✿</span>
+                                <span class="tree-flower flower-3">✿</span>
+                            </div>
+                            <div class="tree-branches" aria-hidden="true">
+                                <span class="branch branch-left"></span>
+                                <span class="branch branch-right"></span>
+                                <span class="branch branch-center"></span>
+                            </div>
+                            <div class="tree-trunk" id="treeTrunk">
+                                <span class="trunk-highlight"></span>
+                                <span class="trunk-knot knot-a"></span>
+                                <span class="trunk-knot knot-b"></span>
+                            </div>
+                            <div class="tree-roots" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="soil">
+                                <span class="soil-speck s1"></span><span class="soil-speck s2"></span>
+                                <span class="soil-speck s3"></span><span class="soil-sprout">🌱</span>
+                            </div>
+                            <div id="fruitsContainer"></div>
+                        </div>
+                    </div>
+
+                    <div class="garden-ground" aria-hidden="true">
+                        <span>🌼</span><span>🍃</span><span>🌷</span><span>🍀</span><span>🌼</span>
                     </div>
                 </div>
-                <div class="growth-progress">
-                    <div class="growth-progress-bar" id="growthProgressBar"></div>
+
+                <div class="tree-progress-card">
+                    <div class="tree-progress-top">
+                        <span><b>成长进度</b> · 每天一次</span>
+                        <strong><span id="growthDays">0</span> / 40</strong>
+                    </div>
+                    <div class="growth-progress"><div class="growth-progress-bar" id="growthProgressBar"></div></div>
+                    <div class="growth-milestones">
+                        <span>🌱 种下</span><span>🌿 发芽</span><span>🌳 长大</span><span>🍎 结果</span>
+                    </div>
                 </div>
+
                 <div class="growth-info">
-                    <span>成长天数：<span class="growth-days" id="growthDays">0</span> / 40 天</span>
                     <span id="waterStatus">💧 今天还没浇水</span>
+                    <span class="tree-secret">完成后会有一份小奖励。</span>
                 </div>
-                <button class="water-btn" id="waterBtn" onclick="waterTree()">💧 浇水</button>
-            </div>
+                <button class="water-btn" id="waterBtn" onclick="waterTree()"><span>💧</span> 给它浇水</button>
+            </section>
 
-            <!-- 果实兑现弹窗 -->
+            <!-- 果实弹窗 -->
             <div class="fruit-modal hidden" id="fruitModal">
+                <div class="modal-backdrop"></div>
                 <div class="fruit-modal-content">
+                    <div class="modal-confetti" aria-hidden="true">✦ · ✿ · ✧</div>
                     <div class="fruit-modal-icon">🍎</div>
-                    <div class="fruit-modal-text">🎉 我去！！！结果了结果了！！！<br>恭喜你获得一个神秘果实 可以跟帅气的网页制作者yjh兑现 解锁神秘副本！</div>
+                    <span class="eyebrow">SECRET FRUIT UNLOCKED</span>
+                    <div class="fruit-modal-text">我去！！！结果了结果了！！！<br>恭喜你获得一个神秘果实，可以跟帅气的网页制作者 yjh 兑现，解锁神秘副本！</div>
                     <button class="fruit-modal-btn" onclick="claimFruit()">我去！！！我知道了！</button>
-                    <button class="fruit-modal-close" onclick="closeFruitModal()">woc好爽</button>
+                    <button class="fruit-modal-close" onclick="closeFruitModal()">先收好这个秘密</button>
                 </div>
             </div>
 
-            <!-- 扭蛋机 -->
-            <div class="section gacha-section">
-                <h2>🎰 这是来自云间小卖部的一个扭蛋机</h2>
-                <p style="color: #8B8B9E; margin-bottom: 15px;">每天只可以扭一次哦 这次你可没法一天全看了~</p>
-                <div class="gacha-machine">
-                    <div class="gacha-body">
-                        <div class="gacha-window" id="gachaWindow">
-                            <span id="gachaResult" class="gacha-result-text">🎪</span>
-                        </div>
-                        <div class="gacha-knob" id="gachaKnob" onclick="turnGacha()">
-                            <span>🔘</span>
-                        </div>
+            <!-- Gacha -->
+            <section class="section gacha-section" id="gacha">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">CLOUDY LITTLE SHOP</span>
+                        <h2>来自云间小卖部的扭蛋</h2>
+                        <p>每天只能扭一次，所以今天的好运要好好收起来。</p>
                     </div>
-                    <div class="gacha-chute">
-                        <div class="gacha-ball" id="gachaBall">🥚</div>
-                    </div>
+                    <span class="heading-icon">🎰</span>
                 </div>
-                <div class="gacha-info">
-                    <span id="gachaStatus">🎰 今天还没扭蛋</span>
+                <div class="gacha-layout">
+                    <div class="gacha-machine-wrap">
+                        <div class="gacha-machine">
+                            <div class="gacha-top-decoration">✦</div>
+                            <div class="gacha-body">
+                                <div class="gacha-window" id="gachaWindow">
+                                    <span id="gachaResult" class="gacha-result-text">🎪</span>
+                                </div>
+                                <div class="gacha-brand">CLOUDY<br><small>SHOP</small></div>
+                                <div class="gacha-knob" id="gachaKnob" onclick="turnGacha()"><span>🔘</span></div>
+                            </div>
+                            <div class="gacha-chute"><div class="gacha-ball" id="gachaBall">🥚</div></div>
+                        </div>
+                        <div class="gacha-info"><span id="gachaStatus">🎰 今天还没扭蛋</span></div>
+                    </div>
+                    <div class="gacha-side">
+                        <div class="ticket-note">
+                            <span class="ticket-stamp">TODAY</span>
+                            <b>今日小礼物</b>
+                            <p>不知道会抽到什么，也许是一句想对你说的话。</p>
+                        </div>
+                        <div class="gacha-collection">
+                            <div class="collection-title"><span>🎫 我的收藏</span><small>每一张都是今天的记忆</small></div>
+                            <div class="gacha-collection-list" id="gachaCollection"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="gacha-modal hidden" id="gachaModal">
+                    <div class="modal-backdrop"></div>
                     <div class="gacha-modal-content">
                         <div class="gacha-modal-icon" id="gachaModalIcon">🎁</div>
+                        <span class="eyebrow">TODAY'S LITTLE PRIZE</span>
                         <div class="gacha-modal-text" id="gachaModalText"></div>
-                        <button class="gacha-modal-btn" onclick="closeGachaModal()">收下啦！！！</button>
+                        <button class="gacha-modal-btn" onclick="closeGachaModal()">收下啦！</button>
                     </div>
                 </div>
-                <div class="gacha-collection">
-                    <h3>🎫 这是一个小仓库 </h3>
-                    <div class="gacha-collection-list" id="gachaCollection"></div>
-                </div>
-            </div>
+            </section>
 
-            <!-- 许愿瓶 -->
-            <div class="section wish-bottle-section">
-                <h2>🍾 许愿瓶 - 写下你的心愿</h2>
-                <div class="wish-bottle-container" id="wishBottleContainer"></div>
+            <!-- Wishes -->
+            <section class="section wish-bottle-section" id="wishes">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">MAKE A WISH</span>
+                        <h2>把心愿放进小瓶子</h2>
+                        <p>写一句今天想偷偷告诉未来的自己的话。</p>
+                    </div>
+                    <span class="heading-icon">🫙</span>
+                </div>
+                <div class="wish-night">
+                    <span class="moon">☾</span><span class="tiny-star ts1">✦</span><span class="tiny-star ts2">✧</span>
+                    <div class="wish-bottle-container" id="wishBottleContainer"></div>
+                    <span class="wish-hill hill-left"></span><span class="wish-hill hill-right"></span>
+                </div>
                 <div class="wish-input-group">
-                    <input type="text" class="wish-input" id="wishInput" placeholder="可以把小心愿悄悄写在小许愿瓶里~">
-                    <button class="blessing-btn" onclick="addWish()">放入一个擅长在小角落的瓶子里...</button>
+                    <input type="text" class="wish-input" id="wishInput" placeholder="把一个小心愿悄悄写进去……">
+                    <button class="blessing-btn" onclick="addWish()">放进瓶子里 ✦</button>
                 </div>
                 <p id="wishHint" class="wish-hint"></p>
-            </div>
+            </section>
 
-            <!-- 许愿瓶弹窗 -->
+            <!-- Wish Modal -->
             <div class="wish-modal hidden" id="wishModal">
+                <div class="modal-backdrop"></div>
                 <div class="wish-modal-content">
                     <div class="wish-paper">
                         <div class="wish-paper-header">
@@ -393,20 +1621,32 @@
                 </div>
             </div>
 
-            <!-- 答题 -->
-            <div class="section">
-                <h2>有奖竞答环节</h2>
-                <div class="quiz-question" id="quizQuestion"></div>
-                <div id="quizOptions"></div>
-                <div id="quizFeedback" class="quiz-feedback"></div>
-                <div id="quizComplete" class="quiz-complete hidden">
-                    <p class="quiz-complete-text"> 如此聪明的小猪！！</p>
-                    <button class="quiz-reward-btn" onclick="showReward()">----这里是一个小奖励---</button>
+            <!-- Quiz -->
+            <section class="section quiz-section" id="quiz">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">DO YOU REMEMBER?</span>
+                        <h2>小猪猪认证考试</h2>
+                        <p>不是考试，只是想看看你还记不记得那些小事情。</p>
+                    </div>
+                    <span class="heading-icon">🧠</span>
                 </div>
-            </div>
+                <div class="quiz-card">
+                    <div class="quiz-progress"><span>MEMORY TEST</span><i></i></div>
+                    <div class="quiz-question" id="quizQuestion"></div>
+                    <div id="quizOptions"></div>
+                    <div id="quizFeedback" class="quiz-feedback"></div>
+                    <div id="quizComplete" class="quiz-complete hidden">
+                        <div class="quiz-complete-badge">✦ PASSED ✦</div>
+                        <p class="quiz-complete-text">如此聪明的小猪！！</p>
+                        <button class="quiz-reward-btn" onclick="showReward()">打开隐藏奖励 →</button>
+                    </div>
+                </div>
+            </section>
 
-            <!-- 视频弹窗 -->
+            <!-- Video -->
             <div class="video-modal hidden" id="videoModal">
+                <div class="modal-backdrop"></div>
                 <div class="video-modal-content">
                     <button class="video-modal-close" onclick="closeVideo()">✕</button>
                     <video id="rewardVideo" controls>
@@ -415,25 +1655,52 @@
                 </div>
             </div>
 
-            <!-- 时间线 -->
-            <div class="section">
-                <h2>散装小日子小回忆</h2>
-                <div id="timelineList"></div>
-            </div>
-
-            <!-- 祝福墙 -->
-            <div class="section">
-                <h2>💌 祝福留言墙</h2>
-                <div class="blessing-list" id="blessingList"></div>
-                <div class="blessing-input-group">
-                    <input type="text" class="blessing-input" id="blessingInput" placeholder="写下祝福...">
-                    <button class="blessing-btn" onclick="sendBlessing()">发送💕</button>
+            <!-- Timeline -->
+            <section class="section timeline-section" id="timeline">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">OUR LITTLE TIMELINE</span>
+                        <h2>散装小日子小回忆</h2>
+                        <p>把一些普通的日期，重新标记成值得记住的日子。</p>
+                    </div>
+                    <span class="heading-icon">🕰</span>
                 </div>
-            </div>
+                <div class="timeline-wrap">
+                    <div class="timeline-line"></div>
+                    <div id="timelineList"></div>
+                </div>
+            </section>
 
-            <footer>🐻 Rilakkuma 轻松熊 · Kiiroitori 奶油熊 · Korilakkuma 牛奶熊 🐤<br>一起祝最爱的你生日快乐！</footer>
+            <!-- Blessings -->
+            <section class="section blessing-section">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">A WALL OF LITTLE WORDS</span>
+                        <h2>祝福留言墙</h2>
+                        <p>留下一句话，让它成为这座小花园的一盏灯。</p>
+                    </div>
+                    <span class="heading-icon">💌</span>
+                </div>
+                <div class="blessing-paper-wall" id="blessingList"></div>
+                <div class="blessing-input-group">
+                    <input type="text" class="blessing-input" id="blessingInput" placeholder="写下想说的话……">
+                    <button class="blessing-btn" onclick="sendBlessing()">贴上去 💕</button>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-character-row">🐻 <span>Rilakkuma</span> · <span>Kiiroitori</span> · <span>Korilakkuma</span> 🐤</div>
+                <div class="footer-stars">✦　✧　♡　✧　✦</div>
+                <p>愿你一直被温柔对待，也愿未来的每一个普通日子，都有值得开心的小事情。</p>
+                <small>made with 🍯 &amp; a little bit of love</small>
+            </footer>
         </div>
-    </div>
+    </main>
+
+    <!-- 隐藏重置按钮 -->
+    <button class="reset-dot" onclick="if(confirm('重置所有数据？')){localStorage.clear();location.reload();}"
+            title="重置数据" aria-label="重置所有数据"></button>
 
     <script>
         // 鼠标点击特效
@@ -895,7 +2162,5 @@
             }
         }
     </script>
-    <!-- 隐藏重置按钮（右下角小点） -->
-<div style="position: fixed; bottom: 3px; right: 3px; width: 12px; height: 12px; background: rgba(0,0,0,0.05); border-radius: 50%; z-index: 9999; cursor: pointer;" onclick="if(confirm('重置所有数据？')){localStorage.clear();location.reload();}" title="重置数据"></div>
 </body>
 </html>
